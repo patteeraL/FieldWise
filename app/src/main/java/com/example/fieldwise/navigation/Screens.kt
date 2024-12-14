@@ -7,3 +7,6 @@ object  Initial
 
 @Serializable
 object UserName
+
+@Serializable
+object SplashScreen

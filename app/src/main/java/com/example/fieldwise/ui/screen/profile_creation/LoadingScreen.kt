@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
-import com.example.fieldwise.ShantellSansFontFamily
+import com.example.fieldwise.ui.theme.ShantellSansFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable

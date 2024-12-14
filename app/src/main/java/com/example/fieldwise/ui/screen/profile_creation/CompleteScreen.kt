@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.InterFontFamily
+import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.MainButton
@@ -54,25 +54,25 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ){
 
-            Icon(
-                imageVector = Icons.Rounded.CheckCircle, // Use Material Icons
-                contentDescription = "Arrow Left",
-                tint = Color(0xFF58CC02),
-                modifier = Modifier
-                    .size(180.dp)
-            )
-            Spacer(modifier = Modifier.height(80.dp))
-            Text(
-                text = "Set up is complete!",
-                color = Color(0xFF4B4B4B),
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = InterFontFamily
+                Icon(
+                    imageVector = Icons.Rounded.CheckCircle, // Use Material Icons
+                    contentDescription = "Arrow Left",
+                    tint = Color(0xFF58CC02),
+                    modifier = Modifier
+                        .size(180.dp)
                 )
-            )
-            Spacer(modifier = Modifier.height(5.dp))
-            Text(
+                Spacer(modifier = Modifier.height(80.dp))
+                Text(
+                    text = "Set up is complete!",
+                    color = Color(0xFF4B4B4B),
+                    style = TextStyle(
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = InterFontFamily
+                    )
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(
                     text = "Ready to dive into some learning?",
                     color = Color(0x804B4B4B),
                     style = TextStyle(
@@ -81,10 +81,10 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
                         fontFamily = InterFontFamily
                     )
                 )
-            Spacer(modifier = Modifier.height(100.dp))
-            MainButton(button = "I'M READY !", onClick = { navigateToHome() })
+                Spacer(modifier = Modifier.height(100.dp))
+                MainButton(button = "I'M READY !", onClick = {  }, text = "GET STARTED")
 
-        }}
+            }}
 
     }
 }

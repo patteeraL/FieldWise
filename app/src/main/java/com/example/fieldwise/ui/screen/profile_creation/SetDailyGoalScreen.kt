@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.InterFontFamily
+import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
@@ -80,7 +80,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(options, descriptions, iconResIds = null)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { navigateToHome() })
+            MainButton(button = "CONTINUE", onClick = {  }, text = "GET STARTED")
         }
     }
 

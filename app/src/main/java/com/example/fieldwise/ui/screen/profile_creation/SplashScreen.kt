@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,9 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import com.example.fieldwise.R
-import com.example.fieldwise.ShantellSansFontFamily
+import com.example.fieldwise.ui.theme.ShantellSansFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.MainButton
 
@@ -40,11 +38,16 @@ fun SplashScreen(modifier: Modifier = Modifier, navigateToHome: () -> Unit) {
                 fontFamily = ShantellSansFontFamily
             ))
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { navigateToHome() }) {
-            Text(text = "GET STARTED") //change the format to be able to navigate
+        MainButton(
+            onClick = { navigateToHome() },
+            text = "GET STARTED",
+            modifier = modifier,
+            button = "GET STARTED",
+        )
+    //change the format to be able to navigate
         }// Renamed for clarity button = "GET STARTED"
     }
-}
+
 
 
 

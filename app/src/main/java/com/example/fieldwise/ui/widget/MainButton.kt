@@ -17,11 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.InterFontFamily
+import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit) {
+fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit, text: String) {
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -34,7 +34,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
                 )
         )
         Button(
-            onClick = { /* Do something */ },
+            onClick = { onClick() },
 
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF)),
             modifier = Modifier
@@ -60,7 +60,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
 @Composable
 fun MainButtonPreview() {
     FieldWiseTheme {
-        MainButton(button = "CONTINUE", onClick = { navigateToHome() })
+        MainButton(button = "CONTINUE", onClick = {  }, text = "GET STARTED")
     }
 }
 
