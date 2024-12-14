@@ -7,11 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
+import com.example.fieldwise.ui.screen.profile_creation.LoadingScreen
 
 // Define las rutas como constantes
 object Routes {
     const val Splash = "splash"
     const val UserName = "username"
+    const val Loading = "loading"
 }
 
 @Composable
@@ -24,7 +26,13 @@ fun NavigationWrapper() {
         // Pantalla de Splash
         composable(Routes.Splash) {
             SplashScreen { 
-                navController.navigate(Routes.UserName) // Navegar a UsernameScreen
+                navController.navigate(Routes.Loading) // Navegar a UsernameScreen
+            }
+        }
+
+        composable(Routes.Loading) {
+            LoadingScreen{
+                navController.navigate(Routes.UserName)
             }
         }
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,9 +22,11 @@ import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.ShantellSansFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 
 @Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
+fun LoadingScreen(modifier: Modifier = Modifier, NavigateToUserName: () -> Unit ) {
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,6 +41,11 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = ShantellSansFontFamily
             ))
+
+        LaunchedEffect(Unit) {
+            delay(3000)
+            NavigateToUserName()
+        }
 
     }
 }
@@ -57,6 +65,6 @@ fun LoadingIcon(modifier: Modifier = Modifier){
 @Composable
 fun LoadingPreview() {
     FieldWiseTheme {
-        LoadingScreen()
+        LoadingScreen { }
     }
 }
