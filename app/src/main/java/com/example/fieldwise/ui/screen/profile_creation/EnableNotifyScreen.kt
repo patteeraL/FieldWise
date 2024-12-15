@@ -38,13 +38,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavBackStackEntry
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 
 @Composable
-fun EnableNotifyScreen(modifier: Modifier = Modifier) {
+fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Unit) {
     var showDialog by remember { mutableStateOf(true) }
 
     // Show the notification permission dialog
@@ -101,7 +102,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier) {
                 Notify(onAllowClick = { showDialog = true })
             }
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = {  }, text = "GET STARTED")
+            MainButton(button = "CONTINUE", onClick = { NavigateToCourse() }, text = "GET STARTED")
         }
     }
 }
@@ -241,6 +242,6 @@ fun Notify(onAllowClick: () -> Unit) {
 @Composable
 fun EnableNotifyPreview() {
     FieldWiseTheme {
-        EnableNotifyScreen()
+        EnableNotifyScreen{}
     }
 }

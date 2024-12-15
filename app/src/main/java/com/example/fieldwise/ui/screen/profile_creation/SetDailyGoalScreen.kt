@@ -29,7 +29,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
-fun SetDailyGoalScreen(modifier: Modifier = Modifier) {
+fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: () -> Unit) {
     val options = listOf("5 min / day", "10 min / day", "15 min / day", "20 min / day")
     val descriptions = listOf("Light", "Moderate", "Serious", "Intense")
     Column(modifier = modifier.fillMaxSize()
@@ -40,6 +40,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier) {
         ) {
             Icon(
                 imageVector = Icons.Rounded.KeyboardArrowLeft, // Use Material Icons
+                //onClick = { NavigateToUserName() }, need a GoBackButton
                 contentDescription = "Arrow Left",
                 tint = Color(0xFFAFAFAF),
                 modifier = Modifier
@@ -80,7 +81,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(options, descriptions, iconResIds = null)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = {  }, text = "GET STARTED")
+            MainButton(button = "CONTINUE", onClick = { NavigateToNotification() }, text = "GET STARTED")
         }
     }
 
@@ -93,6 +94,9 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier) {
 @Composable
 fun SetDailyGoalPreview() {
     FieldWiseTheme {
-        SetDailyGoalScreen()
+        SetDailyGoalScreen(
+            NavigateToNotification = {},
+            //NavigateToUserName = {} add when new buttom
+        )
     }
 }

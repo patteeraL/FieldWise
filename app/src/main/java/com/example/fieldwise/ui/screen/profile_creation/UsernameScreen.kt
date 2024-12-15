@@ -35,7 +35,7 @@ import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 
 @Composable
-fun UsernameScreen(modifier: Modifier = Modifier) {
+fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
@@ -62,7 +62,7 @@ fun UsernameScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
         NameTextField()
         Spacer(modifier = Modifier.height(16.dp))
-        MainButton(button = "CONTINUE", onClick = { }, text = "GET STARTED")
+        MainButton(button = "CONTINUE", onClick = { NavigateToGoal() }, text = "GET STARTED")
 
     }
 
@@ -103,6 +103,6 @@ fun Profile(modifier: Modifier = Modifier) {
 @Composable
 fun UsernamePreview() {
     FieldWiseTheme {
-        UsernameScreen()
+        UsernameScreen{}
     }
 }
