@@ -7,11 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardArrowLeft
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,8 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
+import com.example.fieldwise.ui.theme.InterFontFamily
+import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.SetUpButton
@@ -38,14 +35,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            Icon(
-                imageVector = Icons.Rounded.KeyboardArrowLeft, // Use Material Icons
-                //onClick = { NavigateToUserName() }, need a GoBackButton
-                contentDescription = "Arrow Left",
-                tint = Color(0xFFAFAFAF),
-                modifier = Modifier
-                    .size(30.dp) // Adjust the size of the icon
-            )
+            GoBackButton(onClick = { /* Add your navigation logic here */ })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f)
         }

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -38,9 +37,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavBackStackEntry
-import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
+import com.example.fieldwise.ui.theme.InterFontFamily
+import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 
@@ -59,12 +58,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            Icon(
-                imageVector = Icons.Rounded.KeyboardArrowLeft, // Use Material Icons
-                contentDescription = "Arrow Left",
-                tint = Color(0xFFAFAFAF),
-                modifier = Modifier.size(30.dp) // Adjust the size of the icon
-            )
+            GoBackButton(onClick = { /* Add your navigation logic here */ })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.5f)
         }
