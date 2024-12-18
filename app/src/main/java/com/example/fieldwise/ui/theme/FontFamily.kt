@@ -16,3 +16,8 @@ val InterFontFamily = FontFamily(
 val ShantellSansFontFamily = FontFamily(
     Font(R.font.shantellsans_extrabold, weight = FontWeight.ExtraBold)
 )
+
+// Definir el FontFamily para "Seravek"
+val SeravekFontFamily = FontFamily(
+    Font(R.font.seravek_bold, weight = FontWeight.Bold)
+)
