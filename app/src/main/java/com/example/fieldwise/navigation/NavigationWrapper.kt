@@ -53,21 +53,25 @@ fun NavigationWrapper() {
         }
 
         composable(Routes.DailyGoal) {
-            SetDailyGoalScreen{
-                navController.navigate(Routes.Notify)
-            }
+            SetDailyGoalScreen(
+                NavigateToNotification = { navController.navigate(Routes.Notify) },
+                NavigateToUserName = { navController.navigate(Routes.UserName)}
+
+            )
         }
 
         composable(Routes.Notify) { //add more when new buttom to go back
-            EnableNotifyScreen{
-                navController.navigate(Routes.Course)
-            }
+            EnableNotifyScreen(
+                NavigateToCourse = {navController.navigate(Routes.Course)},
+                NavigateToGoal =  { navController.navigate(Routes.DailyGoal)}
+                )
         }
 
         composable(Routes.Course) {
-            CourseManageScreen{
-                navController.navigate(Routes.Complete)
-            }
+            CourseManageScreen(
+                NavigateToComplete = { navController.navigate(Routes.Complete)},
+                NavigateToNotification = {navController.navigate(Routes.Notify)}
+            )
         }
 
         composable(Routes.Complete) {

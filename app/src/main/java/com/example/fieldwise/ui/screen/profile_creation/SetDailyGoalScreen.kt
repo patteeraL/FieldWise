@@ -26,7 +26,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
-fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: () -> Unit) {
+fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: () -> Unit, NavigateToUserName: () -> Unit) {
     val options = listOf("5 min / day", "10 min / day", "15 min / day", "20 min / day")
     val descriptions = listOf("Light", "Moderate", "Serious", "Intense")
     Column(modifier = modifier.fillMaxSize()
@@ -35,7 +35,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            GoBackButton(onClick = { /* Add your navigation logic here */ })
+            GoBackButton(onClick = { NavigateToUserName() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f)
         }
@@ -86,7 +86,7 @@ fun SetDailyGoalPreview() {
     FieldWiseTheme {
         SetDailyGoalScreen(
             NavigateToNotification = {},
-            //NavigateToUserName = {} add when new buttom
+            NavigateToUserName = {}
         )
     }
 }
