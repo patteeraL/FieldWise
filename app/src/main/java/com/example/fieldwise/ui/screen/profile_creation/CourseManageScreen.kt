@@ -29,7 +29,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
-fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit) {
+fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit, NavigateToNotification: () -> Unit) {
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer, // Replace with your actual vector drawable resource
@@ -46,7 +46,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            GoBackButton(onClick = { /* Add your navigation logic here */ })
+            GoBackButton(onClick = { NavigateToNotification() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.7f)
         }
@@ -110,6 +110,9 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
 @Composable
 fun CourseManagePreview() {
     FieldWiseTheme {
-        CourseManageScreen{}
+        CourseManageScreen(
+            NavigateToNotification =  {},
+            NavigateToComplete =  {}
+        )
     }
 }

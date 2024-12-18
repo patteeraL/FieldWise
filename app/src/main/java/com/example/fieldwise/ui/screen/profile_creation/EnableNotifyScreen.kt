@@ -44,7 +44,7 @@ import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 
 @Composable
-fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Unit) {
+fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Unit, NavigateToGoal: () -> Unit) {
     var showDialog by remember { mutableStateOf(true) }
 
     // Show the notification permission dialog
@@ -58,7 +58,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            GoBackButton(onClick = { /* Add your navigation logic here */ })
+            GoBackButton(onClick = { NavigateToGoal() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.5f)
         }
@@ -236,6 +236,9 @@ fun Notify(onAllowClick: () -> Unit) {
 @Composable
 fun EnableNotifyPreview() {
     FieldWiseTheme {
-        EnableNotifyScreen{}
+        EnableNotifyScreen(
+            NavigateToCourse = {},
+            NavigateToGoal = {}
+        )
     }
 }
