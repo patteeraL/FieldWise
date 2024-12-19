@@ -20,22 +20,45 @@ import androidx.compose.ui.unit.sp
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.scale
+
 @Composable
 fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit, text: String) {
-    Box(modifier = modifier) {
+    //animation here
+    var buttomPressed by remember { mutableStateOf(false) }
+
+    val scale by animateFloatAsState(
+        targetValue = if (buttomPressed) 0.9f else 1f,
+        animationSpec = androidx.compose.animation.core.tween(
+            durationMillis = 300,
+            easing = FastOutSlowInEasing
+        )
+    )
+    Box(
+        modifier = modifier.scale(scale) //apply the animation
+    ) {
         Box(
             modifier = Modifier
                 .width(369.dp)
                 .height(49.dp)
                 .offset(y = 10.dp) // Translate 10dp downward
                 .background(
-                    color = Color(0xFF039DC4), // Slightly darker color
+                    color = Color(0xFFFF69B4), // Slightly darker color AUN FALTA AGREGAR ANIMACIÓN DE REBOTEEEE
                     shape = RoundedCornerShape(12.dp)
                 )
         )
         Button(
-            onClick = { onClick() },
-
+            onClick = {
+                buttomPressed = true
+                onClick()
+                buttomPressed = false
+                      },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF)),
             modifier = Modifier
                 .width(369.dp)
