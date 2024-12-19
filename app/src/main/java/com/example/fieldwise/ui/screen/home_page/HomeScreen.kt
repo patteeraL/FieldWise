@@ -10,12 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.Card
 import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
-import com.example.fieldwise.ui.widget.FloatButton
+import com.example.fieldwise.ui.widget.HomeButton
+import com.example.fieldwise.ui.widget.LeaderBoardButton
 import com.example.fieldwise.ui.widget.ProfileIconButton
 import java.lang.Boolean.TRUE
 
@@ -64,16 +64,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box {
-                FloatButton(
-                    onClick = { /* Handle click */ },
-                    paintResId = R.drawable.home
-                )
+                HomeButton()
             }
             Box {
-                FloatButton(
-                    onClick = { /* Handle click */ },
-                    paintResId = R.drawable.trophy
-                )
+                LeaderBoardButton()
             }
         }
     }

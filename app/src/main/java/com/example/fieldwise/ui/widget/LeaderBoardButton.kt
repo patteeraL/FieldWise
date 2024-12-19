@@ -17,13 +17,11 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun FloatButton(
-    modifier: Modifier = Modifier,
-    paintResId: Int,
-    onClick: () -> Unit
+fun LeaderBoardButton(
+    modifier: Modifier = Modifier
 ) {
     Button(
-        onClick = onClick,
+        onClick = {/* Navigate to HomePage*/},
         modifier = modifier
             .size(87.dp) // Ensure the button is a square
             .clip(CircleShape), // Apply CircleShape to make it circular
@@ -31,7 +29,7 @@ fun FloatButton(
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = paintResId),
+            painter = painterResource(id = R.drawable.trophy),
             contentDescription = null
         )
     }
@@ -39,8 +37,8 @@ fun FloatButton(
 
 @Preview(showBackground = true)
 @Composable
-fun FloatButtonPreview() {
+fun LeaderBoardButtonPreview() {
     FieldWiseTheme {
-        FloatButton(paintResId = R.drawable.home,onClick = { /* Handle click */ })
+        LeaderBoardButton()
     }
 }
