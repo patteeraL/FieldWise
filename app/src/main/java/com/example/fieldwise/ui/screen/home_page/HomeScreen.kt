@@ -36,11 +36,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
             ) {
-                CourseManageButton(
-                    onClick = { /* Add your navigation logic here */ },
-                    lang = R.drawable.spain_rectangle,
-                    field = R.drawable.computer
-                )
+                CourseManageButton()
                 Spacer(modifier = Modifier.weight(1f)) // Add spacer to push items to the right
                 StreakItem(modifier = Modifier.size(40.dp), steak = 5)
                 ProfileIconButton(onClick = { /* Add your navigation logic here */ })

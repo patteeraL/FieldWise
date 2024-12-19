@@ -19,5 +19,7 @@ val ShantellSansFontFamily = FontFamily(
 
 // Definir el FontFamily para "Seravek"
 val SeravekFontFamily = FontFamily(
-    Font(R.font.seravek_bold, weight = FontWeight.Bold)
+    Font(R.font.seravek_bold, weight = FontWeight.Bold) ,
+    Font(R.font.seravek_medium, weight = FontWeight.Medium),
+    Font(R.font.seravek_light, weight = FontWeight.Light)
 )

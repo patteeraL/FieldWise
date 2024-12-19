@@ -91,7 +91,6 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
 
 
 
-
 @Preview(showBackground = true)
 @Composable
 fun CompletePreview() {
@@ -99,3 +98,4 @@ fun CompletePreview() {
         CompleteScreen()
     }
 }
+
