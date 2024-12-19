@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "763861672643",
+    "firebase_url": "https://fieldwise-26b6e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fieldwise-26b6e",
+    "storage_bucket": "fieldwise-26b6e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763861672643:android:7eb2dd768470d685e43876",
+        "android_client_info": {
+          "package_name": "com.example.fieldwise"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt5gh_kyFQc_UptIVduTJdJNwv4rECmMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
