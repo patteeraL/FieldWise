@@ -29,7 +29,7 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.MainButton
 
 @Composable
-fun CompleteScreen(modifier: Modifier = Modifier) {
+fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -82,7 +82,7 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
                     )
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "I'M READY !", onClick = {  }, text = "GET STARTED")
+                MainButton(button = "I'M READY !", onClick = { NavigateToHome() }, text = "GET STARTED")
 
             }}
 
@@ -95,7 +95,7 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
 @Composable
 fun CompletePreview() {
     FieldWiseTheme {
-        CompleteScreen()
+        CompleteScreen{}
     }
 }
 

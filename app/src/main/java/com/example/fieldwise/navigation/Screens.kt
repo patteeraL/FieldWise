@@ -23,3 +23,9 @@ object  CourseManageScreen
 
 @Serializable
 object  CompleteScreen
+
+@Serializable
+object  HomeScreen
+
+@Serializable
+object  LeaderBoardScreen

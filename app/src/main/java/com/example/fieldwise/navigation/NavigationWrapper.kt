@@ -7,12 +7,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
 import com.example.fieldwise.ui.screen.profile_creation.LoadingScreen
 import com.example.fieldwise.ui.screen.profile_creation.SetDailyGoalScreen
 import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
 import com.example.fieldwise.ui.screen.profile_creation.CourseManageScreen
 import com.example.fieldwise.ui.screen.profile_creation.CompleteScreen
+import com.example.fieldwise.ui.screen.home_page.HomeScreen
+import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
 
 // Define Routes as constants
 object Routes {
@@ -23,6 +26,8 @@ object Routes {
     const val Notify = "notify"
     const val Course = "course"
     const val Complete = "complete"
+    const val Home = "home"
+    const val LeaderBoard = "leader board"
 }
 
 @Composable
@@ -75,7 +80,18 @@ fun NavigationWrapper() {
         }
 
         composable(Routes.Complete) {
-            CompleteScreen()
+            CompleteScreen{ navController.navigate(Routes.Home)}
+        }
+
+        composable(Routes.Home) {
+            HomeScreen(
+                NavigateToLeader = {navController.navigate(Routes.LeaderBoard)}
+            )
+        }
+
+        composable(Routes.LeaderBoard) {
+            LeaderBoardScreen{ navController.navigate(Routes.Home)
+            }
         }
 
 

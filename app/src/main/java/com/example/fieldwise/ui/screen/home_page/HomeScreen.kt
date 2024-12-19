@@ -20,7 +20,7 @@ import com.example.fieldwise.ui.widget.ProfileIconButton
 import java.lang.Boolean.TRUE
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit) {
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -67,7 +67,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 HomeButton()
             }
             Box {
-                LeaderBoardButton()
+                LeaderBoardButton(onClick = { NavigateToLeader() })
             }
         }
     }
@@ -77,6 +77,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 fun HomeScreenPreview() {
     FieldWiseTheme {
-        HomeScreen()
+        HomeScreen(
+            NavigateToLeader = {}
+        )
     }
 }
