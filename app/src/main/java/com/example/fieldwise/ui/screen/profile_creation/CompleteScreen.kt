@@ -56,7 +56,7 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
 
                 Icon(
                     imageVector = Icons.Rounded.CheckCircle, // Use Material Icons
-                    contentDescription = "Arrow Left",
+                    contentDescription = "CheckCircle",
                     tint = Color(0xFF58CC02),
                     modifier = Modifier
                         .size(180.dp)

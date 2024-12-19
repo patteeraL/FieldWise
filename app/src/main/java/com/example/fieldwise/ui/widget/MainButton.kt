@@ -49,7 +49,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
                 .height(49.dp)
                 .offset(y = 10.dp) // Translate 10dp downward
                 .background(
-                    color = Color(0xFFFF69B4), // Slightly darker color AUN FALTA AGREGAR ANIMACIÓN DE REBOTEEEE
+                    color = Color(0xFF0687A7), // Slightly darker color AUN FALTA AGREGAR ANIMACIÓN DE REBOTEEEE
                     shape = RoundedCornerShape(12.dp)
                 )
         )
