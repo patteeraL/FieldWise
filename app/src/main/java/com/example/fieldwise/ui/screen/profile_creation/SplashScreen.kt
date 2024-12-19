@@ -22,9 +22,9 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.MainButton
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier, navigateToLoading: () -> Unit) {
+fun SplashScreen(navigateToLoading: () -> Unit) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -41,12 +41,11 @@ fun SplashScreen(modifier: Modifier = Modifier, navigateToLoading: () -> Unit) {
         MainButton(
             onClick = { navigateToLoading() },
             text = "GET STARTED",
-            modifier = modifier,
             button = "GET STARTED",
         )
-    //change the format to be able to navigate
-        }// Renamed for clarity button = "GET STARTED"
-    }
+        //change the format to be able to navigate
+    }// Renamed for clarity button = "GET STARTED"
+}
 
 
 
