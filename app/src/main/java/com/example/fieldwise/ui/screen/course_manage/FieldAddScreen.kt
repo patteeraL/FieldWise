@@ -1,4 +1,4 @@
-package com.example.fieldwise.ui.screen.profile_creation
+package com.example.fieldwise.ui.screen.course_manage
 
 
 import androidx.compose.foundation.layout.Column

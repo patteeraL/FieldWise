@@ -174,7 +174,7 @@ fun LeaderboardBox(position: Int, name: String, profileImage: Int, streak: Int) 
                     shape = RoundedCornerShape(5.dp)
                 )
         ) {
-            Row(modifier = Modifier.padding(start = 35.dp, top = 10.dp)) {
+            Row(modifier = Modifier.padding(start = 38.dp, top = 10.dp)) {
                 Column(
                     modifier = Modifier
                         .size(43.dp)
