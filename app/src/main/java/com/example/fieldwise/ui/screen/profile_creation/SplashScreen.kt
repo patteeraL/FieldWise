@@ -20,6 +20,7 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.ShantellSansFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
 fun SplashScreen(navigateToLoading: () -> Unit) {
@@ -40,7 +41,7 @@ fun SplashScreen(navigateToLoading: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
         MainButton(
             onClick = { navigateToLoading() },
-            text = "GET STARTED",
+            mainButtonType = MainButtonType.BLUE,
             button = "GET STARTED",
         )
         //change the format to be able to navigate

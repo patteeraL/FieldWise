@@ -28,8 +28,47 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.scale
 
+enum class MainButtonType { BLUE, RED, GREEN, NOCOLOR }
+
 @Composable
-fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit, text: String) {
+fun getColorForMainButtonType (mainButtonType: MainButtonType): Color {
+    return when (mainButtonType) {
+
+        MainButtonType.BLUE -> Color(0xFF1AB8E8)
+        MainButtonType.RED -> Color(0xFFFF6060)
+        MainButtonType.GREEN -> Color(0xFF58CC02)
+        MainButtonType.NOCOLOR -> Color.Transparent
+    }
+}
+
+@Composable
+fun getShadowColorForMainButtonType(mainButtonType: MainButtonType): Color {
+    return when (mainButtonType) {
+
+        MainButtonType.BLUE -> Color(0xFF0687A7)
+        MainButtonType.RED -> Color(0xFFC34544)
+        MainButtonType.GREEN -> Color(0xFF4DAB07)
+        MainButtonType.NOCOLOR -> Color.Transparent
+    }
+}
+
+@Composable
+fun getTextColorForMainButtonType(mainButtonType: MainButtonType): Color {
+    return when (mainButtonType) {
+        MainButtonType.NOCOLOR -> Color(0xFFFF2C2B)
+        else -> Color.White
+    }
+}
+
+
+@Composable
+fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit,  mainButtonType: MainButtonType) {
+
+    val backgroundColor = getColorForMainButtonType(mainButtonType)
+    val shadowColor = getShadowColorForMainButtonType(mainButtonType)
+    val textColor = getTextColorForMainButtonType(mainButtonType)
+
+
     //animation here
     var buttomPressed by remember { mutableStateOf(false) }
 
@@ -49,7 +88,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
                 .height(49.dp)
                 .offset(y = 10.dp) // Translate 10dp downward
                 .background(
-                    color = Color(0xFF0687A7), // Slightly darker color AUN FALTA AGREGAR ANIMACIÓN DE REBOTEEEE
+                    color = shadowColor, // Slightly darker color AUN FALTA AGREGAR ANIMACIÓN DE REBOTEEEE
                     shape = RoundedCornerShape(12.dp)
                 )
         )
@@ -59,7 +98,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
                 onClick()
                 buttomPressed = false
                       },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF)),
+            colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
             modifier = Modifier
                 .width(369.dp)
                 .height(49.dp),
@@ -67,7 +106,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
         ) {
             Text(
                 text = button,
-                color = Color.White,
+                color = textColor,
                 style = TextStyle(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -83,7 +122,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
 @Composable
 fun MainButtonPreview() {
     FieldWiseTheme {
-        MainButton(button = "CONTINUE", onClick = {  }, text = "GET STARTED")
+        MainButton(button = "CONTINUE", onClick = {  }, mainButtonType = MainButtonType.BLUE)
     }
 }
 

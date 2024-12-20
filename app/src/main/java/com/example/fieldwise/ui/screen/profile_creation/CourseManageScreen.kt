@@ -26,6 +26,7 @@ import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
@@ -97,7 +98,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() }, text = "GET STARTED")
+            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() }, mainButtonType = MainButtonType.BLUE)
         }
     }
 

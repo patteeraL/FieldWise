@@ -42,6 +42,7 @@ import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
 fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Unit, NavigateToGoal: () -> Unit) {
@@ -96,7 +97,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
                 Notify(onAllowClick = { showDialog = true })
             }
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToCourse() }, text = "GET STARTED")
+            MainButton(button = "CONTINUE", onClick = { NavigateToCourse() },mainButtonType = MainButtonType.BLUE)
         }
     }
 }

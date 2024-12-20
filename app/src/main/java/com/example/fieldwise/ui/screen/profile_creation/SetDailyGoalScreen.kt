@@ -23,6 +23,7 @@ import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
@@ -71,7 +72,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(options, descriptions, iconResIds = null)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToNotification() }, text = "GET STARTED")
+            MainButton(button = "CONTINUE", onClick = { NavigateToNotification() }, mainButtonType = MainButtonType.BLUE)
         }
     }
 
