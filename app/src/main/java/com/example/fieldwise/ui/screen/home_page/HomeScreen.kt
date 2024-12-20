@@ -27,12 +27,8 @@ import com.google.firebase.ktx.Firebase
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
 
-
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,
-               NavigateToLeader: () -> Unit,
-               NavigateToAddCourse: () -> Unit,
-               NavigateToAddLanguage: () -> Unit) {
+fun getCourseList(): List<CourseFormat> {
     // back-end
     val database = Firebase.database
     val courseListRef = database.reference.child("Exercises")
@@ -56,8 +52,18 @@ fun HomeScreen(modifier: Modifier = Modifier,
             Log.e("TAG", "Database Extraction Error!", exception)
         }
     }
-// Data is now in the $courseList variable in format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
-// You can access the variable courseList for example -- courseList.value[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
+    return courseList.value
+}
+// Get list of data by "val LISTOFDATA = getUserData()"
+// Data will be in the format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
+// You can access the data for example -- LISTOFDATA[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier,
+               NavigateToLeader: () -> Unit,
+               NavigateToAddCourse: () -> Unit,
+               NavigateToAddLanguage: () -> Unit) {
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))

@@ -37,10 +37,11 @@ import com.google.firebase.ktx.Firebase
 data class LeaderboardItem(val name: String, val profileImage: Int, val streak: Int)
 
 @Composable
-fun ScoreBoard() {
+fun getUserDataLeaderboard(): List<LeaderboardItem> {
     val database = Firebase.database
     val leaderboardRef = database.reference.child("Leaderboard")
     val leaderboardData = remember { mutableStateOf<List<LeaderboardItem>>(emptyList()) }
+
     LaunchedEffect(Unit) {
         leaderboardRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -67,6 +68,13 @@ fun ScoreBoard() {
         })
     }
 
+    return leaderboardData.value
+}
+
+@Composable
+fun ScoreBoard() {
+    val leaderboardData = getUserDataLeaderboard()
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(
             modifier = Modifier.offset(y = 20.dp),
@@ -75,21 +83,21 @@ fun ScoreBoard() {
         ) {
             LeaderboardBox(
                 position = 2,
-                name = if (leaderboardData.value.size > 1) leaderboardData.value[1].name else "",
-                profileImage = if (leaderboardData.value.size > 1) leaderboardData.value[1].profileImage else R.drawable.profile1,
-                streak = if (leaderboardData.value.size > 1) leaderboardData.value[1].streak else 0
+                name = if (leaderboardData.size > 1) leaderboardData[1].name else "",
+                profileImage = if (leaderboardData.size > 1) leaderboardData[1].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.size > 1) leaderboardData[1].streak else 0
             )
             LeaderboardBox(
                 position = 1,
-                name = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].name else "",
-                profileImage = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].profileImage else R.drawable.profile1,
-                streak = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].streak else 0
+                name = if (leaderboardData.isNotEmpty()) leaderboardData[0].name else "",
+                profileImage = if (leaderboardData.isNotEmpty()) leaderboardData[0].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.isNotEmpty()) leaderboardData[0].streak else 0
             )
             LeaderboardBox(
                 position = 3,
-                name = if (leaderboardData.value.size > 2) leaderboardData.value[2].name else "",
-                profileImage = if (leaderboardData.value.size > 2) leaderboardData.value[2].profileImage else R.drawable.profile1,
-                streak = if (leaderboardData.value.size > 2) leaderboardData.value[2].streak else 0
+                name = if (leaderboardData.size > 2) leaderboardData[2].name else "",
+                profileImage = if (leaderboardData.size > 2) leaderboardData[2].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.size > 2) leaderboardData[2].streak else 0
             )
         }
 
@@ -125,9 +133,9 @@ fun ScoreBoard() {
                 .zIndex(2f)
         ) {
             LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
-                items(leaderboardData.value.drop(3)) { item ->
+                items(leaderboardData.drop(3)) { item ->
                     LeaderboardRow(
-                        position = leaderboardData.value.indexOf(item) + 1,
+                        position = leaderboardData.indexOf(item) + 1,
                         name = item.name,
                         profileImage = item.profileImage,
                         streak = item.streak
