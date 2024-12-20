@@ -22,31 +22,51 @@ import androidx.compose.ui.zIndex
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
+import android.util.Log
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
+//Back-End
 
 data class LeaderboardItem(val name: String, val profileImage: Int, val streak: Int)
 
-//sorted data of leaderboard
-val leaderboardData = listOf(
-    LeaderboardItem("Name1", R.drawable.profile, 10),
-    LeaderboardItem("Name2", R.drawable.profile1, 10),
-    LeaderboardItem("Name3", R.drawable.profile2, 10),
-    LeaderboardItem("Name4", R.drawable.profile1, 9),
-    LeaderboardItem("Name5", R.drawable.profile2, 8),
-    LeaderboardItem("Name6", R.drawable.profile1, 8),
-    LeaderboardItem("Name7", R.drawable.profile2, 8),
-    LeaderboardItem("Name8", R.drawable.profile1, 7),
-    LeaderboardItem("Name9", R.drawable.profile1, 6),
-    LeaderboardItem("Name10", R.drawable.profile1, 5),
-    LeaderboardItem("Name5", R.drawable.profile2, 5),
-    LeaderboardItem("Name6", R.drawable.profile1, 4),
-    LeaderboardItem("Name7", R.drawable.profile2, 4),
-    LeaderboardItem("Name8", R.drawable.profile1, 3),
-    LeaderboardItem("Name9", R.drawable.profile1, 2),
-    LeaderboardItem("Name10", R.drawable.profile1, 1)
-)
-
 @Composable
 fun ScoreBoard() {
+    val database = Firebase.database
+    val leaderboardRef = database.reference.child("Leaderboard")
+    val leaderboardData = remember { mutableStateOf<List<LeaderboardItem>>(emptyList()) }
+    LaunchedEffect(Unit) {
+        leaderboardRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = mutableListOf<LeaderboardItem>()
+                for (postSnapshot in dataSnapshot.children) {
+                    val name = postSnapshot.child("Name").getValue(String::class.java) ?: ""
+                    val profile = postSnapshot.child("Profile").getValue(Long::class.java) ?: 1L
+                    val streak = postSnapshot.child("Streak").getValue(Long::class.java) ?: 0L
+                    val profileImage = if (profile == 1L) {
+                        R.drawable.profile1
+                    } else {
+                        R.drawable.profile2
+                    }
+                    data.add(LeaderboardItem(name, profileImage, streak.toInt()))
+                }
+                data.sortByDescending { it.streak }
+                leaderboardData.value = data
+                Log.d("FirebaseCheck", "Database Extracted Successfully!: ${leaderboardData.value}")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("FirebaseCheck", "Database Extraction Error!", databaseError.toException())
+            }
+        })
+    }
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(
             modifier = Modifier.offset(y = 20.dp),
@@ -55,23 +75,24 @@ fun ScoreBoard() {
         ) {
             LeaderboardBox(
                 position = 2,
-                name = leaderboardData[1].name,
-                profileImage = leaderboardData[1].profileImage,
-                streak = leaderboardData[1].streak
+                name = if (leaderboardData.value.size > 1) leaderboardData.value[1].name else "",
+                profileImage = if (leaderboardData.value.size > 1) leaderboardData.value[1].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.value.size > 1) leaderboardData.value[1].streak else 0
             )
             LeaderboardBox(
                 position = 1,
-                name = leaderboardData[0].name,
-                profileImage = leaderboardData[0].profileImage,
-                streak = leaderboardData[0].streak
+                name = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].name else "",
+                profileImage = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.value.isNotEmpty()) leaderboardData.value[0].streak else 0
             )
             LeaderboardBox(
                 position = 3,
-                name = leaderboardData[2].name,
-                profileImage = leaderboardData[2].profileImage,
-                streak = leaderboardData[2].streak
+                name = if (leaderboardData.value.size > 2) leaderboardData.value[2].name else "",
+                profileImage = if (leaderboardData.value.size > 2) leaderboardData.value[2].profileImage else R.drawable.profile1,
+                streak = if (leaderboardData.value.size > 2) leaderboardData.value[2].streak else 0
             )
         }
+
         Box(
             modifier = Modifier
                 .width(361.dp)
@@ -91,6 +112,7 @@ fun ScoreBoard() {
                 fontWeight = FontWeight.Bold
             )
         }
+
         Box(
             modifier = Modifier
                 .width(350.dp)
@@ -103,9 +125,9 @@ fun ScoreBoard() {
                 .zIndex(2f)
         ) {
             LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
-                items(leaderboardData.drop(3)) { item ->
+                items(leaderboardData.value.drop(3)) { item ->
                     LeaderboardRow(
-                        position = leaderboardData.indexOf(item) + 1,
+                        position = leaderboardData.value.indexOf(item) + 1,
                         name = item.name,
                         profileImage = item.profileImage,
                         streak = item.streak
@@ -116,6 +138,8 @@ fun ScoreBoard() {
     }
 }
 
+
+// Front-End
 @Composable
 fun LeaderboardBox(position: Int, name: String, profileImage: Int, streak: Int) {
     val boxHeight = when (position) {

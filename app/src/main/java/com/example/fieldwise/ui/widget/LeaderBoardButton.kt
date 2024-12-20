@@ -18,10 +18,11 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
 fun LeaderBoardButton(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick:  () -> Unit
 ) {
     Button(
-        onClick = {/* Navigate to HomePage*/},
+        onClick = { onClick() },
         modifier = modifier
             .size(87.dp) // Ensure the button is a square
             .clip(CircleShape), // Apply CircleShape to make it circular
@@ -39,6 +40,6 @@ fun LeaderBoardButton(
 @Composable
 fun LeaderBoardButtonPreview() {
     FieldWiseTheme {
-        LeaderBoardButton()
+        LeaderBoardButton(onClick = { })
     }
 }
