@@ -23,10 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
+import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
 fun CompleteScreen(modifier: Modifier = Modifier) {
@@ -82,7 +83,7 @@ fun CompleteScreen(modifier: Modifier = Modifier) {
                     )
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "I'M READY !", onClick = {  }, text = "GET STARTED")
+                MainButton(button = "I'M READY !", onClick = {  }, mainButtonType = MainButtonType.BLUE)
 
             }}
 
