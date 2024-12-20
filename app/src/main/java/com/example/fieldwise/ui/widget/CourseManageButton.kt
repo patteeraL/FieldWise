@@ -18,7 +18,10 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
 @Composable
-fun CourseManageButton(modifier: Modifier = Modifier) {
+fun CourseManageButton(
+    modifier: Modifier = Modifier,
+    NavigateToAddCourse: () -> Unit,
+    NavigateToAddLanguage: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     var selectedLang by remember { mutableStateOf(R.drawable.spain_rectangle) }
     var selectedField by remember { mutableStateOf(R.drawable.map) }
@@ -58,7 +61,9 @@ fun CourseManageButton(modifier: Modifier = Modifier) {
                     langs = listOf(R.drawable.spain_rectangle to "Spanish", R.drawable.thai_rectangle to "Thai"),
                     fields = langFields[selectedLang] ?: emptyList(),
                     selectedLang = selectedLang,
-                    selectedField = selectedField
+                    selectedField = selectedField,
+                    NavigateToAddCourse = NavigateToAddCourse,
+                    NavigateToAddLanguage = NavigateToAddLanguage
                 )
             }
         }
@@ -74,7 +79,9 @@ fun CourseManageDropdown(
     langs: List<Pair<Int, String>>,
     fields: List<Pair<Int, String>>,
     selectedLang: Int,
-    selectedField: Int
+    selectedField: Int,
+    NavigateToAddCourse: () -> Unit,
+    NavigateToAddLanguage: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -101,7 +108,7 @@ fun CourseManageDropdown(
                     )
                 }
             }
-            AddButton("Add language")
+            AddLanguageButton("Add language", NavigateToAddLanguage = NavigateToAddLanguage)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -125,28 +132,44 @@ fun CourseManageDropdown(
                     )
                 }
             }
-            AddButton("Add fields")
+            AddCourseButton("add fields", NavigateToAddCourse = NavigateToAddCourse)
         }
     }
 }
 
 @Composable
-fun AddButton(description: String) {
+fun AddLanguageButton(description: String, NavigateToAddLanguage: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { /* Navigate to modify field*/ }
+        modifier = Modifier.clickable { NavigateToAddLanguage() }
     ) {
         Image(painter = painterResource(id = R.drawable.add), contentDescription = description, modifier = Modifier.size(60.dp))
         Text("Add", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFFC5C5C5))
     }
 }
 
+@Composable
+fun AddCourseButton(description: String, NavigateToAddCourse: () -> Unit) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable { NavigateToAddCourse() }
+    ) {
+        Image(painter = painterResource(id = R.drawable.add), contentDescription = description, modifier = Modifier.size(60.dp))
+        Text("Add", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFFC5C5C5))
+    }
+}
+
+
 @Preview(showBackground = true)
 @Composable
 fun CourseManageButtonPreview() {
     FieldWiseTheme {
         Box(modifier = Modifier.fillMaxSize()) {
-            CourseManageButton(modifier = Modifier.align(Alignment.TopStart))
+            CourseManageButton(
+                modifier = Modifier.align(Alignment.TopStart),
+                NavigateToAddCourse = {},
+                NavigateToAddLanguage = {}
+            )
         }
     }
 }

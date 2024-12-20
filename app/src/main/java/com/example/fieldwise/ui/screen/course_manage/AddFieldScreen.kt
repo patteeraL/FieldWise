@@ -1,6 +1,5 @@
 package com.example.fieldwise.ui.screen.course_manage
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +28,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
-fun FieldAddScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit /*, NavigateToHome: () -> Unit */) {
+fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Unit, NavigateToComplete: () -> Unit) {
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer, // Replace with your actual vector drawable resource
@@ -42,7 +41,7 @@ fun FieldAddScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            GoBackButton(onClick = { /* Navigate To Home */ })
+            GoBackButton(onClick = { NavigateToDailyGoal() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.7f)
         }
@@ -78,6 +77,8 @@ fun FieldAddScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds)
             Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             MainButton(button = "CONTINUE", onClick = { NavigateToComplete() }, text = "GET STARTED")
         }
     }
@@ -89,11 +90,11 @@ fun FieldAddScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit
 
 @Preview(showBackground = true)
 @Composable
-fun FieldAddPreview() {
+fun AddFieldPreview() {
     FieldWiseTheme {
-        FieldAddScreen(
-            NavigateToComplete =  {}
-            /* NavigateToHome = {} */
+        AddFieldScreen(
+            NavigateToDailyGoal =  {},
+            NavigateToComplete = {}
         )
     }
 }

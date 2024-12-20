@@ -27,8 +27,12 @@ import com.google.firebase.ktx.Firebase
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
 
+
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
+fun HomeScreen(modifier: Modifier = Modifier,
+               NavigateToLeader: () -> Unit,
+               NavigateToAddCourse: () -> Unit,
+               NavigateToAddLanguage: () -> Unit) {
     // back-end
     val database = Firebase.database
     val courseListRef = database.reference.child("Exercises")
@@ -54,8 +58,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
     }
 // Data is now in the $courseList variable in format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
 // You can access the variable courseList for example -- courseList.value[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
-
-
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -71,7 +73,10 @@ fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
             ) {
-                CourseManageButton()
+                CourseManageButton(
+                    NavigateToAddCourse = NavigateToAddCourse,
+                    NavigateToAddLanguage = NavigateToAddLanguage
+                )
                 Spacer(modifier = Modifier.weight(1f)) // Add spacer to push items to the right
                 StreakItem(modifier = Modifier.size(40.dp), steak = 5)
                 ProfileIconButton(onClick = { /* Add your navigation logic here */ })
@@ -102,7 +107,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
                 HomeButton()
             }
             Box {
-                LeaderBoardButton(onClick = { navigateToLeader() })
+                LeaderBoardButton(onClick = { NavigateToLeader() })
             }
         }
     }
@@ -113,7 +118,9 @@ fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
 fun HomeScreenPreview() {
     FieldWiseTheme {
         HomeScreen(
-            navigateToLeader = {}
+            NavigateToLeader = {},
+            NavigateToAddCourse = {},
+            NavigateToAddLanguage = {}
         )
     }
 }
