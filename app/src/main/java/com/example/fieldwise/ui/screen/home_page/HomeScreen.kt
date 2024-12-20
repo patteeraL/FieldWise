@@ -18,9 +18,44 @@ import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
 import com.example.fieldwise.ui.widget.ProfileIconButton
 import java.lang.Boolean.TRUE
+import android.util.Log
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
+data class CourseFormat(val language: String, val subject: String, val course: String)
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit) {
+fun HomeScreen(modifier: Modifier = Modifier, navigateToLeader: () -> Unit) {
+    // back-end
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val courseList = remember { mutableStateOf<List<CourseFormat>>(emptyList()) }
+    LaunchedEffect(Unit) {
+        courseListRef.get().addOnSuccessListener { dataSnapshot ->
+            val data = mutableListOf<CourseFormat>()
+            for (languageSnapshot in dataSnapshot.children) {
+                val language = languageSnapshot.key ?: ""
+                for (subjectSnapshot in languageSnapshot.children) {
+                    val subject = subjectSnapshot.key ?: ""
+                    for (courseSnapshot in subjectSnapshot.children) {
+                        val course = courseSnapshot.key ?: ""
+                        data.add(CourseFormat(language, subject, course))
+                    }
+                }
+            }
+            courseList.value = data
+            Log.d("TAG", "Database Extracted Successfully!: ${courseList.value}")
+        }.addOnFailureListener { exception ->
+            Log.e("TAG", "Database Extraction Error!", exception)
+        }
+    }
+// Data is now in the $courseList variable in format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
+// You can access the variable courseList for example -- courseList.value[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
+
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -67,7 +102,7 @@ fun HomeScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit) {
                 HomeButton()
             }
             Box {
-                LeaderBoardButton(onClick = { NavigateToLeader() })
+                LeaderBoardButton(onClick = { navigateToLeader() })
             }
         }
     }
@@ -78,7 +113,7 @@ fun HomeScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit) {
 fun HomeScreenPreview() {
     FieldWiseTheme {
         HomeScreen(
-            NavigateToLeader = {}
+            navigateToLeader = {}
         )
     }
 }
