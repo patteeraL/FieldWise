@@ -36,9 +36,11 @@ fun Card(
     onClick: (() -> Unit)?,
     imageResId: Int?
 ) {
-    val backgroundColor = getColorForCardType(cardType)
-    val shadowColor = getShadowColorForCardType(cardType)
-    val textColor = getTextColorForCardType(cardType)
+
+
+    val backgroundColor = getColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
+    val shadowColor = getShadowColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
+    val textColor = getTextColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
 
     if (cardShape == CardShape.RECTANGLE) {
         LessonCardBase(
@@ -198,7 +200,7 @@ fun LessonCardContent(
                     )
                 )
             }
-            if (complete) {
+            if (progress == 1f && complete == true) {
                 Image(
                     painter = painterResource(id = R.drawable.complete),
                     contentDescription = "Complete Mark",

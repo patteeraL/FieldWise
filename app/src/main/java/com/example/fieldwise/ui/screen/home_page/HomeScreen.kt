@@ -11,21 +11,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.ui.theme.FieldWiseTheme
-import com.example.fieldwise.ui.widget.Card
-import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
+import com.example.fieldwise.ui.widget.LessonCard
 import com.example.fieldwise.ui.widget.ProfileIconButton
-import java.lang.Boolean.TRUE
-import android.util.Log
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
-data class CourseFormat(val language: String, val subject: String, val course: String)
 
 
 @Composable
@@ -33,31 +24,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToLeader: () -> Unit,
                NavigateToAddCourse: () -> Unit,
                NavigateToAddLanguage: () -> Unit) {
-    // back-end
-    val database = Firebase.database
-    val courseListRef = database.reference.child("Exercises")
-    val courseList = remember { mutableStateOf<List<CourseFormat>>(emptyList()) }
-    LaunchedEffect(Unit) {
-        courseListRef.get().addOnSuccessListener { dataSnapshot ->
-            val data = mutableListOf<CourseFormat>()
-            for (languageSnapshot in dataSnapshot.children) {
-                val language = languageSnapshot.key ?: ""
-                for (subjectSnapshot in languageSnapshot.children) {
-                    val subject = subjectSnapshot.key ?: ""
-                    for (courseSnapshot in subjectSnapshot.children) {
-                        val course = courseSnapshot.key ?: ""
-                        data.add(CourseFormat(language, subject, course))
-                    }
-                }
-            }
-            courseList.value = data
-            Log.d("TAG", "Database Extracted Successfully!: ${courseList.value}")
-        }.addOnFailureListener { exception ->
-            Log.e("TAG", "Database Extraction Error!", exception)
-        }
-    }
-// Data is now in the $courseList variable in format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
-// You can access the variable courseList for example -- courseList.value[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -83,17 +50,11 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Card(
-                    title = "LESSON 1",
-                    description = "Consumer and Producer Behavior",
-                    cardType = CardType.YELLOW,
-                    cardShape = CardShape.RECTANGLE,
-                    progress = 1f,
-                    complete = TRUE,
-                    onClick = { /* Add your navigation logic here */ },
-                    imageResId = null
-                )
+                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true)}
                 Spacer(modifier = Modifier.height(30.dp))
+                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false)}
+
+
             }
         }
         Row(
@@ -112,6 +73,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
