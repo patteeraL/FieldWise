@@ -40,7 +40,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
-fun SettingScreen(modifier: Modifier = Modifier) {
+fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit)  {
 
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -52,7 +52,7 @@ fun SettingScreen(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
             ) {
                 Box {
-                    GoBackButton( onClick = { /* Navigate to */ })
+                    GoBackButton( onClick = { NavigateToProfile() })
                 }
                 Text(
                     text = "Setting",
@@ -152,7 +152,7 @@ fun DropDownDemo() {
             }
 
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(40.dp)) //qué queremos que haga al presionar los botones?
         MainButton(button = "SAVE CHANGES", onClick = {/* Do Something */}, mainButtonType = MainButtonType.BLUE)
         Spacer(modifier = Modifier.height(25.dp))
         MainButton(button = "DELETE COURSE", onClick = {/* Do Something */}, mainButtonType = MainButtonType.RED)
@@ -167,6 +167,8 @@ fun DropDownDemo() {
 @Composable
 fun SettingScreenPreview() {
     FieldWiseTheme {
-        SettingScreen()
+        SettingScreen(
+            NavigateToProfile = {}
+        )
     }
 }

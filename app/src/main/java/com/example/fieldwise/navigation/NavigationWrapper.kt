@@ -18,6 +18,8 @@ import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
 import com.example.fieldwise.ui.screen.profile_creation.LoadingScreen
 import com.example.fieldwise.ui.screen.profile_creation.SetDailyGoalScreen
 import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
+import com.example.fieldwise.ui.screen.profile_preference.ProfileScreen
+import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
 
 // Define Routes as constants
 object Routes {
@@ -29,11 +31,13 @@ object Routes {
     const val Course = "course"
     const val Complete = "complete"
     const val Home = "home"
-    const val LeaderBoard = "leader board"
+    const val LeaderBoard = "leader_board/{type}"
     const val AddDailyGoal = "add_daily_goal/{type}"
     const val CourseManage = "course manage"
     const val AddField = "add field"
     const val AddLanguage = "add language"
+    const val ProfileScreen = "profile screen"
+    const val SettingScreen = "setting screen"
 }
 
 @Composable
@@ -91,15 +95,22 @@ fun NavigationWrapper() {
 
         composable(Routes.Home) {
             HomeScreen(
-                NavigateToLeader = {navController.navigate(Routes.LeaderBoard)},
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},
                 NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}, //go the same screen but it depends on the button you have clicked
-                NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")} //here i define the value of "type"
-            )
+                NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")}, //here i define the value of "type"
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+                )
         }
 
-        composable(Routes.LeaderBoard) {
-            LeaderBoardScreen{ navController.navigate(Routes.Home)
-            }
+        composable("${Routes.LeaderBoard}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
+            LeaderBoardScreen(
+                type = type,
+                NavigateBack = {
+                    if (type == "home") { navController.navigate(Routes.Home)
+                    } else if (type == "profile") { navController.navigate(Routes.ProfileScreen)}
+                }
+            )
         }
 
 
@@ -142,7 +153,19 @@ fun NavigationWrapper() {
             )
         }
 
+        composable(Routes.ProfileScreen) {
+            ProfileScreen(
+                NavigateToHome = {navController.navigate(Routes.Home)},
+                NavigateToSettings = {navController.navigate(Routes.SettingScreen)},
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/profile")}
+            )
+        }
 
+        composable(Routes.SettingScreen) {
+            SettingScreen(
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+            )
+        }
 
 
     }

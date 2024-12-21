@@ -22,12 +22,12 @@ import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.ScoreBoard
 
 @Composable
-fun LeaderBoardScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit){
+fun LeaderBoardScreen(modifier: Modifier = Modifier, NavigateBack: () -> Unit, type: String?){
     Box(
         modifier = Modifier.zIndex(1f).padding(start = 20.dp, top = 75.dp)){
         GoBackButton(
             modifier = Modifier.size(70.dp).background(color = Color.White, shape = CircleShape),
-            onClick = { NavigateToHome() })}
+            onClick = { NavigateBack() })}
     Box(
         modifier = modifier
             .background(color = Color(0xFF66DBFF))
@@ -51,6 +51,6 @@ fun LeaderBoardScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit)
 @Composable
 fun LeaderBoardScreenPreview() {
     FieldWiseTheme {
-        LeaderBoardScreen{}
+        LeaderBoardScreen(NavigateBack = {}, type = "")
     }
 }
