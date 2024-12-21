@@ -1,5 +1,6 @@
 package com.example.fieldwise.ui.widget
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,9 +31,52 @@ import androidx.compose.ui.zIndex
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-data class Friend(val name: String, val profileImage: Int)
+data class Friend(val ID: String, val name: String, val profileImage: Int, val streak: Int)
 
+// back-end
+@Composable
+fun getUserDataFriend(): List<Friend> {
+    val database = Firebase.database
+    val friendRef = database.reference.child("Leaderboard")
+    val friendData = remember { mutableStateOf<List<Friend>>(emptyList()) }
+
+    LaunchedEffect(Unit) {
+        friendRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = mutableListOf<Friend>()
+                for (postSnapshot in dataSnapshot.children) {
+                    val id = postSnapshot.key ?: ""
+                    val name = postSnapshot.child("Name").getValue(String::class.java) ?: ""
+                    val profile = postSnapshot.child("Profile").getValue(Long::class.java) ?: 1L
+                    val streak = postSnapshot.child("Streak").getValue(Long::class.java) ?: 0L
+                    val profileImage = if (profile == 1L) {
+                        R.drawable.profile1
+                    } else {
+                        R.drawable.profile2
+                    }
+                    data.add(Friend(id, name, profileImage, streak.toInt()))
+                }
+                friendData.value = data
+                Log.d("FirebaseCheck", "Database Extracted Successfully!: ${friendData.value}")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w("FirebaseCheck", "Database Extraction Error!", databaseError.toException())
+            }
+        })
+    }
+
+    return friendData.value // return values in format: [Friend(ID=User0001, name=Alice, profileImage=2131165376, streak=10), Friend(ID=User00010, name=Bob, profileImage=2131165375, streak=9)
+}
+
+
+// front-end
 @Composable
 fun AddFriendButton(modifier: Modifier = Modifier, onClick: () -> Unit, onShowPopupChange: (Boolean) -> Unit) {
     IconButton(
@@ -56,12 +100,7 @@ fun AddFriendButton(modifier: Modifier = Modifier, onClick: () -> Unit, onShowPo
 @Composable
 fun FriendSearchCard(modifier: Modifier = Modifier, onDismiss: () -> Unit) {
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
-    val accountList = listOf(
-        Friend("Alice", R.drawable.profile),
-        Friend("Bob", R.drawable.profile1),
-        Friend("Charlie", R.drawable.profile2),
-        Friend("David", R.drawable.profile)
-    )
+    val accountList = getUserDataFriend()
     val filteredList = accountList.filter { it.name.contains(searchText.text, ignoreCase = true) }
 
     Column(
