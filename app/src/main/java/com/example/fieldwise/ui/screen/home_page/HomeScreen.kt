@@ -55,7 +55,7 @@ fun getCourseList(): List<CourseFormat> {
     }
     return courseList.value
 }
-// Get list of data by "val LISTOFDATA = getUserData()"
+// Get list of data by "val LISTOFDATA = getCourseList()"
 // Data will be in the format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
 // You can access the data for example -- LISTOFDATA[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
 
