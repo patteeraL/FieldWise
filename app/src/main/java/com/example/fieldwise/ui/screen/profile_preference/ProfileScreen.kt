@@ -20,7 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Popup
 import androidx.compose.ui.zIndex
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
@@ -50,7 +49,7 @@ val FriendboardData = listOf(
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
-    var showPopup by remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF66DBFF))
@@ -161,29 +160,17 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
                             }
                         }
                         Spacer(Modifier.height(20.dp))
-                        FriendBoard(showPopup = showPopup, onShowPopupChange = { showPopup = it })
+                        FriendBoard()
                     }
                 }
             }
         }
     }
-    if (showPopup) {
-        Box(modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.TopCenter) {
-            Popup(
-                alignment = Alignment.TopCenter,
-                onDismissRequest = { showPopup = false }
-            ) {
-                FriendSearchCard(onDismiss = { showPopup = false })
-            }
-        }
-    }
+
 }
 
 @Composable
-fun FriendBoard(showPopup: Boolean, onShowPopupChange: (Boolean) -> Unit) {
+fun FriendBoard() {
     Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = Modifier
@@ -210,7 +197,7 @@ fun FriendBoard(showPopup: Boolean, onShowPopupChange: (Boolean) -> Unit) {
                     fontFamily = SeravekFontFamily,
                     fontWeight = FontWeight.Bold
                 )
-                Box { AddFriendButton(onClick = {}, onShowPopupChange = onShowPopupChange) }
+                Box { AddFriendButton(onClick = {/* Navigate to Add friend*/}) }
             }
         }
         Box(
