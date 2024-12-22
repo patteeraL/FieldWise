@@ -3,6 +3,7 @@ package com.example.fieldwise.ui.widget
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,8 +22,8 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
-enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE }
-enum class CardShape { RECTANGLE, SQUARE }
+enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, WHITE_GREEN }
+enum class CardShape { RECTANGLE, SQUARE, SMALL_RECTANGLE }
 
 @Composable
 fun Card(
@@ -44,7 +45,9 @@ fun Card(
 
     if (cardShape == CardShape.RECTANGLE) {
         LessonCardBase(
-            modifier = modifier.width(369.dp).height(98.dp),
+            modifier = modifier
+                .width(369.dp)
+                .height(98.dp),
             title = title ?: "Default Title",
             description = description ?: "Default Description",
             progress = progress ?: 0f,
@@ -90,6 +93,58 @@ fun Card(
             }
         }
     }
+    else if (cardShape == CardShape.SMALL_RECTANGLE) {
+        Box(modifier = modifier) {
+
+            Box(
+                modifier = Modifier
+                    .width(326.dp)
+                    .height(45.dp)
+                    .offset(y = 7.dp)
+                    .background(color = shadowColor, shape = RoundedCornerShape(15.dp))
+            )
+            Button(
+                onClick = onClick ?: {},
+                colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+                modifier = modifier
+                    .width(326.dp)
+                    .height(45.dp),
+                shape = RoundedCornerShape(15.dp)
+            ) {
+
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+
+                    Spacer(modifier = Modifier.weight(1f)) // Space to push the text to the center
+
+                    Text(
+                        text = title ?: "Default Title",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontFamily = SeravekFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            color = textColor,
+                            letterSpacing = 0.25.sp
+                        ),
+                        modifier = Modifier.align(Alignment.CenterVertically) // Center vertically
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f)) // Space to maintain the center alignment
+                }
+
+            }
+            Box(modifier = Modifier.width(326.dp).height(45.dp).padding(horizontal =20.dp, vertical =5.dp)){imageResId?.let {
+                Image(modifier = Modifier.size(35.dp),
+                    painter = painterResource(id = it),
+                    contentDescription = "Icon"
+                )
+            }}
+        }
+    }
 }
 
 @Composable
@@ -100,6 +155,7 @@ fun getColorForCardType(cardType: CardType): Color {
         CardType.RED -> Color(0xFFFF6060)
         CardType.GREEN -> Color(0xFF58CC02)
         CardType.PURPLE -> Color(0xFFCE82FF)
+        CardType.WHITE_GREEN -> Color(0xFFFFFFFF)
     }
 }
 
@@ -111,6 +167,7 @@ fun getShadowColorForCardType(cardType: CardType): Color {
         CardType.RED -> Color(0xFFC34544)
         CardType.GREEN -> Color(0xFF4DAB07)
         CardType.PURPLE -> Color(0xFF8B53AF)
+        CardType.WHITE_GREEN -> Color(0xFFC5C5C5)
     }
 }
 
@@ -118,6 +175,7 @@ fun getShadowColorForCardType(cardType: CardType): Color {
 fun getTextColorForCardType(cardType: CardType): Color {
     return when (cardType) {
         CardType.YELLOW -> Color(0xFF524102)
+        CardType.WHITE_GREEN -> Color(0xFF58CC02)
         else -> Color.White
     }
 }
@@ -235,9 +293,9 @@ fun CardPreview() {
         Card(
             title = "CONTINUE",
             description = "Keep learning every day!",
-            cardType = CardType.PURPLE,
-            cardShape = CardShape.RECTANGLE,
-            progress = 1f,
+            cardType = CardType.WHITE_GREEN,
+            cardShape = CardShape.SMALL_RECTANGLE,
+            progress = null,
             complete = true,
             onClick = { /* do logic */ },
             imageResId = R.drawable.map // Replace with your icon resource

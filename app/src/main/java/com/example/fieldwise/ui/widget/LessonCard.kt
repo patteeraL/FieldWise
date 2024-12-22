@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,7 +52,9 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                 Popup(
                     onDismissRequest = { expanded = false }) {
                     Box {
-                        Column(modifier = Modifier.fillMaxWidth().background(color = Color.Transparent), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
+                            .background(color = Color.Transparent), horizontalAlignment = Alignment.CenterHorizontally) {
                             Row(
                                 modifier = Modifier
                                     .width(355.dp)
@@ -74,23 +78,28 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                     verticalArrangement = Arrangement.Center
                                 ) {
-                                    MainButton(
-                                        modifier = Modifier
-                                            .width(326.dp)
-                                            .height(45.dp)
-                                            .offset(y = (-10).dp),
-                                        button = "Review",
-                                        onClick = { /* Go to Review */ },
-                                        mainButtonType = MainButtonType.WHITE_G
+
+                                    Card(
+                                        title = "Review",
+                                        description = null,
+                                        cardType = CardType.WHITE_GREEN,
+                                        cardShape = CardShape.SMALL_RECTANGLE,
+                                        progress = null,
+                                        complete = null,
+                                        onClick = { /* Go to quiz/review */ },
+                                        imageResId = R.drawable.quizicon // Replace with your icon resource
                                     )
+
                                     Spacer(modifier = Modifier.height(10.dp))
-                                    MainButton(
-                                        modifier = Modifier
-                                            .width(326.dp)
-                                            .height(45.dp),
-                                        button = "Resume",
-                                        onClick = { /* Go to Review */ },
-                                        mainButtonType = MainButtonType.YELLOW
+                                    Card(
+                                        title = "Resume",
+                                        description = null,
+                                        cardType = CardType.YELLOW,
+                                        cardShape = CardShape.SMALL_RECTANGLE,
+                                        progress = null,
+                                        complete = null,
+                                        onClick = { /* Go to Resume */ },
+                                        imageResId = R.drawable.playicon // Replace with your icon resource
                                     )
                                 }
                             }
