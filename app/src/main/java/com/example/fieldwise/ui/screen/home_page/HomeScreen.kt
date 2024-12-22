@@ -11,14 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.ui.theme.FieldWiseTheme
-import com.example.fieldwise.ui.widget.Card
-import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
 import com.example.fieldwise.ui.widget.LessonCard
 import com.example.fieldwise.ui.widget.ProfileIconButton
-import java.lang.Boolean.TRUE
 import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -63,7 +60,8 @@ fun getCourseList(): List<CourseFormat> {
 fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToLeader: () -> Unit,
                NavigateToAddCourse: () -> Unit,
-               NavigateToAddLanguage: () -> Unit) {
+               NavigateToAddLanguage: () -> Unit,
+               NavigateToProfile: () -> Unit) {
 
     Box(
         modifier = modifier
@@ -86,7 +84,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                 )
                 Spacer(modifier = Modifier.weight(1f)) // Add spacer to push items to the right
                 StreakItem(modifier = Modifier.size(40.dp), steak = 5)
-                ProfileIconButton(onClick = { /* Add your navigation logic here */ })
+                ProfileIconButton(onClick = { NavigateToProfile() })
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
@@ -105,7 +103,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box {
-                HomeButton()
+                HomeButton(onClick = {  })
             }
             Box {
                 LeaderBoardButton(onClick = { NavigateToLeader() })
@@ -121,7 +119,8 @@ fun HomeScreenPreview() {
         HomeScreen(
             NavigateToLeader = {},
             NavigateToAddCourse = {},
-            NavigateToAddLanguage = {}
+            NavigateToAddLanguage = {},
+            NavigateToProfile = {}
         )
     }
 }

@@ -41,3 +41,9 @@ object AddFieldScreen
 
 @Serializable
 object AddLanguageScreen
+
+@Serializable
+object ProfileScreen
+
+@Serializable
+object SettingScreen

@@ -48,7 +48,7 @@ val FriendboardData = listOf(
 )
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, NavigateToSettings: () -> Unit, NavigateToLeader: () -> Unit) {
 
     Box(
         modifier = modifier
@@ -64,7 +64,7 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             contentAlignment = Alignment.TopEnd
         ) {
             IconButton(
-                onClick = { /* Navigate to Setting Page */ },
+                onClick = { NavigateToSettings() },
                 modifier = modifier.size(40.dp)
             ) {
                 Image(
@@ -80,13 +80,13 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             item { Spacer(modifier = Modifier.height(90.dp)) }
             item {
                 Row(verticalAlignment = Alignment.Bottom) {
-                    HomeButton()
+                    HomeButton(onClick = { NavigateToHome() } )
                     Image(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         modifier = modifier.size(200.dp)
                     )
-                    LeaderBoardButton(onClick = { })
+                    LeaderBoardButton(onClick = { NavigateToLeader() })
                 }
             }
             item { Spacer(modifier = Modifier.height(20.dp)) }
@@ -258,6 +258,10 @@ fun FriendboardRow(name: String, profileImage: Int, streak: Int) {
 @Composable
 fun ProfileScreenPreview() {
     FieldWiseTheme {
-        ProfileScreen()
+        ProfileScreen(
+            NavigateToLeader = {},
+            NavigateToHome = {},
+            NavigateToSettings = {}
+        )
     }
 }
