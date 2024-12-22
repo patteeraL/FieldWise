@@ -18,7 +18,9 @@ import com.example.fieldwise.ui.widget.FriendSearchCard
 fun AddFriendScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
 
-        ProfileScreen()
+        ProfileScreen( NavigateToLeader = {},
+            NavigateToHome = {},
+            NavigateToSettings = {})
 
         Box(
             modifier = Modifier
