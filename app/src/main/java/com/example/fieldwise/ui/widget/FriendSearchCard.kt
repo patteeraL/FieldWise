@@ -91,7 +91,7 @@ fun getUserDataFriend(): List<Friend> {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FriendSearchCard(modifier: Modifier = Modifier) {
+fun FriendSearchCard(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit) {
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
     val accountList = getUserDataFriend()
     val filteredList = accountList.filter { it.name.contains(searchText.text, ignoreCase = true) }
@@ -113,7 +113,7 @@ fun FriendSearchCard(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .size(80.dp)
                     .background(color = Color.White, shape = CircleShape),
-                onClick = {/* Navigate Back to Profile Screen */}
+                onClick = { NavigateToProfile() }
             )
         }
         Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp * 0.07f))
@@ -244,6 +244,6 @@ fun FriendSearchCard(modifier: Modifier = Modifier) {
 @Composable
 fun FriendSearchCardPreview() {
     FieldWiseTheme {
-        FriendSearchCard()
+        FriendSearchCard{}
     }
 }

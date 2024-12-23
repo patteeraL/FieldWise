@@ -18,8 +18,10 @@ import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
 import com.example.fieldwise.ui.screen.profile_creation.LoadingScreen
 import com.example.fieldwise.ui.screen.profile_creation.SetDailyGoalScreen
 import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
+import com.example.fieldwise.ui.screen.profile_preference.AddFriendScreen
 import com.example.fieldwise.ui.screen.profile_preference.ProfileScreen
 import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
+import com.example.fieldwise.ui.widget.FriendSearchCard
 
 // Define Routes as constants
 object Routes {
@@ -38,6 +40,8 @@ object Routes {
     const val AddLanguage = "add language"
     const val ProfileScreen = "profile screen"
     const val SettingScreen = "setting screen"
+    const val AddFriend = "add friend"
+
 }
 
 @Composable
@@ -157,12 +161,19 @@ fun NavigationWrapper() {
             ProfileScreen(
                 NavigateToHome = {navController.navigate(Routes.Home)},
                 NavigateToSettings = {navController.navigate(Routes.SettingScreen)},
-                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/profile")}
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/profile")},
+                NavigateToAddFriend = {navController.navigate(Routes.AddFriend)}
             )
         }
 
         composable(Routes.SettingScreen) {
             SettingScreen(
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+            )
+        }
+
+        composable(Routes.AddFriend) {
+            AddFriendScreen(
                 NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
             )
         }

@@ -47,3 +47,7 @@ object ProfileScreen
 
 @Serializable
 object SettingScreen
+
+@Serializable
+object AddFriend
+

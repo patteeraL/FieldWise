@@ -15,12 +15,13 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.FriendSearchCard
 
 @Composable
-fun AddFriendScreen(modifier: Modifier = Modifier) {
+fun AddFriendScreen(modifier: Modifier = Modifier, NavigateToProfile: ()-> Unit) {
     Box(modifier = modifier.fillMaxSize()) {
 
         ProfileScreen( NavigateToLeader = {},
             NavigateToHome = {},
-            NavigateToSettings = {})
+            NavigateToSettings = {},
+            NavigateToAddFriend = {})
 
         Box(
             modifier = Modifier
@@ -34,7 +35,7 @@ fun AddFriendScreen(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxSize().padding(top = 20.dp),
             contentAlignment = Alignment.TopCenter
         ) {
-            FriendSearchCard()
+            FriendSearchCard{ NavigateToProfile() }
         }
     }
 }
@@ -45,6 +46,8 @@ fun AddFriendScreen(modifier: Modifier = Modifier) {
 @Composable
 fun AddFriendScreenPreview() {
     FieldWiseTheme {
-        AddFriendScreen()
+        AddFriendScreen(
+            NavigateToProfile = {}
+        )
     }
 }

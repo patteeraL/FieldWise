@@ -48,7 +48,7 @@ val FriendboardData = listOf(
 )
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, NavigateToSettings: () -> Unit, NavigateToLeader: () -> Unit) {
+fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, NavigateToSettings: () -> Unit, NavigateToLeader: () -> Unit, NavigateToAddFriend: () -> Unit) {
 
     Box(
         modifier = modifier
@@ -160,7 +160,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                             }
                         }
                         Spacer(Modifier.height(20.dp))
-                        FriendBoard()
+                        FriendBoard(NavigateToAddFriend = NavigateToAddFriend)
                     }
                 }
             }
@@ -170,7 +170,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
 }
 
 @Composable
-fun FriendBoard() {
+fun FriendBoard(NavigateToAddFriend: () -> Unit) {
     Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
             modifier = Modifier
@@ -197,7 +197,7 @@ fun FriendBoard() {
                     fontFamily = SeravekFontFamily,
                     fontWeight = FontWeight.Bold
                 )
-                Box { AddFriendButton(onClick = {/* Navigate to Add friend*/}) }
+                Box { AddFriendButton(onClick = { NavigateToAddFriend()}) }
             }
         }
         Box(
@@ -261,7 +261,8 @@ fun ProfileScreenPreview() {
         ProfileScreen(
             NavigateToLeader = {},
             NavigateToHome = {},
-            NavigateToSettings = {}
+            NavigateToSettings = {},
+            NavigateToAddFriend = {}
         )
     }
 }
