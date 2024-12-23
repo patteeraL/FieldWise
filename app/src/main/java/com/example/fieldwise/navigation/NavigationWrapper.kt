@@ -168,7 +168,8 @@ fun NavigationWrapper() {
 
         composable(Routes.SettingScreen) {
             SettingScreen(
-                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
+                Restart = {navController.navigate(Routes.Splash)}
             )
         }
 
