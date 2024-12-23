@@ -22,7 +22,7 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
-enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, WHITE_GREEN }
+enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, ORANGE, WHITE_GREEN }
 enum class CardShape { RECTANGLE, SQUARE, SMALL_RECTANGLE }
 
 @Composable
@@ -77,8 +77,9 @@ fun Card(
                     verticalArrangement = Arrangement.Center
                 ) {
                     imageResId?.let {
-                        Image(painter = painterResource(id = it), contentDescription = "Icon")
+                        Image(modifier = modifier.size(80.dp), painter = painterResource(id = it), contentDescription = "Icon")
                     }
+                    Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = title ?: "Default Title",
                         style = TextStyle(
@@ -155,6 +156,7 @@ fun getColorForCardType(cardType: CardType): Color {
         CardType.RED -> Color(0xFFFF6060)
         CardType.GREEN -> Color(0xFF58CC02)
         CardType.PURPLE -> Color(0xFFCE82FF)
+        CardType.ORANGE -> Color(0xFFFFB703)
         CardType.WHITE_GREEN -> Color(0xFFFFFFFF)
     }
 }
@@ -167,6 +169,7 @@ fun getShadowColorForCardType(cardType: CardType): Color {
         CardType.RED -> Color(0xFFC34544)
         CardType.GREEN -> Color(0xFF4DAB07)
         CardType.PURPLE -> Color(0xFF8B53AF)
+        CardType.ORANGE -> Color(0xFFFB8500)
         CardType.WHITE_GREEN -> Color(0xFFC5C5C5)
     }
 }
@@ -294,7 +297,7 @@ fun CardPreview() {
             title = "CONTINUE",
             description = "Keep learning every day!",
             cardType = CardType.WHITE_GREEN,
-            cardShape = CardShape.SMALL_RECTANGLE,
+            cardShape = CardShape.SQUARE,
             progress = null,
             complete = true,
             onClick = { /* do logic */ },
