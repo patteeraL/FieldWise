@@ -24,6 +24,7 @@ import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
@@ -38,7 +39,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
         ) {
             GoBackButton(onClick = { NavigateToUserName() })
             Spacer(modifier = Modifier.width(10.dp))
-            LinearProgress(target = 0.3f)
+            LinearProgress(target = 0.3f, progressType = ProgressType.LIGHT)
         }
 
         Column(modifier = modifier

@@ -23,7 +23,7 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
 enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, ORANGE, WHITE_GREEN }
-enum class CardShape { RECTANGLE, SQUARE, SMALL_RECTANGLE }
+enum class CardShape { SELECT_LESSON, QUIZ_RESUME, SELECT_EXERCISE, CHOICES_SQUARE, CHOICES_RECTANGLE, CHOICES_SMALL }
 
 @Composable
 fun Card(
@@ -32,44 +32,88 @@ fun Card(
     description: String?,
     cardType: CardType,
     cardShape: CardShape,
-    progress: Float?,
+    progress: Float? = 0f,
     complete: Boolean?,
     onClick: (() -> Unit)?,
     imageResId: Int?
 ) {
+    val actualProgress = progress ?: 0f
+    val backgroundColor = getColorForCardType(if (actualProgress == 1f && complete == true) CardType.YELLOW else cardType)
+    val shadowColor = getShadowColorForCardType(if (actualProgress == 1f && complete == true) CardType.YELLOW else cardType)
+    val textColor = getTextColorForCardType(if (actualProgress == 1f && complete == true) CardType.YELLOW else cardType)
 
-
-    val backgroundColor = getColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
-    val shadowColor = getShadowColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
-    val textColor = getTextColorForCardType(if (progress == 1f && complete == true) CardType.YELLOW else cardType)
-
-    if (cardShape == CardShape.RECTANGLE) {
-        LessonCardBase(
-            modifier = modifier
-                .width(369.dp)
-                .height(98.dp),
-            title = title ?: "Default Title",
-            description = description ?: "Default Description",
-            progress = progress ?: 0f,
-            complete = complete ?: false,
-            onClick = onClick ?: {},
-            backgroundColor = backgroundColor,
-            shadowColor = shadowColor,
-            textColor = textColor
-        )
-    } else if (cardShape == CardShape.SQUARE) {
-        Box(modifier = modifier) {
-            Box(
-                modifier = Modifier
-                    .size(160.dp)
-                    .offset(y = 10.dp)
-                    .background(color = shadowColor, shape = RoundedCornerShape(20.dp))
-            )
-            Button(
+    when (cardShape) {
+        CardShape.SELECT_LESSON -> {
+            CardBase(
+                modifier = modifier
+                    .width(369.dp)
+                    .height(98.dp),
+                title = title ?: "Default Title",
+                description = description ?: "Default Description",
+                progress = actualProgress,
+                cardShape = CardShape.SELECT_LESSON,
+                complete = complete ?: false,
                 onClick = onClick ?: {},
-                colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+                backgroundColor = backgroundColor,
+                shadowColor = shadowColor,
+                textColor = textColor
+            )
+        }
+        CardShape.QUIZ_RESUME -> {
+            CardBase(
+                modifier = modifier
+                    .width(326.dp)
+                    .height(45.dp),
+                title = title ?: "Default Title",
+                description = "",
+                progress = actualProgress,
+                cardShape = CardShape.QUIZ_RESUME,
+                complete = complete ?: false,
+                onClick = onClick ?: {},
+                backgroundColor = backgroundColor,
+                shadowColor = shadowColor,
+                textColor = textColor
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    imageResId?.let {
+                        Image(
+                            modifier = Modifier.size(35.dp),
+                            painter = painterResource(id = it),
+                            contentDescription = "Icon"
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = title ?: "Default Title",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontFamily = SeravekFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            color = textColor,
+                            letterSpacing = 0.25.sp
+                        ),
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
+        CardShape.CHOICES_SQUARE -> {
+            CardBase(
                 modifier = modifier.size(160.dp),
-                shape = RoundedCornerShape(20.dp)
+                title = title ?: "Default Title",
+                description = "",
+                progress = actualProgress,
+                cardShape = CardShape.CHOICES_SQUARE,
+                complete = complete ?: false,
+                onClick = onClick ?: {},
+                backgroundColor = backgroundColor,
+                shadowColor = shadowColor,
+                textColor = textColor
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -77,7 +121,11 @@ fun Card(
                     verticalArrangement = Arrangement.Center
                 ) {
                     imageResId?.let {
-                        Image(modifier = modifier.size(80.dp), painter = painterResource(id = it), contentDescription = "Icon")
+                        Image(
+                            modifier = Modifier.size(80.dp),
+                            painter = painterResource(id = it),
+                            contentDescription = "Icon"
+                        )
                     }
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
@@ -93,35 +141,33 @@ fun Card(
                 }
             }
         }
-    }
-    else if (cardShape == CardShape.SMALL_RECTANGLE) {
-        Box(modifier = modifier) {
-
-            Box(
-                modifier = Modifier
-                    .width(326.dp)
-                    .height(45.dp)
-                    .offset(y = 7.dp)
-                    .background(color = shadowColor, shape = RoundedCornerShape(15.dp))
-            )
-            Button(
+        CardShape.SELECT_EXERCISE -> {
+            Column(modifier = modifier.width(160.dp).height(200.dp)){
+                CardBase(
+                modifier = modifier.size(160.dp),
+                title = title ?: "Default Title",
+                description = "",
+                progress = actualProgress,
+                cardShape = CardShape.SELECT_EXERCISE,
+                complete = complete ?: false,
                 onClick = onClick ?: {},
-                colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-                modifier = modifier
-                    .width(326.dp)
-                    .height(45.dp),
-                shape = RoundedCornerShape(15.dp)
+                backgroundColor = backgroundColor,
+                shadowColor = shadowColor,
+                textColor = textColor
             ) {
-
-                Row(
+                Column(
                     modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-
-
-                    Spacer(modifier = Modifier.weight(1f)) // Space to push the text to the center
-
+                    imageResId?.let {
+                        Image(
+                            modifier = Modifier.size(80.dp),
+                            painter = painterResource(id = it),
+                            contentDescription = "Icon"
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = title ?: "Default Title",
                         style = TextStyle(
@@ -130,20 +176,31 @@ fun Card(
                             fontWeight = FontWeight.Bold,
                             color = textColor,
                             letterSpacing = 0.25.sp
-                        ),
-                        modifier = Modifier.align(Alignment.CenterVertically) // Center vertically
+                        )
                     )
 
-                    Spacer(modifier = Modifier.weight(1f)) // Space to maintain the center alignment
                 }
 
             }
-            Box(modifier = Modifier.width(326.dp).height(45.dp).padding(horizontal =20.dp, vertical =5.dp)){imageResId?.let {
-                Image(modifier = Modifier.size(35.dp),
-                    painter = painterResource(id = it),
-                    contentDescription = "Icon"
-                )
-            }}
+            Spacer(modifier = Modifier.height(25.dp))
+                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                    Box(modifier = Modifier.width(100.dp)) {
+                        LinearProgress(target = progress, progressType = ProgressType.DARK)
+                    }
+                    Text(
+                        text = "${(actualProgress * 100).toInt()}%",
+                        color = Color(0xFFFFD333),
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = SeravekFontFamily
+                        )
+                    )
+                }
+        }
+        }
+        else -> {
+            // Handle other shapes if needed
         }
     }
 }
@@ -184,48 +241,49 @@ fun getTextColorForCardType(cardType: CardType): Color {
 }
 
 @Composable
-fun LessonCardBase(
+fun CardBase(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
     progress: Float,
     complete: Boolean,
     onClick: () -> Unit,
+    cardShape: CardShape,
     backgroundColor: Color,
     shadowColor: Color,
-    textColor: Color
+    textColor: Color,
+    content: @Composable () -> Unit = {
+        CardContent(
+            title = title,
+            description = description,
+            progress = progress,
+            complete = complete,
+            textColor = textColor
+        )
+    }
 ) {
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
-                .width(369.dp)
-                .height(98.dp)
+                .fillMaxSize()
                 .offset(y = 10.dp)
-                .background(color = shadowColor, shape = RoundedCornerShape(20.dp))
+                .background(color = shadowColor, shape = if (cardShape == CardShape.QUIZ_RESUME) RoundedCornerShape(15.dp) else RoundedCornerShape(20.dp))
         )
         Button(
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-            modifier = Modifier
-                .width(369.dp)
-                .height(98.dp),
-            shape = RoundedCornerShape(20.dp)
+            modifier = Modifier.fillMaxSize(),
+            shape = if (cardShape == CardShape.QUIZ_RESUME) RoundedCornerShape(15.dp) else RoundedCornerShape(20.dp)
         ) {
             Column(modifier = modifier.fillMaxSize()) {
-                LessonCardContent(
-                    title = title,
-                    description = description,
-                    progress = progress,
-                    complete = complete,
-                    textColor = textColor
-                )
+                content()
             }
         }
     }
 }
 
 @Composable
-fun LessonCardContent(
+fun CardContent(
     title: String,
     description: String,
     progress: Float,
@@ -273,7 +331,7 @@ fun LessonCardContent(
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier.width(250.dp)) {
-                LinearProgress(progress)
+                LinearProgress(target = progress, progressType = ProgressType.LIGHT)
             }
             Spacer(Modifier.width(10.dp))
             Text(
@@ -297,8 +355,8 @@ fun CardPreview() {
             title = "CONTINUE",
             description = "Keep learning every day!",
             cardType = CardType.WHITE_GREEN,
-            cardShape = CardShape.SQUARE,
-            progress = null,
+            cardShape = CardShape.QUIZ_RESUME,
+            progress = 0.1f,
             complete = true,
             onClick = { /* do logic */ },
             imageResId = R.drawable.map // Replace with your icon resource

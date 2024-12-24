@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -15,17 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
 import com.example.fieldwise.ui.theme.FieldWiseTheme
-
+import com.example.fieldwise.ui.theme.InterFontFamily
 
 @Composable
 fun SaveChangesPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
@@ -37,18 +34,24 @@ fun SaveChangesPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
                 Icon(
                     imageVector = Icons.Rounded.CheckCircle,
                     contentDescription = "saving changes",
-                    tint = Color(0xFFFFB703),
-                    modifier = Modifier.size(50.dp)
+                    tint = Color(0xFF58CC02),
+                    modifier = Modifier.size(100.dp)
                 )
             },
             title = {
                 Text(
                     text = buildAnnotatedString {
-                        append("CHANGES SAVED SUCCESSFULLY")
+                        append("SUCCESS!")
                     },
-                    style = TextStyle(color = Color.Black), fontSize = 23.sp
-                )
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(color = Color.Black, fontSize = 23.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold))
             },
+            text = {Text(
+                text = buildAnnotatedString {
+                    append("Your settings have been saved")},
+                textAlign = TextAlign.Center,
+                style = TextStyle(color = Color.Black, fontSize = 18.sp, fontFamily = InterFontFamily)) }
+                ,
             confirmButton = {
                 Button(
                     onClick = {
@@ -62,7 +65,7 @@ fun SaveChangesPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
-                    Text("Continue", color = Color.White, fontSize = 16.sp) // White text on blue button
+                    Text("Continue", color = Color.White, fontSize = 16.sp,fontFamily = InterFontFamily, fontWeight = FontWeight.Bold) // White text on blue button
                 }
 
             }

@@ -5,31 +5,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Delete
-import androidx.compose.material.icons.rounded.Notifications
+import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
 import com.example.fieldwise.ui.theme.FieldWiseTheme
+import com.example.fieldwise.ui.theme.InterFontFamily
 
 
 @Composable
@@ -40,23 +35,31 @@ fun DeleteCoursePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
             onDismissRequest = onDismiss,
             icon = {
                 Icon(
-                    imageVector = Icons.Rounded.Delete,
-                    contentDescription = "Warning Delete Account",
+                    imageVector = Icons.Rounded.Warning,
+                    contentDescription = "Warning Delete Course",
                     tint = Color(0xFFFFB703),
-                    modifier = Modifier.size(50.dp)
+                    modifier = Modifier.size(100.dp)
                 )
             },
             title = {
                 Text(
                     text = buildAnnotatedString {
-                        append("Are you sure you want to ")
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("delete this course?")
-                        }
+                        append("Are you sure? ")
                     },
-                    style = TextStyle(color = Color.Black), fontSize = 23.sp
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(color = Color.Black, fontSize = 23.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold)
                 )
             },
+            text = {Text(
+                text = buildAnnotatedString {
+                    append("Do you relly want to ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("delete this course?")
+                    }
+                },
+                textAlign = TextAlign.Center,
+                style = TextStyle(color = Color.Black, fontSize = 18.sp, fontFamily = InterFontFamily)) }
+            ,
             confirmButton = {
                 Button(
                     onClick = {
@@ -66,11 +69,11 @@ fun DeleteCoursePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
                         .fillMaxWidth()
                         .height(56.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF00CCFF) // Blue button color
+                        containerColor = Color(0xFFFF2C2B) // Red button color
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
-                    Text("Yes", color = Color.White, fontSize = 16.sp) // White text on blue button
+                    Text("Delete", color = Color.White, fontSize = 16.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold) // White text on blue button
                 }
 
             },
@@ -83,11 +86,11 @@ fun DeleteCoursePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
                         .fillMaxWidth()
                         .height(56.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF999999) // Gray button color
+                        containerColor = Color(0xFFC5C5C5) // Gray button color
                     ),
                     shape = RoundedCornerShape(16.dp)
                 ) {
-                    Text("No", color = Color.White, fontSize = 16.sp) // White text on gray button
+                    Text("Cancel", color = Color.White, fontSize = 16.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold) // White text on gray button
                 }
             }
         )

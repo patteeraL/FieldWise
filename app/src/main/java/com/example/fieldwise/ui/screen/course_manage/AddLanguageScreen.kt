@@ -26,18 +26,19 @@ import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
 
 @Composable
 fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit, NavigateToDailyGoal:() -> Unit) {
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
-        R.drawable.computer, // Replace with your actual vector drawable resource
+        R.drawable.computer,
         R.drawable.map
     )
     val langOptions = listOf("Spanish", "Thai")
     val langIconResIds = listOf(
-        R.drawable.spanish_circle, // Replace with your actual vector drawable resource
+        R.drawable.spanish_circle,
         R.drawable.thai_circle
     )
     Column(modifier = modifier.fillMaxSize()
@@ -48,7 +49,7 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
         ) {
             GoBackButton(onClick = { NavigateToDailyGoal() })
             Spacer(modifier = Modifier.width(10.dp))
-            LinearProgress(target = 0.7f)
+            LinearProgress(target = 0.7f, progressType = ProgressType.LIGHT)
         }
 
         Column(modifier = modifier

@@ -39,7 +39,7 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                 title = title,
                 description = description,
                 cardType = cardType,
-                cardShape = CardShape.RECTANGLE,
+                cardShape = CardShape.SELECT_LESSON,
                 progress = progress,
                 complete = complete,
                 onClick = { expanded = true },
@@ -83,23 +83,23 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         title = "Review",
                                         description = null,
                                         cardType = CardType.WHITE_GREEN,
-                                        cardShape = CardShape.SMALL_RECTANGLE,
+                                        cardShape = CardShape.QUIZ_RESUME,
                                         progress = null,
                                         complete = null,
                                         onClick = { /* Go to quiz/review */ },
-                                        imageResId = R.drawable.quizicon // Replace with your icon resource
+                                        imageResId = R.drawable.quizicon
                                     )
 
-                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Spacer(modifier = Modifier.height(20.dp))
                                     Card(
                                         title = "Resume",
                                         description = null,
                                         cardType = CardType.YELLOW,
-                                        cardShape = CardShape.SMALL_RECTANGLE,
+                                        cardShape = CardShape.QUIZ_RESUME,
                                         progress = null,
                                         complete = null,
                                         onClick = { /* Go to Resume */ },
-                                        imageResId = R.drawable.playicon // Replace with your icon resource
+                                        imageResId = R.drawable.playicon
                                     )
                                 }
                             }

@@ -26,12 +26,12 @@ import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
 
 @Composable
-fun SelectLessonScreen(modifier: Modifier = Modifier) {
+fun SelectExerciseScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
             .fillMaxSize()
-            .padding(20.dp, 50.dp, 20.dp, 0.dp)
+            .padding(20.dp, 30.dp, 20.dp, 0.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -42,21 +42,21 @@ fun SelectLessonScreen(modifier: Modifier = Modifier) {
                 title = "Lesson 2",
                 description = "Consumer and Producer Behavior",
                 cardType = CardType.GREEN,
-                cardShape = CardShape.RECTANGLE,
+                cardShape = CardShape.SELECT_LESSON,
                 progress = null,
                 complete = false,
                 onClick = null,
                 imageResId = null
             )
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Row {
                 Column {
                     Card(
                         title = "Speaking",
                         description = null,
                         cardType = CardType.ORANGE,
-                        cardShape = CardShape.SQUARE,
-                        progress = null,
+                        cardShape = CardShape.SELECT_EXERCISE,
+                        progress = 0.5f,
                         complete = false,
                         onClick = { /* Go Speaking */ },
                         imageResId = R.drawable.speaking
@@ -67,21 +67,21 @@ fun SelectLessonScreen(modifier: Modifier = Modifier) {
                     title = "Listening",
                     description = null,
                     cardType = CardType.GREEN,
-                    cardShape = CardShape.SQUARE,
-                    progress = null,
+                    cardShape = CardShape.SELECT_EXERCISE,
+                    progress = 0.5f,
                     complete = false,
                     onClick = { /* Go Listening */ },
                     imageResId = R.drawable.listening
                 )
             }
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             Row {
                 Card(
                     title = "Vocabulary",
                     description = null,
                     cardType = CardType.PURPLE,
-                    cardShape = CardShape.SQUARE,
-                    progress = null,
+                    cardShape = CardShape.SELECT_EXERCISE,
+                    progress = 0.5f,
                     complete = false,
                     onClick = { /* Go Vocabulary */ },
                     imageResId = R.drawable.vocabulary
@@ -91,21 +91,21 @@ fun SelectLessonScreen(modifier: Modifier = Modifier) {
                     title = "Conversation",
                     description = null,
                     cardType = CardType.BLUE,
-                    cardShape = CardShape.SQUARE,
-                    progress = null,
+                    cardShape = CardShape.SELECT_EXERCISE,
+                    progress = 0.5f,
                     complete = false,
                     onClick = { /* Go Conversation */ },
                     imageResId = R.drawable.conversation
                 )
             }
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             QuizCardBase(
                 modifier = Modifier
                     .width(369.dp)
                     .height(98.dp),
                 title = "Final Test",
                 description = "The test will unlock automatically after each session is completed.",
-                complete = false,
+                complete = false, //true if the test is done
                 onClick = {/* Go to Quiz */}
             )
         }
@@ -255,8 +255,8 @@ fun QuizCardContent(
 
 @Preview(showBackground = true)
 @Composable
-fun SelectLessonScreenPreview() {
+fun SelectExerciseScreenPreview() {
     FieldWiseTheme {
-        SelectLessonScreen()
+        SelectExerciseScreen()
     }
 }
