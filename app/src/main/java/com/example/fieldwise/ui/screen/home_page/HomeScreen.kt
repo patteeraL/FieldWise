@@ -61,7 +61,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToLeader: () -> Unit,
                NavigateToAddCourse: () -> Unit,
                NavigateToAddLanguage: () -> Unit,
-               NavigateToProfile: () -> Unit) {
+               NavigateToProfile: () -> Unit,
+               NavigateToLessons: () -> Unit) {
 
     Box(
         modifier = modifier
@@ -88,9 +89,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true)}
+                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false)}
+                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons)}
 
 
             }
@@ -120,7 +121,8 @@ fun HomeScreenPreview() {
             NavigateToLeader = {},
             NavigateToAddCourse = {},
             NavigateToAddLanguage = {},
-            NavigateToProfile = {}
+            NavigateToProfile = {},
+            NavigateToLessons = {}
         )
     }
 }

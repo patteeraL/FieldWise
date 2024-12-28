@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +29,7 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean) {
+fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean, NavigateToLessons: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Column {
         Row {
@@ -98,7 +96,7 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         cardShape = CardShape.QUIZ_RESUME,
                                         progress = null,
                                         complete = null,
-                                        onClick = { /* Go to Resume */ },
+                                        onClick = { NavigateToLessons() },
                                         imageResId = R.drawable.playicon
                                     )
                                 }
@@ -115,6 +113,6 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
 @Composable
 fun LessonCardPreview() {
     FieldWiseTheme {
-        LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true)
+        LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = {})
     }
 }
