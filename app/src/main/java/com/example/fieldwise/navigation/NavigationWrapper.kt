@@ -12,12 +12,27 @@ import com.example.fieldwise.ui.screen.course_manage.AddFieldScreen
 import com.example.fieldwise.ui.screen.course_manage.AddLanguageScreen
 import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
+import com.example.fieldwise.ui.screen.lessons.ExerciseCompleteScreen
+import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
+import com.example.fieldwise.ui.screen.lessons.conversation.ConversationScreen1
+import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen1
+import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen2
+import com.example.fieldwise.ui.screen.lessons.speaking.SpeakingScreen1
+import com.example.fieldwise.ui.screen.lessons.vocabulary.VocabScreen1
+import com.example.fieldwise.ui.screen.lessons.vocabulary.VocabScreen2
 import com.example.fieldwise.ui.screen.profile_creation.CompleteScreen
 import com.example.fieldwise.ui.screen.profile_creation.CourseManageScreen
 import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
 import com.example.fieldwise.ui.screen.profile_creation.LoadingScreen
 import com.example.fieldwise.ui.screen.profile_creation.SetDailyGoalScreen
 import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
+import com.example.fieldwise.ui.screen.profile_preference.AddFriendScreen
+import com.example.fieldwise.ui.screen.profile_preference.ProfileScreen
+import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
+import com.example.fieldwise.ui.widget.CardType
+import com.example.fieldwise.ui.widget.FriendSearchCard
+import com.example.fieldwise.ui.widget.LessonCard
+import kotlin.random.Random
 
 // Define Routes as constants
 object Routes {
@@ -29,11 +44,23 @@ object Routes {
     const val Course = "course"
     const val Complete = "complete"
     const val Home = "home"
-    const val LeaderBoard = "leader board"
+    const val LeaderBoard = "leader_board/{type}"
     const val AddDailyGoal = "add_daily_goal/{type}"
     const val CourseManage = "course manage"
     const val AddField = "add field"
     const val AddLanguage = "add language"
+    const val ProfileScreen = "profile screen"
+    const val SettingScreen = "setting screen"
+    const val AddFriend = "add friend"
+    const val Lesson = "lesson"
+    const val SelectExercise = "select exercise"
+    const val SpeakingScreen = "speaking screen"
+    const val ListeningScreen1 = "listening screen 1"
+    const val ListeningScreen2 = "listening screen 2"
+    const val ConversationScreen = "conversation screen"
+    const val VocabularyScreen1 = "vocabulary screen 1"
+    const val VocabularyScreen2 = "vocabulary screen 2"
+    const val ExerciseComplete = "exercise complete"
 }
 
 @Composable
@@ -91,15 +118,24 @@ fun NavigationWrapper() {
 
         composable(Routes.Home) {
             HomeScreen(
-                NavigateToLeader = {navController.navigate(Routes.LeaderBoard)},
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},
                 NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}, //go the same screen but it depends on the button you have clicked
-                NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")} //here i define the value of "type"
-            )
+                NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")}, //here i define the value of "type"
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
+                NavigateToLessons = {navController.navigate(Routes.SelectExercise)}
+                )
         }
 
-        composable(Routes.LeaderBoard) {
-            LeaderBoardScreen{ navController.navigate(Routes.Home)
-            }
+        composable("${Routes.LeaderBoard}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
+            LeaderBoardScreen(
+                type = type,
+                NavigateBack = {
+                    if (type == "home") { navController.navigate(Routes.Home)
+                    } else if (type == "profile") { navController.navigate(Routes.ProfileScreen)}
+                    else if (type == "exercise") { navController.navigate(Routes.SelectExercise)}
+                }
+            )
         }
 
 
@@ -142,8 +178,99 @@ fun NavigationWrapper() {
             )
         }
 
+        composable(Routes.ProfileScreen) {
+            ProfileScreen(
+                NavigateToHome = {navController.navigate(Routes.Home)},
+                NavigateToSettings = {navController.navigate(Routes.SettingScreen)},
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/profile")},
+                NavigateToAddFriend = {navController.navigate(Routes.AddFriend)}
+            )
+        }
 
+        composable(Routes.SettingScreen) {
+            SettingScreen(
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
+                Restart = {navController.navigate(Routes.Splash)}
+            )
+        }
+
+        composable(Routes.AddFriend) {
+            AddFriendScreen(
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+            )
+        }
+
+        composable(Routes.Lesson) {
+            LessonCard(
+                NavigateToLessons = { navController.navigate(Routes.SelectExercise) },
+                title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true
+            )
+        }
+
+        composable(Routes.SelectExercise) {
+            SelectExerciseScreen(
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/exercise")},
+                NavigateToHome = {navController.navigate(Routes.Home)},
+                NavigateToListening = {navController.navigate(Routes.ListeningScreen1)},
+                NavigateToConversation = {navController.navigate(Routes.ConversationScreen)},
+                NavigateToSpeaking = {navController.navigate(Routes.SpeakingScreen)},
+                NavigateToVocabulary = {navController.navigate(Routes.VocabularyScreen1)}
+            )
+
+        }
+
+        composable(Routes.ListeningScreen1) {
+           ListeningScreen1 (
+               ExitLesson = {navController.navigate(Routes.SelectExercise)},
+               NextExercise = {navController.navigate(Routes.ListeningScreen2)}
+           )
+
+       }
+
+        composable(Routes.ListeningScreen2) {
+            ListeningScreen2(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.SpeakingScreen) {
+            SpeakingScreen1(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.ConversationScreen) {
+            ConversationScreen1(
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)},
+                ExitLesson = {navController.navigate(Routes.SelectExercise)}
+            )
+        }
+
+        composable(Routes.VocabularyScreen1) {
+            VocabScreen1(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                NextExercise = {navController.navigate(Routes.VocabularyScreen2)}
+
+            )
+        }
+
+        composable(Routes.VocabularyScreen2) {
+            VocabScreen2(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.ExerciseComplete) {
+            ExerciseCompleteScreen(
+                NavigateToLesson = {navController.navigate(Routes.SelectExercise)}
+            )
+
+        }
+        }
 
 
     }
-}
+

@@ -23,8 +23,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,12 +37,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
+import com.example.fieldwise.ui.widget.DeleteAccountPopUp
+import com.example.fieldwise.ui.widget.DeleteCoursePopUp
+import com.example.fieldwise.ui.widget.DeleteCoursePreview
 import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.SaveChangesPopUp
 
 @Composable
-fun SettingScreen(modifier: Modifier = Modifier) {
+fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit, Restart: () -> Unit)  {
 
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -52,7 +58,7 @@ fun SettingScreen(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
             ) {
                 Box {
-                    GoBackButton( onClick = { /* Navigate to */ })
+                    GoBackButton( onClick = { NavigateToProfile() })
                 }
                 Text(
                     text = "Setting",
@@ -74,7 +80,7 @@ fun SettingScreen(modifier: Modifier = Modifier) {
         HorizontalDivider(modifier = modifier.fillMaxWidth() ,thickness = 2.dp, color = Color(0xFFCCCCCC))
         Column(modifier = modifier
             .fillMaxSize()) {
-            DropDownDemo()
+            DropDownDemo(Restart = Restart)
         }
     }
 
@@ -82,8 +88,9 @@ fun SettingScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun DropDownDemo() {
-
+fun DropDownDemo(Restart: () -> Unit) {
+    var showDialog by remember { mutableStateOf(false) }
+    var dialogType by remember { mutableStateOf("") }
     val isDropDownExpanded = remember {
         mutableStateOf(false)
     }
@@ -153,12 +160,45 @@ fun DropDownDemo() {
 
         }
         Spacer(modifier = Modifier.height(40.dp))
-        MainButton(button = "SAVE CHANGES", onClick = {/* Do Something */}, mainButtonType = MainButtonType.BLUE)
-        Spacer(modifier = Modifier.height(25.dp))
-        MainButton(button = "DELETE COURSE", onClick = {/* Do Something */}, mainButtonType = MainButtonType.RED)
-        Spacer(modifier = Modifier.height(25.dp))
-        MainButton(button = "DELETE ACCOUNT", onClick = {/* Do Something */}, mainButtonType = MainButtonType.NOCOLOR)
+        MainButton(button = "SAVE CHANGES", onClick = {
+            dialogType = "SAVE_CHANGES"
+            showDialog = true
+        }, mainButtonType = MainButtonType.BLUE)
 
+        Spacer(modifier = Modifier.height(25.dp))
+
+        MainButton(button = "DELETE COURSE",
+            onClick = {dialogType = "DELETE_COURSE"
+            showDialog = true }, mainButtonType = MainButtonType.RED)
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        MainButton(button = "DELETE ACCOUNT",
+            onClick = {dialogType = "DELETE_ACCOUNT"
+                showDialog = true }, mainButtonType = MainButtonType.NOCOLOR)
+
+        if (showDialog) {
+            when (dialogType) { "DELETE_COURSE" -> {
+                DeleteCoursePopUp(
+                    showDialog = showDialog,
+                    onDismiss = { showDialog = false}
+                    )
+            } "DELETE_ACCOUNT" -> {
+                DeleteAccountPopUp(
+                    showDialog = showDialog,
+                    onDismiss = { showDialog = false},
+                    Restart = {Restart()}
+                )
+            } "SAVE_CHANGES" -> {
+                SaveChangesPopUp(
+                    showDialog = showDialog,
+                    onDismiss = {showDialog = false}
+                )
+            }
+            }
+
+
+        }
     }}
 
 
@@ -167,6 +207,9 @@ fun DropDownDemo() {
 @Composable
 fun SettingScreenPreview() {
     FieldWiseTheme {
-        SettingScreen()
+        SettingScreen(
+            NavigateToProfile = {},
+            Restart = {}
+        )
     }
 }

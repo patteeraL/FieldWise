@@ -41,3 +41,36 @@ object AddFieldScreen
 
 @Serializable
 object AddLanguageScreen
+
+@Serializable
+object ProfileScreen
+
+@Serializable
+object SettingScreen
+
+@Serializable
+object AddFriend
+
+@Serializable
+object SelectExerciseScreen
+
+@Serializable
+object ListeningScreen1
+
+@Serializable
+object ListeningScreen2
+
+@Serializable
+object SpeakingScreen
+
+@Serializable
+object ConversationScreen
+
+@Serializable
+object VocabularyScreen1
+
+@Serializable
+object VocabularyScreen2
+
+@Serializable
+object ExerciseComplete

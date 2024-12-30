@@ -13,6 +13,7 @@ kotlinSerialization = "1.7.0"
 firebaseBom = "33.7.0"
 googleServices = "4.4.2"
 firebaseDatabaseKtx = "21.0.0"
+tvMaterial = "1.0.0"
 firebaseStorage = "21.0.1"
 
 [libraries]
@@ -38,6 +39,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 [plugins]

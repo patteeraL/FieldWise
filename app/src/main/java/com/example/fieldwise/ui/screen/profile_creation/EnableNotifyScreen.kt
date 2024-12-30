@@ -43,6 +43,7 @@ import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.ProgressType
 
 @Composable
 fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Unit, NavigateToGoal: () -> Unit) {
@@ -61,7 +62,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
         ) {
             GoBackButton(onClick = { NavigateToGoal() })
             Spacer(modifier = Modifier.width(10.dp))
-            LinearProgress(target = 0.5f)
+            LinearProgress(target = 0.5f, progressType = ProgressType.LIGHT)
         }
 
         Column(modifier = modifier.fillMaxHeight()) {
@@ -111,8 +112,8 @@ fun NotificationPermissionHandler(showDialog: Boolean, onDismiss: () -> Unit) {
                 Icon(
                     imageVector = Icons.Rounded.Notifications, // Use Material Icons
                     contentDescription = "Notification",
-                    tint = Color(0xFFFFB703), // Optional: Adjust color if needed
-                    modifier = Modifier.size(50.dp) // Optional: Adjust size if needed
+                    tint = Color(0xFFFFB703),
+                    modifier = Modifier.size(50.dp)
                 )
             },
             title = {
@@ -124,14 +125,13 @@ fun NotificationPermissionHandler(showDialog: Boolean, onDismiss: () -> Unit) {
                         }
                         append(" to send you notifications?")
                     },
-                    style = TextStyle(color = Color.Black), fontSize = 23.sp // Optional: Change title color
+                    style = TextStyle(color = Color.Black), fontSize = 23.sp
                 )
             },
             confirmButton = {
                 Button(
                     onClick = {
                         onDismiss() // Dismiss the dialog
-                        // Add any additional logic for allowing notifications here
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -148,7 +148,7 @@ fun NotificationPermissionHandler(showDialog: Boolean, onDismiss: () -> Unit) {
                 Button(
                     onClick = {
                         onDismiss() // Dismiss the dialog
-                        // Add any additional logic for denying notifications here
+
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -181,8 +181,8 @@ fun Notify(onAllowClick: () -> Unit) {
         Icon(
             imageVector = Icons.Rounded.Notifications, // Use Material Icons
             contentDescription = "Notification",
-            tint = Color(0xFFFFB703), // Optional: Adjust color if needed
-            modifier = Modifier.size(50.dp) // Optional: Adjust size if needed
+            tint = Color(0xFFFFB703),
+            modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text( modifier = Modifier.padding(start = 20.dp, end = 20.dp),
@@ -193,7 +193,7 @@ fun Notify(onAllowClick: () -> Unit) {
                 }
                 append(" to send you notifications?")
             },
-            style = TextStyle(color = Color.Black), fontSize = 23.sp // Optional: Change title color
+            style = TextStyle(color = Color.Black), fontSize = 23.sp
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(

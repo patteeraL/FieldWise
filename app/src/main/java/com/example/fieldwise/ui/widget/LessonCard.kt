@@ -29,7 +29,7 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean) {
+fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean, NavigateToLessons: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Column {
         Row {
@@ -37,7 +37,7 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                 title = title,
                 description = description,
                 cardType = cardType,
-                cardShape = CardShape.RECTANGLE,
+                cardShape = CardShape.SELECT_LESSON,
                 progress = progress,
                 complete = complete,
                 onClick = { expanded = true },
@@ -50,7 +50,9 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                 Popup(
                     onDismissRequest = { expanded = false }) {
                     Box {
-                        Column(modifier = Modifier.fillMaxWidth().background(color = Color.Transparent), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
+                            .background(color = Color.Transparent), horizontalAlignment = Alignment.CenterHorizontally) {
                             Row(
                                 modifier = Modifier
                                     .width(355.dp)
@@ -74,23 +76,28 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                     verticalArrangement = Arrangement.Center
                                 ) {
-                                    MainButton(
-                                        modifier = Modifier
-                                            .width(326.dp)
-                                            .height(45.dp)
-                                            .offset(y = (-10).dp),
-                                        button = "Review",
-                                        onClick = { /* Go to Review */ },
-                                        mainButtonType = MainButtonType.WHITE_G
+
+                                    Card(
+                                        title = "Review",
+                                        description = null,
+                                        cardType = CardType.WHITE_GREEN,
+                                        cardShape = CardShape.QUIZ_RESUME,
+                                        progress = null,
+                                        complete = null,
+                                        onClick = { /* Go to quiz/review */ },
+                                        imageResId = R.drawable.quizicon
                                     )
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    MainButton(
-                                        modifier = Modifier
-                                            .width(326.dp)
-                                            .height(45.dp),
-                                        button = "Resume",
-                                        onClick = { /* Go to Review */ },
-                                        mainButtonType = MainButtonType.YELLOW
+
+                                    Spacer(modifier = Modifier.height(20.dp))
+                                    Card(
+                                        title = "Resume",
+                                        description = null,
+                                        cardType = CardType.YELLOW,
+                                        cardShape = CardShape.QUIZ_RESUME,
+                                        progress = null,
+                                        complete = null,
+                                        onClick = { NavigateToLessons() },
+                                        imageResId = R.drawable.playicon
                                     )
                                 }
                             }
@@ -106,6 +113,6 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
 @Composable
 fun LessonCardPreview() {
     FieldWiseTheme {
-        LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true)
+        LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = {})
     }
 }

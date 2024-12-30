@@ -34,6 +34,7 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.ProgressType
 
 @Composable
 fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
@@ -41,7 +42,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
         Spacer(modifier = Modifier.height(70.dp))
-        LinearProgress(target = 0.1f)
+        LinearProgress(target = 0.1f, progressType = ProgressType.LIGHT)
     }
     Column(
         modifier = modifier.fillMaxHeight()

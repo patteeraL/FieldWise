@@ -28,9 +28,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
+enum class ProgressType { LIGHT, DARK }
+
 @Composable
-fun LinearProgress(target: Float) {
-    var progress by remember { mutableStateOf(0f) }
+fun LinearProgress(modifier: Modifier = Modifier, target: Float?, progressType: ProgressType) {
+    var progress: Float by remember { mutableStateOf(0f) }
     val size by animateFloatAsState(
         targetValue = progress,
         tween(
@@ -39,6 +41,9 @@ fun LinearProgress(target: Float) {
             easing = LinearOutSlowInEasing
         )
     )
+
+    val linearbarcolor = if (progressType == ProgressType.LIGHT)  Color(0xFFE5E5E5) else Color(0xFF0687A7)
+    val progresscolor = if (progressType == ProgressType.LIGHT)  Color(0xFF58CC02) else Color(0xFFFFD333)
 
     Column() {
         Row(
@@ -60,7 +65,7 @@ fun LinearProgress(target: Float) {
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(9.dp))
-                    .background(Color(0xFFE5E5E5))
+                    .background(linearbarcolor)
             )
             //Progress
             Box(
@@ -68,13 +73,13 @@ fun LinearProgress(target: Float) {
                     .fillMaxWidth(size)
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(9.dp))
-                    .background(Color(0xFF58CC02))
+                    .background(progresscolor)
                     .animateContentSize()
             )
         }
     }
     LaunchedEffect(key1 = true) {
-        progress = target
+        progress = target ?: 0f
     }
 }
 
@@ -82,6 +87,6 @@ fun LinearProgress(target: Float) {
 @Composable
 fun LinearProgressPreview() {
     FieldWiseTheme {
-        LinearProgress(target = 0.1f)
+        LinearProgress(target = 0.4f, progressType = ProgressType.DARK)
     }
 }

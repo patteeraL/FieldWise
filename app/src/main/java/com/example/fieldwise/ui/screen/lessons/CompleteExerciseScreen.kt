@@ -1,6 +1,7 @@
-package com.example.fieldwise.ui.screen.profile_creation
+package com.example.fieldwise.ui.screen.lessons
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,10 +28,10 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
-fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
+fun ExerciseCompleteScreen(modifier: Modifier = Modifier, NavigateToLesson: () -> Unit) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize().background(Color(0xFF073748))
             .padding(20.dp, 50.dp, 20.dp, 0.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -56,33 +54,40 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
             ){
 
                 Image(
-                    painter = painterResource(id=R.drawable.checkicon_green),
+                    painter = painterResource(id=R.drawable.checkicon_blue),
                     contentDescription = "Check Icon Blue",
                     modifier = Modifier
                         .size(150.dp)
                 )
-                Spacer(modifier = Modifier.height(80.dp))
+                Spacer(modifier = Modifier.height(75.dp))
                 Text(
-                    text = "Set up is complete!",
-                    color = Color(0xFF4B4B4B),
+                    text = "Your exercise is complete",
+                    color = Color.White,
                     style = TextStyle(
-                        fontSize = 30.sp,
+                        fontSize = 25.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = InterFontFamily
                     )
                 )
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = "Ready to dive into some learning?",
-                    color = Color(0x804B4B4B),
+                    text = "Almost there !",
+                    color = Color(0x80FFFFFF),
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         fontFamily = InterFontFamily
                     )
                 )
+                Spacer(modifier = Modifier.height(5.dp))
+                Image(
+                    painter = painterResource(id=R.drawable.streak_inc),
+                    contentDescription = "Streak Increase by 1",
+                    modifier = Modifier
+                        .size(50.dp)
+                )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "I'M READY !", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.BLUE)
+                MainButton(button = "Return to Home ", onClick = { NavigateToLesson() }, mainButtonType = MainButtonType.GREEN)
 
             }}
 
@@ -93,9 +98,11 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun CompletePreview() {
+fun ExerciseCompletePreview() {
     FieldWiseTheme {
-        CompleteScreen{}
+        ExerciseCompleteScreen(
+            NavigateToLesson = {}
+        )
     }
 }
 
