@@ -53,3 +53,21 @@ object AddFriend
 
 @Serializable
 object SelectExerciseScreen
+
+@Serializable
+object ListeningScreen1
+
+@Serializable
+object ListeningScreen2
+
+@Serializable
+object SpeakingScreen
+
+@Serializable
+object ConversationScreen
+
+@Serializable
+object VocabularyScreen
+
+@Serializable
+object ExerciseComplete

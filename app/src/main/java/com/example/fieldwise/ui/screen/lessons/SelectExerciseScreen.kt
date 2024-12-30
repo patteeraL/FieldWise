@@ -26,7 +26,7 @@ import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
 
 @Composable
-fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit) {
+fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit) {
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -58,7 +58,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                         cardShape = CardShape.SELECT_EXERCISE,
                         progress = 0.5f,
                         complete = false,
-                        onClick = { /* Go Speaking */ },
+                        onClick = { NavigateToSpeaking() },
                         imageResId = R.drawable.speaking
                     )
                 }
@@ -70,7 +70,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     cardShape = CardShape.SELECT_EXERCISE,
                     progress = 0.5f,
                     complete = false,
-                    onClick = { /* Go Listening */ },
+                    onClick = { NavigateToListening() },
                     imageResId = R.drawable.listening
                 )
             }
@@ -83,7 +83,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     cardShape = CardShape.SELECT_EXERCISE,
                     progress = 0.5f,
                     complete = false,
-                    onClick = { /* Go Vocabulary */ },
+                    onClick = { NavigateToVocabulary() },
                     imageResId = R.drawable.vocabulary
                 )
                 Spacer(modifier = Modifier.width(25.dp))
@@ -94,7 +94,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     cardShape = CardShape.SELECT_EXERCISE,
                     progress = 0.5f,
                     complete = false,
-                    onClick = { /* Go Conversation */ },
+                    onClick = { NavigateToConversation() },
                     imageResId = R.drawable.conversation
                 )
             }
@@ -259,7 +259,11 @@ fun SelectExerciseScreenPreview() {
     FieldWiseTheme {
         SelectExerciseScreen(
             NavigateToLeader = {},
-            NavigateToHome = {}
+            NavigateToHome = {},
+            NavigateToListening = {},
+            NavigateToConversation = {},
+            NavigateToVocabulary = {},
+            NavigateToSpeaking = {}
         )
     }
 }

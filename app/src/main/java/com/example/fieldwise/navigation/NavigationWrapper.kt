@@ -12,7 +12,10 @@ import com.example.fieldwise.ui.screen.course_manage.AddFieldScreen
 import com.example.fieldwise.ui.screen.course_manage.AddLanguageScreen
 import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
+import com.example.fieldwise.ui.screen.lessons.ExerciseCompleteScreen
 import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
+import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen1
+import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen2
 import com.example.fieldwise.ui.screen.profile_creation.CompleteScreen
 import com.example.fieldwise.ui.screen.profile_creation.CourseManageScreen
 import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
@@ -25,6 +28,7 @@ import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.FriendSearchCard
 import com.example.fieldwise.ui.widget.LessonCard
+import kotlin.random.Random
 
 // Define Routes as constants
 object Routes {
@@ -46,6 +50,12 @@ object Routes {
     const val AddFriend = "add friend"
     const val Lesson = "lesson"
     const val SelectExercise = "select exercise"
+    const val SpeakingScreen = "speaking screen"
+    const val ListeningScreen1 = "listening screen 1"
+    const val ListeningScreen2 = "listening screen 2"
+    const val ConversationScreen = "conversation screen"
+    const val VocabularyScreen = "vocabulary screen"
+    const val ExerciseComplete = "exercise complete"
 }
 
 @Composable
@@ -195,11 +205,38 @@ fun NavigationWrapper() {
         composable(Routes.SelectExercise) {
             SelectExerciseScreen(
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/exercise")},
-                NavigateToHome = {navController.navigate(Routes.Home)}
+                NavigateToHome = {navController.navigate(Routes.Home)},
+                NavigateToListening = {navController.navigate(Routes.ListeningScreen1)},
+                NavigateToConversation = {},
+                NavigateToSpeaking = {},
+                NavigateToVocabulary = {}
             )
 
         }
 
+        composable(Routes.ListeningScreen1) {
+           ListeningScreen1 (
+               ExitLesson = {navController.navigate(Routes.SelectExercise)},
+               NextExercise = {navController.navigate(Routes.ListeningScreen2)}
+           )
+
+       }
+
+        composable(Routes.ListeningScreen2) {
+            ListeningScreen2(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.ExerciseComplete) {
+            ExerciseCompleteScreen(
+                NavigateToLesson = {navController.navigate(Routes.SelectExercise)}
+            )
+
+        }
+        }
+
 
     }
-}
+

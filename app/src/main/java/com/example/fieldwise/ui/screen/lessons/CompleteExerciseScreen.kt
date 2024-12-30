@@ -28,7 +28,7 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 
 @Composable
-fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
+fun ExerciseCompleteScreen(modifier: Modifier = Modifier, NavigateToLesson: () -> Unit) {
     Column(
         modifier = modifier
             .fillMaxSize().background(Color(0xFF073748))
@@ -87,7 +87,7 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
                         .size(50.dp)
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "Return to Home ", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.GREEN)
+                MainButton(button = "Return to Home ", onClick = { NavigateToLesson() }, mainButtonType = MainButtonType.GREEN)
 
             }}
 
@@ -98,9 +98,11 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun CompletePreview() {
+fun ExerciseCompletePreview() {
     FieldWiseTheme {
-        CompleteScreen{}
+        ExerciseCompleteScreen(
+            NavigateToLesson = {}
+        )
     }
 }
 

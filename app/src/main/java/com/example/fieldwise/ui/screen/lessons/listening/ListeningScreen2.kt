@@ -43,7 +43,7 @@ import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.ProgressType
 
 @Composable
-fun ListeningScreen2(modifier: Modifier = Modifier) {
+fun ListeningScreen2(modifier: Modifier = Modifier, ExitLesson: () -> Unit, ExerciseComplete: () -> Unit) {
 
     Column(modifier = modifier
         .fillMaxSize()
@@ -54,7 +54,7 @@ fun ListeningScreen2(modifier: Modifier = Modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            CloseButton(onClick = { })
+            CloseButton(onClick = { ExitLesson() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
         }
@@ -143,7 +143,7 @@ fun ListeningScreen2(modifier: Modifier = Modifier) {
                 }
             }
             Spacer(modifier = Modifier.height(130.dp))
-            MainButton(button = "CONTINUE", onClick = { }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { ExerciseComplete() }, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
             Discussion()
@@ -216,7 +216,10 @@ fun ChoiceCard(modifier: Modifier = Modifier, onClick: (() -> Unit)){
 @Composable
 fun ListeningScreen2Preview() {
     FieldWiseTheme {
-        ListeningScreen2()
+        ListeningScreen2(
+            ExitLesson = {},
+            ExerciseComplete = {}
+        )
     }
 }
 
