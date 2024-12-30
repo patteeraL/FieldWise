@@ -14,7 +14,7 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
-import com.example.fieldwise.ui.widget.QuizResumeDrop
+import com.example.fieldwise.ui.widget.LessonCard
 import com.example.fieldwise.ui.widget.ProfileIconButton
 import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
@@ -89,9 +89,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { QuizResumeDrop(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons)}
+                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { QuizResumeDrop(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons)}
+                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons)}
 
 
             }

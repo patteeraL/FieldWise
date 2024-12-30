@@ -29,7 +29,7 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun QuizResumeDrop(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean, NavigateToLessons: () -> Unit) {
+fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean, NavigateToLessons: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     Column {
         Row {
@@ -113,6 +113,6 @@ fun QuizResumeDrop(modifier: Modifier = Modifier, title: String, description: St
 @Composable
 fun LessonCardPreview() {
     FieldWiseTheme {
-        QuizResumeDrop(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = {})
+        LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = {})
     }
 }
