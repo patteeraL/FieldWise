@@ -51,3 +51,5 @@ object SettingScreen
 @Serializable
 object AddFriend
 
+@Serializable
+object SelectExerciseScreen

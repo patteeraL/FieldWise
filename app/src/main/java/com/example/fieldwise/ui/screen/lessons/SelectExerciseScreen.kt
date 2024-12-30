@@ -26,7 +26,7 @@ import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
 
 @Composable
-fun SelectExerciseScreen(modifier: Modifier = Modifier) {
+fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit) {
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -117,8 +117,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier) {
                 .padding(bottom = 50.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            HomeButton(onClick = { })
-            LeaderBoardButton(onClick = { /* NavigateToLeader */ })
+            HomeButton(onClick = { NavigateToHome() })
+            LeaderBoardButton(onClick = { NavigateToLeader() })
         }
     }
 }
@@ -257,6 +257,9 @@ fun QuizCardContent(
 @Composable
 fun SelectExerciseScreenPreview() {
     FieldWiseTheme {
-        SelectExerciseScreen()
+        SelectExerciseScreen(
+            NavigateToLeader = {},
+            NavigateToHome = {}
+        )
     }
 }

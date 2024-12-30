@@ -12,6 +12,7 @@ import com.example.fieldwise.ui.screen.course_manage.AddFieldScreen
 import com.example.fieldwise.ui.screen.course_manage.AddLanguageScreen
 import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
+import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
 import com.example.fieldwise.ui.screen.profile_creation.CompleteScreen
 import com.example.fieldwise.ui.screen.profile_creation.CourseManageScreen
 import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
@@ -21,7 +22,9 @@ import com.example.fieldwise.ui.screen.profile_creation.UsernameScreen
 import com.example.fieldwise.ui.screen.profile_preference.AddFriendScreen
 import com.example.fieldwise.ui.screen.profile_preference.ProfileScreen
 import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
+import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.FriendSearchCard
+import com.example.fieldwise.ui.widget.LessonCard
 
 // Define Routes as constants
 object Routes {
@@ -41,7 +44,8 @@ object Routes {
     const val ProfileScreen = "profile screen"
     const val SettingScreen = "setting screen"
     const val AddFriend = "add friend"
-
+    const val Lesson = "lesson"
+    const val SelectExercise = "select exercise"
 }
 
 @Composable
@@ -102,7 +106,8 @@ fun NavigationWrapper() {
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},
                 NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}, //go the same screen but it depends on the button you have clicked
                 NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")}, //here i define the value of "type"
-                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
+                NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
+                NavigateToLessons = {navController.navigate(Routes.SelectExercise)}
                 )
         }
 
@@ -113,6 +118,7 @@ fun NavigationWrapper() {
                 NavigateBack = {
                     if (type == "home") { navController.navigate(Routes.Home)
                     } else if (type == "profile") { navController.navigate(Routes.ProfileScreen)}
+                    else if (type == "exercise") { navController.navigate(Routes.SelectExercise)}
                 }
             )
         }
@@ -177,6 +183,21 @@ fun NavigationWrapper() {
             AddFriendScreen(
                 NavigateToProfile = {navController.navigate(Routes.ProfileScreen)}
             )
+        }
+
+        composable(Routes.Lesson) {
+            LessonCard(
+                NavigateToLessons = { navController.navigate(Routes.SelectExercise) },
+                title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true
+            )
+        }
+
+        composable(Routes.SelectExercise) {
+            SelectExerciseScreen(
+                NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/exercise")},
+                NavigateToHome = {navController.navigate(Routes.Home)}
+            )
+
         }
 
 
