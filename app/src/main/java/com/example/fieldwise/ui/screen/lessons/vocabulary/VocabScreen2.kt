@@ -35,7 +35,7 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
 
 @Composable
-fun VocabScreen2(modifier: Modifier = Modifier) {
+fun VocabScreen2(modifier: Modifier = Modifier, ExitLesson: () -> Unit, ExerciseComplete: () -> Unit) {
 
     Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
         .padding(start = 20.dp, end = 20.dp)) {
@@ -43,7 +43,7 @@ fun VocabScreen2(modifier: Modifier = Modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            CloseButton(onClick = { })
+            CloseButton(onClick = { ExitLesson()})
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
         }
@@ -102,7 +102,7 @@ fun VocabScreen2(modifier: Modifier = Modifier) {
 
             }
             Spacer(modifier = Modifier.height(100.dp))
-            MainButton(button = "CONTINUE", onClick = { }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { ExerciseComplete()}, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
         }
@@ -114,7 +114,10 @@ fun VocabScreen2(modifier: Modifier = Modifier) {
 @Composable
 fun VocabScreen2Preview() {
     FieldWiseTheme {
-        VocabScreen2()
+        VocabScreen2(
+            ExitLesson = {},
+            ExerciseComplete = {}
+        )
     }
 }
 

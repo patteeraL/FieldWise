@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.fieldwise.navigation.ExerciseComplete
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
@@ -35,7 +36,7 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
 
 @Composable
-fun SpeakingScreen1(modifier: Modifier = Modifier) {
+fun SpeakingScreen1(modifier: Modifier = Modifier, ExerciseComplete: () -> Unit, ExitLesson: () -> Unit) {
 
     Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
         .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
@@ -43,7 +44,7 @@ fun SpeakingScreen1(modifier: Modifier = Modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
         ) {
-            CloseButton(onClick = { })
+            CloseButton(onClick = { ExitLesson() })
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
         }
@@ -69,7 +70,7 @@ fun SpeakingScreen1(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(50.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){MicButton(onClick = {/* Open Mic */})}
             Spacer(modifier = Modifier.height(100.dp))
-            MainButton(button = "CONTINUE", onClick = { }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { ExerciseComplete() }, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
             Discussion()
@@ -82,7 +83,10 @@ fun SpeakingScreen1(modifier: Modifier = Modifier) {
 @Composable
 fun SpeakingScreen1Preview() {
     FieldWiseTheme {
-        SpeakingScreen1()
+        SpeakingScreen1(
+            ExitLesson = {},
+            ExerciseComplete = {}
+        )
     }
 }
 

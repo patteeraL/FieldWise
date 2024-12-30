@@ -34,7 +34,7 @@ data class Message(val text: String, val isUser: Boolean)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversationScreen1(modifier: Modifier = Modifier) {
+fun ConversationScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, ExerciseComplete: () -> Unit) {
     var text by remember { mutableStateOf("") }
     val messages = remember { mutableStateListOf(Message("Hi, how are you?", false)) }
 
@@ -49,7 +49,7 @@ fun ConversationScreen1(modifier: Modifier = Modifier) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CloseButton(onClick = { })
+            CloseButton(onClick = { ExitLesson()})
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
         }
@@ -193,7 +193,7 @@ fun ConversationScreen1(modifier: Modifier = Modifier) {
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
-        MainButton(button = "CONTINUE", onClick = { }, mainButtonType = MainButtonType.BLUE)
+        MainButton(button = "CONTINUE", onClick = { ExerciseComplete()}, mainButtonType = MainButtonType.BLUE)
         Spacer(modifier = Modifier.height(50.dp))
         HorizontalDivider(thickness = 2.dp, color = Color.White)
         Discussion()
@@ -204,6 +204,9 @@ fun ConversationScreen1(modifier: Modifier = Modifier) {
 @Composable
 fun ConversationScreen1Preview() {
     FieldWiseTheme {
-        ConversationScreen1()
+        ConversationScreen1(
+            ExitLesson = {},
+            ExerciseComplete = {}
+        )
     }
 }

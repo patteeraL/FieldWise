@@ -106,7 +106,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                 title = "Final Test",
                 description = "The test will unlock automatically after each session is completed.",
                 complete = false, //true if the test is done
-                onClick = {/* Go to Quiz */}
+                onClick = {/* Go to Quiz */} //IF FALSE POP UP "NEED TO COMPLETE", IF TRUE GO TO QUIZ
             )
         }
 

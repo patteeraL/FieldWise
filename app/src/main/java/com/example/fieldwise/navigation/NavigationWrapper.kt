@@ -14,8 +14,12 @@ import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
 import com.example.fieldwise.ui.screen.lessons.ExerciseCompleteScreen
 import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
+import com.example.fieldwise.ui.screen.lessons.conversation.ConversationScreen1
 import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen1
 import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen2
+import com.example.fieldwise.ui.screen.lessons.speaking.SpeakingScreen1
+import com.example.fieldwise.ui.screen.lessons.vocabulary.VocabScreen1
+import com.example.fieldwise.ui.screen.lessons.vocabulary.VocabScreen2
 import com.example.fieldwise.ui.screen.profile_creation.CompleteScreen
 import com.example.fieldwise.ui.screen.profile_creation.CourseManageScreen
 import com.example.fieldwise.ui.screen.profile_creation.EnableNotifyScreen
@@ -54,7 +58,8 @@ object Routes {
     const val ListeningScreen1 = "listening screen 1"
     const val ListeningScreen2 = "listening screen 2"
     const val ConversationScreen = "conversation screen"
-    const val VocabularyScreen = "vocabulary screen"
+    const val VocabularyScreen1 = "vocabulary screen 1"
+    const val VocabularyScreen2 = "vocabulary screen 2"
     const val ExerciseComplete = "exercise complete"
 }
 
@@ -207,9 +212,9 @@ fun NavigationWrapper() {
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/exercise")},
                 NavigateToHome = {navController.navigate(Routes.Home)},
                 NavigateToListening = {navController.navigate(Routes.ListeningScreen1)},
-                NavigateToConversation = {},
-                NavigateToSpeaking = {},
-                NavigateToVocabulary = {}
+                NavigateToConversation = {navController.navigate(Routes.ConversationScreen)},
+                NavigateToSpeaking = {navController.navigate(Routes.SpeakingScreen)},
+                NavigateToVocabulary = {navController.navigate(Routes.VocabularyScreen1)}
             )
 
         }
@@ -224,6 +229,35 @@ fun NavigationWrapper() {
 
         composable(Routes.ListeningScreen2) {
             ListeningScreen2(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.SpeakingScreen) {
+            SpeakingScreen1(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+            )
+        }
+
+        composable(Routes.ConversationScreen) {
+            ConversationScreen1(
+                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)},
+                ExitLesson = {navController.navigate(Routes.SelectExercise)}
+            )
+        }
+
+        composable(Routes.VocabularyScreen1) {
+            VocabScreen1(
+                ExitLesson = {navController.navigate(Routes.SelectExercise)},
+                NextExercise = {navController.navigate(Routes.VocabularyScreen2)}
+
+            )
+        }
+
+        composable(Routes.VocabularyScreen2) {
+            VocabScreen2(
                 ExitLesson = {navController.navigate(Routes.SelectExercise)},
                 ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
             )

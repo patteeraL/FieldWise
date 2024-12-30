@@ -67,7 +67,10 @@ object SpeakingScreen
 object ConversationScreen
 
 @Serializable
-object VocabularyScreen
+object VocabularyScreen1
+
+@Serializable
+object VocabularyScreen2
 
 @Serializable
 object ExerciseComplete
