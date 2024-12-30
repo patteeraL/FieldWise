@@ -22,8 +22,8 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
-enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, ORANGE, WHITE_GREEN }
-enum class CardShape { SELECT_LESSON, QUIZ_RESUME, SELECT_EXERCISE, CHOICES_SQUARE, CHOICES_RECTANGLE, CHOICES_SMALL }
+enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, ORANGE, WHITE_GREEN, WHITE }
+enum class CardShape { SELECT_LESSON, QUIZ_RESUME, SELECT_EXERCISE, CHOICES_SQUARE, CHOICES_RECTANGLE }
 
 @Composable
 fun Card(
@@ -126,8 +126,8 @@ fun Card(
                             painter = painterResource(id = it),
                             contentDescription = "Icon"
                         )
+                        Spacer(modifier = Modifier.height(20.dp))
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = title ?: "Default Title",
                         style = TextStyle(
@@ -142,7 +142,9 @@ fun Card(
             }
         }
         CardShape.SELECT_EXERCISE -> {
-            Column(modifier = modifier.width(160.dp).height(200.dp)){
+            Column(modifier = modifier
+                .width(160.dp)
+                .height(200.dp)){
                 CardBase(
                 modifier = modifier.size(160.dp),
                 title = title ?: "Default Title",
@@ -183,7 +185,9 @@ fun Card(
 
             }
             Spacer(modifier = Modifier.height(25.dp))
-                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                     Box(modifier = Modifier.width(100.dp)) {
                         LinearProgress(target = progress, progressType = ProgressType.DARK)
                     }
@@ -199,9 +203,43 @@ fun Card(
                 }
         }
         }
-        else -> {
-            // Handle other shapes if needed
+        CardShape.CHOICES_RECTANGLE -> {
+            CardBase(
+                modifier = modifier
+                    .width(326.dp)
+                    .height(60.dp),
+                title = title ?: "Default Title",
+                description = "",
+                progress = actualProgress,
+                cardShape = CardShape.CHOICES_RECTANGLE,
+                complete = complete ?: false,
+                onClick = onClick ?: {},
+                backgroundColor = backgroundColor,
+                shadowColor = shadowColor,
+                textColor = textColor
+            ) {
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = title ?: "Default Title",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            fontFamily = SeravekFontFamily,
+                            fontWeight = FontWeight.Medium,
+                            color = textColor,
+                            letterSpacing = 0.25.sp
+                        )
+                    )
+
+                }
+
+            }
         }
+        else -> {}
     }
 }
 
@@ -215,6 +253,7 @@ fun getColorForCardType(cardType: CardType): Color {
         CardType.PURPLE -> Color(0xFFCE82FF)
         CardType.ORANGE -> Color(0xFFFFB703)
         CardType.WHITE_GREEN -> Color(0xFFFFFFFF)
+        CardType.WHITE -> Color(0xFFFFFFFF)
     }
 }
 
@@ -228,6 +267,7 @@ fun getShadowColorForCardType(cardType: CardType): Color {
         CardType.PURPLE -> Color(0xFF8B53AF)
         CardType.ORANGE -> Color(0xFFFB8500)
         CardType.WHITE_GREEN -> Color(0xFFC5C5C5)
+        CardType.WHITE -> Color(0xFFC5C5C5)
     }
 }
 
@@ -236,6 +276,7 @@ fun getTextColorForCardType(cardType: CardType): Color {
     return when (cardType) {
         CardType.YELLOW -> Color(0xFF524102)
         CardType.WHITE_GREEN -> Color(0xFF58CC02)
+        CardType.WHITE -> Color.Black
         else -> Color.White
     }
 }
@@ -267,7 +308,12 @@ fun CardBase(
             modifier = Modifier
                 .fillMaxSize()
                 .offset(y = 10.dp)
-                .background(color = shadowColor, shape = if (cardShape == CardShape.QUIZ_RESUME) RoundedCornerShape(15.dp) else RoundedCornerShape(20.dp))
+                .background(
+                    color = shadowColor,
+                    shape = if (cardShape == CardShape.QUIZ_RESUME) RoundedCornerShape(15.dp) else RoundedCornerShape(
+                        20.dp
+                    )
+                )
         )
         Button(
             onClick = onClick,
@@ -354,12 +400,12 @@ fun CardPreview() {
         Card(
             title = "CONTINUE",
             description = "Keep learning every day!",
-            cardType = CardType.WHITE_GREEN,
-            cardShape = CardShape.QUIZ_RESUME,
+            cardType = CardType.WHITE,
+            cardShape = CardShape.CHOICES_SQUARE,
             progress = 0.1f,
             complete = true,
             onClick = { /* do logic */ },
-            imageResId = R.drawable.map // Replace with your icon resource
+            imageResId = null // Replace with your icon resource
         )
     }
 }

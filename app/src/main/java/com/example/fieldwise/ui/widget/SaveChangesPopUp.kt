@@ -1,19 +1,18 @@
 package com.example.fieldwise.ui.widget
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 
@@ -31,11 +31,11 @@ fun SaveChangesPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
         AlertDialog(
             onDismissRequest = onDismiss,
             icon = {
-                Icon(
-                    imageVector = Icons.Rounded.CheckCircle,
-                    contentDescription = "saving changes",
-                    tint = Color(0xFF58CC02),
-                    modifier = Modifier.size(100.dp)
+                Image(
+                    painter = painterResource(id=R.drawable.checkicon_green),
+                    contentDescription = "Check Icon Green",
+                    modifier = Modifier
+                        .size(100.dp)
                 )
             },
             title = {
