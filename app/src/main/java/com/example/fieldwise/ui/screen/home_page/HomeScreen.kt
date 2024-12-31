@@ -63,7 +63,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToAddLanguage: () -> Unit,
                NavigateToProfile: () -> Unit,
                NavigateToLessons: () -> Unit) {
-
+    val dataTemp = getCourseList()
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))

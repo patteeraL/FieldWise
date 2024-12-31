@@ -46,7 +46,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                 progress = null,
                 complete = false,
                 onClick = null,
-                imageResId = null
+                imageResId = null,
+                imageUri = null
             )
             Spacer(modifier = Modifier.height(30.dp))
             Row {
@@ -59,7 +60,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                         progress = 0.5f,
                         complete = false,
                         onClick = { NavigateToSpeaking() },
-                        imageResId = R.drawable.speaking
+                        imageResId = R.drawable.speaking,
+                        imageUri = null
                     )
                 }
                 Spacer(modifier = Modifier.width(25.dp))
@@ -71,7 +73,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     progress = 0.5f,
                     complete = false,
                     onClick = { NavigateToListening() },
-                    imageResId = R.drawable.listening
+                    imageResId = R.drawable.listening,
+                    imageUri = null
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))
@@ -84,7 +87,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     progress = 0.5f,
                     complete = false,
                     onClick = { NavigateToVocabulary() },
-                    imageResId = R.drawable.vocabulary
+                    imageResId = R.drawable.vocabulary,
+                    imageUri = null
                 )
                 Spacer(modifier = Modifier.width(25.dp))
                 Card(
@@ -95,7 +99,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     progress = 0.5f,
                     complete = false,
                     onClick = { NavigateToConversation() },
-                    imageResId = R.drawable.conversation
+                    imageResId = R.drawable.conversation,
+                    imageUri = null
                 )
             }
             Spacer(modifier = Modifier.height(30.dp))

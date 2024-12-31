@@ -75,7 +75,8 @@ fun VocabScreen2(modifier: Modifier = Modifier, ExitLesson: () -> Unit, Exercise
                     progress = null,
                     complete = null,
                     onClick = { /* do logic */ },
-                    imageResId = R.drawable.map
+                    imageResId = R.drawable.map,
+                    imageUri = null
                 )
                 Spacer(modifier = Modifier.height(40.dp))
                 Card(
@@ -86,7 +87,8 @@ fun VocabScreen2(modifier: Modifier = Modifier, ExitLesson: () -> Unit, Exercise
                     progress = null,
                     complete = null,
                     onClick = { /* do logic */ },
-                    imageResId = R.drawable.map
+                    imageResId = R.drawable.map,
+                    imageUri = null
                 )
                 Spacer(modifier = Modifier.height(40.dp))
                 Card(
@@ -97,7 +99,8 @@ fun VocabScreen2(modifier: Modifier = Modifier, ExitLesson: () -> Unit, Exercise
                     progress = null,
                     complete = null,
                     onClick = { /* do logic */ },
-                    imageResId = R.drawable.map
+                    imageResId = R.drawable.map,
+                    imageUri = null
                 )
 
             }

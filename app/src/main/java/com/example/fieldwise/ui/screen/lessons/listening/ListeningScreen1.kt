@@ -102,7 +102,8 @@ fun ReusableCard(modifier: Modifier = Modifier) {
         progress = null,
         complete = null,
         onClick = { /* do logic */ },
-        imageResId = null
+        imageResId = null,
+        imageUri = null
     )
 }
 

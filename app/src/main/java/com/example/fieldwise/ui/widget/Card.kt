@@ -1,5 +1,7 @@
 package com.example.fieldwise.ui.widget
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
@@ -35,7 +38,8 @@ fun Card(
     progress: Float? = 0f,
     complete: Boolean?,
     onClick: (() -> Unit)?,
-    imageResId: Int?
+    imageResId: Int?,
+    imageUri: Uri?
 ) {
     val actualProgress = progress ?: 0f
     val backgroundColor = getColorForCardType(if (actualProgress == 1f && complete == true) CardType.YELLOW else cardType)
@@ -124,6 +128,15 @@ fun Card(
                         Image(
                             modifier = Modifier.size(80.dp),
                             painter = painterResource(id = it),
+                            contentDescription = "Icon"
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+                    imageUri?.let { uri ->
+                        Log.d("FirebaseURI", "URI: $uri")
+                        Image(
+                            modifier = Modifier.size(80.dp),
+                            painter = rememberAsyncImagePainter(model = uri),
                             contentDescription = "Icon"
                         )
                         Spacer(modifier = Modifier.height(20.dp))
@@ -405,6 +418,7 @@ fun CardPreview() {
             progress = 0.1f,
             complete = true,
             onClick = { /* do logic */ },
+            imageUri = null,
             imageResId = null // Replace with your icon resource
         )
     }

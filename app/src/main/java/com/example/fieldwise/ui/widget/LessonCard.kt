@@ -41,7 +41,8 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                 progress = progress,
                 complete = complete,
                 onClick = { expanded = true },
-                imageResId = null
+                imageResId = null,
+                imageUri = null
             )
         }
 
@@ -85,7 +86,8 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         progress = null,
                                         complete = null,
                                         onClick = { /* Go to quiz/review */ },
-                                        imageResId = R.drawable.quizicon
+                                        imageResId = R.drawable.quizicon,
+                                        imageUri = null
                                     )
 
                                     Spacer(modifier = Modifier.height(20.dp))
@@ -97,7 +99,8 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         progress = null,
                                         complete = null,
                                         onClick = { NavigateToLessons() },
-                                        imageResId = R.drawable.playicon
+                                        imageResId = R.drawable.playicon,
+                                        imageUri = null
                                     )
                                 }
                             }
