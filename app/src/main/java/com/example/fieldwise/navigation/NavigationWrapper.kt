@@ -30,9 +30,7 @@ import com.example.fieldwise.ui.screen.profile_preference.AddFriendScreen
 import com.example.fieldwise.ui.screen.profile_preference.ProfileScreen
 import com.example.fieldwise.ui.screen.profile_preference.SettingScreen
 import com.example.fieldwise.ui.widget.CardType
-import com.example.fieldwise.ui.widget.FriendSearchCard
 import com.example.fieldwise.ui.widget.LessonCard
-import kotlin.random.Random
 
 // Define Routes as constants
 object Routes {
@@ -122,7 +120,8 @@ fun NavigationWrapper() {
                 NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}, //go the same screen but it depends on the button you have clicked
                 NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")}, //here i define the value of "type"
                 NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
-                NavigateToLessons = {navController.navigate(Routes.SelectExercise)}
+                NavigateToLessons = {navController.navigate(Routes.SelectExercise)},
+                NavigateToQuiz = {navController.navigate("${Routes.ListeningScreen1}/quiz")}
                 )
         }
 
@@ -203,6 +202,7 @@ fun NavigationWrapper() {
         composable(Routes.Lesson) {
             LessonCard(
                 NavigateToLessons = { navController.navigate(Routes.SelectExercise) },
+                NavigateToQuiz = {navController.navigate("${Routes.ListeningScreen1}/quiz")},
                 title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true
             )
         }
@@ -211,64 +211,115 @@ fun NavigationWrapper() {
             SelectExerciseScreen(
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/exercise")},
                 NavigateToHome = {navController.navigate(Routes.Home)},
-                NavigateToListening = {navController.navigate(Routes.ListeningScreen1)},
-                NavigateToConversation = {navController.navigate(Routes.ConversationScreen)},
-                NavigateToSpeaking = {navController.navigate(Routes.SpeakingScreen)},
-                NavigateToVocabulary = {navController.navigate(Routes.VocabularyScreen1)}
+                NavigateToListening = {navController.navigate("${Routes.ListeningScreen1}/exercise")},
+                NavigateToConversation = {navController.navigate("${Routes.ConversationScreen}/exercise")},
+                NavigateToSpeaking = {navController.navigate("${Routes.SpeakingScreen}/exercise")},
+                NavigateToVocabulary = {navController.navigate("${Routes.VocabularyScreen1}/exercise")},
+                OpenTest = {navController.navigate("${Routes.ListeningScreen1}/quiz")}
+
             )
 
         }
 
-        composable(Routes.ListeningScreen1) {
+        composable("${Routes.ListeningScreen1}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
            ListeningScreen1 (
-               ExitLesson = {navController.navigate(Routes.SelectExercise)},
-               NextExercise = {navController.navigate(Routes.ListeningScreen2)}
+               type = type,
+               NextExercise = {
+                   if (type == "exercise") {navController.navigate("${Routes.ListeningScreen2}/exercise")}
+                   else if (type == "quiz") {navController.navigate("${Routes.ListeningScreen2}/quiz")}
+               },
+               ExitLesson = {
+                   if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                else if (type == "quiz") {navController.navigate(Routes.Home)}}
            )
 
        }
 
-        composable(Routes.ListeningScreen2) {
+        composable("${Routes.ListeningScreen2}/{type}") { backStackEntry ->
+        var type = backStackEntry.arguments?.getString("type")
             ListeningScreen2(
-                ExitLesson = {navController.navigate(Routes.SelectExercise)},
-                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+                type = type,
+                NextExercise = {
+                    if (type == "exercise") {navController.navigate("${Routes.ExerciseComplete}/exercise")}
+                    else if (type == "quiz") {navController.navigate("${Routes.SpeakingScreen}/quiz")}
+                },
+                ExitLesson = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}}
             )
         }
 
-        composable(Routes.SpeakingScreen) {
+        composable("${Routes.SpeakingScreen}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
             SpeakingScreen1(
-                ExitLesson = {navController.navigate(Routes.SelectExercise)},
-                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+                type = type,
+                NextExercise = {
+                    if (type == "exercise") {navController.navigate("${Routes.ExerciseComplete}/exercise")}
+                    else if (type == "quiz") {navController.navigate("${Routes.ConversationScreen}/quiz")}},
+                ExitLesson = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}}
             )
         }
 
-        composable(Routes.ConversationScreen) {
+        composable("${Routes.ConversationScreen}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
             ConversationScreen1(
-                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)},
-                ExitLesson = {navController.navigate(Routes.SelectExercise)}
+                type = type,
+                NextExercise = {
+                    if (type == "exercise") {navController.navigate("${Routes.ExerciseComplete}/exercise")}
+                    else if (type == "quiz") {navController.navigate("${Routes.VocabularyScreen1}/quiz")}
+                },
+                ExitLesson = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}}
             )
         }
 
-        composable(Routes.VocabularyScreen1) {
+        composable("${Routes.VocabularyScreen1}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
             VocabScreen1(
-                ExitLesson = {navController.navigate(Routes.SelectExercise)},
-                NextExercise = {navController.navigate(Routes.VocabularyScreen2)}
+                type = type,
+                NextExercise = {
+                    if (type == "exercise") {navController.navigate("${Routes.VocabularyScreen2}/exercise")}
+                    else if (type == "quiz") {navController.navigate("${Routes.VocabularyScreen2}/quiz")}
+                },
+                ExitLesson = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}}
 
             )
         }
 
-        composable(Routes.VocabularyScreen2) {
+        composable("${Routes.VocabularyScreen2}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
             VocabScreen2(
-                ExitLesson = {navController.navigate(Routes.SelectExercise)},
-                ExerciseComplete = {navController.navigate(Routes.ExerciseComplete)}
+                type = type,
+                NextExercise = {
+                    if (type == "exercise") {navController.navigate("${Routes.ExerciseComplete}/exercise")}
+                    else if (type == "quiz") {navController.navigate("${Routes.ExerciseComplete}/quiz")}
+                },
+                ExitLesson = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}}
             )
         }
 
-        composable(Routes.ExerciseComplete) {
+        composable("${Routes.ExerciseComplete}/{type}") { backStackEntry ->
+            var type = backStackEntry.arguments?.getString("type")
             ExerciseCompleteScreen(
-                NavigateToLesson = {navController.navigate(Routes.SelectExercise)}
+                type = type ?: "default",
+                Finish = {
+                    if (type == "exercise") {navController.navigate(Routes.SelectExercise)}
+                    else if (type == "quiz") {navController.navigate(Routes.Home)}
+                }
+
             )
 
         }
+
+
         }
 
 

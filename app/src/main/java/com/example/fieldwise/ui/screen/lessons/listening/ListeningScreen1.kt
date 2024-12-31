@@ -40,7 +40,12 @@ import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.ProgressType
 
 @Composable
-fun ListeningScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExercise: () -> Unit) {
+fun ListeningScreen1(
+    modifier: Modifier = Modifier,
+    ExitLesson: () -> Unit,
+    NextExercise: () -> Unit,
+    type: String?
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -145,7 +150,8 @@ fun ListeningScreen1Preview() {
     FieldWiseTheme {
         ListeningScreen1(
             ExitLesson = {},
-            NextExercise = {}
+            NextExercise = {},
+            type = ""
         )
     }
 }

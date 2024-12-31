@@ -52,7 +52,7 @@ fun getCourseList(): List<CourseFormat> {
     }
     return courseList.value
 }
-// Get list of data by "val LISTOFDATA = getCourseList()"
+// Get list of data by "val LISTOFDATA = getUserData()"
 // Data will be in the format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
 // You can access the data for example -- LISTOFDATA[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
 
@@ -62,8 +62,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToAddCourse: () -> Unit,
                NavigateToAddLanguage: () -> Unit,
                NavigateToProfile: () -> Unit,
-               NavigateToLessons: () -> Unit) {
-    val dataTemp = getCourseList()
+               NavigateToLessons: () -> Unit,
+               NavigateToQuiz: () -> Unit) {
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -89,9 +90,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons)}
+                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons)}
+                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
 
 
             }
@@ -122,7 +123,8 @@ fun HomeScreenPreview() {
             NavigateToAddCourse = {},
             NavigateToAddLanguage = {},
             NavigateToProfile = {},
-            NavigateToLessons = {}
+            NavigateToLessons = {},
+            NavigateToQuiz = {}
         )
     }
 }

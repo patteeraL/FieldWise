@@ -3,6 +3,7 @@ package com.example.fieldwise.ui.screen.lessons.vocabulary
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
+import Discussion
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -133,7 +136,12 @@ fun Vocab1MP3Storage(Location: String, fileName: String): Uri? {
 }
 
 @Composable
-fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExercise: () -> Unit) {
+fun VocabScreen1(
+    modifier: Modifier = Modifier,
+    ExitLesson: () -> Unit,
+    NextExercise: () -> Unit,
+    type: String?
+) {
     //FOR EACH VOCAB EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
     val Language = "English"
     val Course = "CS"
@@ -184,7 +192,7 @@ fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExer
 
     var AnswerResultStatus = false
     Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
-        .padding(start = 20.dp, end = 20.dp)) {
+        .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
         Spacer(modifier = Modifier.height(70.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
@@ -296,6 +304,7 @@ fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExer
                 NextExercise() }, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
+            Discussion()
         }
     }
 
@@ -306,8 +315,9 @@ fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExer
 fun VocabScreen1Preview() {
     FieldWiseTheme {
         VocabScreen1(
+            ExitLesson = {},
             NextExercise = {},
-            ExitLesson = {}
+            type = ""
         )
     }
 }

@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,9 +28,13 @@ import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
+import com.example.fieldwise.ui.widget.TestNotavailablePopUp
 
 @Composable
-fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit) {
+fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit, OpenTest: () -> Unit) {
+   var showDialog by remember { mutableStateOf(false) }
+    val complete = false
+
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -110,9 +118,23 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     .height(98.dp),
                 title = "Final Test",
                 description = "The test will unlock automatically after each session is completed.",
-                complete = false, //true if the test is done
-                onClick = {/* Go to Quiz */} //IF FALSE POP UP "NEED TO COMPLETE", IF TRUE GO TO QUIZ
+                complete = complete, //true if the test is done
+                onClick = {
+                    if (complete) {
+                        OpenTest()
+                    } else {
+                        showDialog = true
+                    }
+                } //IF FALSE POP UP "NEED TO COMPLETE", IF TRUE GO TO QUIZ
             )
+        }
+
+        if (showDialog) {
+            TestNotavailablePopUp(
+                showDialog = showDialog,
+                onDismiss = {showDialog = false}
+            )
+
         }
 
         Row(
@@ -268,7 +290,8 @@ fun SelectExerciseScreenPreview() {
             NavigateToListening = {},
             NavigateToConversation = {},
             NavigateToVocabulary = {},
-            NavigateToSpeaking = {}
+            NavigateToSpeaking = {},
+            OpenTest = {}
         )
     }
 }
