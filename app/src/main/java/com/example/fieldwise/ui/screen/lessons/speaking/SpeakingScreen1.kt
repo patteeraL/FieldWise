@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fieldwise.navigation.ExerciseComplete
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
@@ -36,7 +35,12 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
 
 @Composable
-fun SpeakingScreen1(modifier: Modifier = Modifier, ExerciseComplete: () -> Unit, ExitLesson: () -> Unit) {
+fun SpeakingScreen1(
+    modifier: Modifier = Modifier,
+    NextExercise: () -> Unit,
+    ExitLesson: () -> Unit,
+    type: String?
+) {
 
     Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
         .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
@@ -70,7 +74,7 @@ fun SpeakingScreen1(modifier: Modifier = Modifier, ExerciseComplete: () -> Unit,
             Spacer(modifier = Modifier.height(50.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){MicButton(onClick = {/* Open Mic */})}
             Spacer(modifier = Modifier.height(100.dp))
-            MainButton(button = "CONTINUE", onClick = { ExerciseComplete() }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { NextExercise() }, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
             Discussion()
@@ -84,8 +88,9 @@ fun SpeakingScreen1(modifier: Modifier = Modifier, ExerciseComplete: () -> Unit,
 fun SpeakingScreen1Preview() {
     FieldWiseTheme {
         SpeakingScreen1(
+            NextExercise = {},
             ExitLesson = {},
-            ExerciseComplete = {}
+            type = ""
         )
     }
 }

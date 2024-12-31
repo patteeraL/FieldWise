@@ -35,7 +35,12 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
 
 @Composable
-fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExercise: () -> Unit) {
+fun VocabScreen1(
+    modifier: Modifier = Modifier,
+    ExitLesson: () -> Unit,
+    NextExercise: () -> Unit,
+    type: String?
+) {
 
     Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
         .padding(start = 20.dp, end = 20.dp)) {
@@ -130,8 +135,9 @@ fun VocabScreen1(modifier: Modifier = Modifier, ExitLesson: () -> Unit, NextExer
 fun VocabScreen1Preview() {
     FieldWiseTheme {
         VocabScreen1(
+            ExitLesson = {},
             NextExercise = {},
-            ExitLesson = {}
+            type = ""
         )
     }
 }
