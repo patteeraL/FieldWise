@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -45,11 +46,10 @@ import com.example.fieldwise.ui.theme.SeravekFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Discussion(modifier: Modifier = Modifier) {
+fun Discussion(modifier: Modifier = Modifier, comments: List<String>) {
     var isExpanded by remember { mutableStateOf(false) }
     var comment by remember { mutableStateOf("") }
-    var comments by remember { mutableStateOf(listOf<String>()) }
-
+    var commentsList by remember { mutableStateOf(comments) }
     Column(modifier = Modifier.fillMaxWidth()) {
         // Header Section
         Box(
@@ -143,8 +143,9 @@ fun Discussion(modifier: Modifier = Modifier) {
                 Button(
                     onClick = {
                         if (comment.isNotBlank()) {
-                            comments = comments + comment
+                            commentsList = commentsList + comment
                             comment = ""
+                            Log.d("MARKER","${commentsList}")
                         }
                     },
                     shape = RoundedCornerShape(10.dp),
@@ -211,7 +212,7 @@ fun Discussion(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(20.dp))
 
             // Displaying the list of comments
-            comments.forEachIndexed { index, comment ->
+            commentsList.forEachIndexed { index, comment ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -253,6 +254,6 @@ fun Discussion(modifier: Modifier = Modifier) {
 @Composable
 fun DiscussionPreview() {
     FieldWiseTheme {
-        Discussion()
+        Discussion(comments = listOf("Hi", "HI", "HI"))
     }
 }

@@ -1,9 +1,9 @@
 package com.example.fieldwise.ui.screen.lessons.vocabulary
 
+import Discussion
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
-import Discussion
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,9 +21,12 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.Card
@@ -44,36 +46,47 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
-import kotlin.random.Random
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
-
+import kotlin.random.Random
 
 // back-end
 data class Vocab1ItemAnswer(val name: String, val correctAnswer: Boolean, val text: String, val pic: String)
 data class Vocab1ItemQuestion(val name: String, val text: String, val sound: String)
-data class QuestionAnswerData(val status: Boolean, val question: List<Vocab1ItemQuestion>, val answer: List<Vocab1ItemAnswer>)
-data class UriInfo(val Uri: Uri, val name: String, val status: Boolean)
+data class QuestionAnswerDataVocab1(val status: Boolean, val question: List<Vocab1ItemQuestion>, val answer: List<Vocab1ItemAnswer>, val comments: List<String>)
+data class UriInfoVocab1(val uri: Uri, val name: String, val status: Boolean)
 
 @Composable
-fun getDataVocab1(Language: String, Course: String, Lesson: String, Question: String):List<QuestionAnswerData> {
+fun getDataVocab1(language: String, course: String, lesson: String, question: String):List<QuestionAnswerDataVocab1> {
     val database = Firebase.database
     val courseListRef = database.reference.child("Exercises")
-    val Answerdata = remember { mutableStateListOf<Vocab1ItemAnswer>() }
-    val Questiondata = remember { mutableStateListOf<Vocab1ItemQuestion>() }
+    val answerData = remember { mutableStateListOf<Vocab1ItemAnswer>() }
+    val questionData = remember { mutableStateListOf<Vocab1ItemQuestion>() }
+    val commentsData = remember { mutableStateListOf<String>() }
     val dataStatus = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         courseListRef.get().addOnSuccessListener { dataSnapshot ->
             val questionPath =
-                dataSnapshot.child(Language).child(Course).child(Lesson).child("Vocabulary")
-                    .child("Type2").child(Question)
+                dataSnapshot.child(language).child(course).child(lesson).child("Vocabulary")
+                    .child("Type2").child(question)
             val questionText =
                 questionPath.child("Question").child("Text").getValue(String::class.java) ?: ""
             val questionSound =
                 questionPath.child("Question").child("Sound").getValue(String::class.java) ?: ""
-            Questiondata.add(Vocab1ItemQuestion("Question", questionText, questionSound))
+            questionData.add(Vocab1ItemQuestion("Question", questionText, questionSound))
+
+            val commentsSnapshot = questionPath.child("Comments")
+            commentsSnapshot.children.forEach { commentSnapshot ->
+                val commentText = commentSnapshot.getValue(String::class.java)
+                if (!commentText.isNullOrEmpty()) {
+                    commentsData.add(commentText)
+                }
+            }
+            if (commentsData.isEmpty()){
+                commentsData.add("Loading...")
+            }
 
             questionPath.children.forEach { answerSnapshot ->
                 if (answerSnapshot.key?.startsWith("Answer") == true) {
@@ -81,29 +94,30 @@ fun getDataVocab1(Language: String, Course: String, Lesson: String, Question: St
                     val correctAnswer = answerSnapshot.child("CorrectAnswer").getValue(Boolean::class.java) ?: false
                     val text = answerSnapshot.child("Text").getValue(String::class.java) ?: ""
                     val pic = answerSnapshot.child("Pic").getValue(String::class.java) ?: ""
-                    Answerdata.add(Vocab1ItemAnswer(name, correctAnswer, text, pic))
+                    answerData.add(Vocab1ItemAnswer(name, correctAnswer, text, pic))
                 }
             }
+
             dataStatus.value = true
         }.addOnFailureListener { exception ->
             Log.e("FirebaseCheck", "Database Extraction Error!", exception)
             dataStatus.value = false
         }
     }
-    if (dataStatus.value) {
-        return listOf(QuestionAnswerData(true, Questiondata, Answerdata))
+    return if (dataStatus.value) {
+        listOf(QuestionAnswerDataVocab1(true, questionData, answerData, commentsData))
     } else {
-        return emptyList()
+        emptyList()
     }
 }
 
 @Composable
-fun Vocab1PicStorage(Location: String, fileName: String): Uri? {
+fun vocab1PicStorage(location: String, fileName: String): Uri? {
     val context = LocalContext.current
-    val storageReference = Firebase.storage.getReferenceFromUrl("$Location")
+    val storageReference = Firebase.storage.getReferenceFromUrl(location)
     val fieldWiseDir = File(context.filesDir, "FieldWise")
     if (!fieldWiseDir.exists()) fieldWiseDir.mkdirs()
-    val destinationFile = File(fieldWiseDir, "$fileName")
+    val destinationFile = File(fieldWiseDir, fileName)
     val fileUri = remember { mutableStateOf<Uri?>(null) }
     LaunchedEffect(Unit) {
         storageReference.getFile(destinationFile).addOnSuccessListener {
@@ -116,12 +130,12 @@ fun Vocab1PicStorage(Location: String, fileName: String): Uri? {
 }
 
 @Composable
-fun Vocab1MP3Storage(Location: String, fileName: String): Uri? {
+fun vocab1MP3Storage(location: String, fileName: String): Uri? {
     val context = LocalContext.current
-    val storageReference = Firebase.storage.getReferenceFromUrl("$Location")
+    val storageReference = Firebase.storage.getReferenceFromUrl(location)
     val fieldWiseDir = File(context.filesDir, "FieldWise")
     if (!fieldWiseDir.exists()) fieldWiseDir.mkdirs()
-    val destinationFile = File(fieldWiseDir, "$fileName")
+    val destinationFile = File(fieldWiseDir, fileName)
     val fileUri = remember { mutableStateOf<Uri?>(null) }
     LaunchedEffect(Unit) {
         Log.d("LaunchedEffect", "Starting download")
@@ -143,11 +157,11 @@ fun VocabScreen1(
     type: String?
 ) {
     //FOR EACH VOCAB EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
-    val Language = "English"
-    val Course = "CS"
-    val Lesson = "Basics of Program Development"
-    val Question = "Q1"
-    val vocabData = getDataVocab1(Language, Course, Lesson, Question)
+    val language = "English"
+    val course = "CS"
+    val lesson = "Basics of Program Development"
+    val question = "Q1"
+    val vocabData = getDataVocab1(language, course, lesson, question)
 
     var questionText = "Loading..."
     var audioUri: Uri? = null
@@ -159,156 +173,211 @@ fun VocabScreen1(
         mutableListOf<Vocab1ItemAnswer>()
     )
     val imageUriList = listOf(
-        mutableListOf<UriInfo?>(null),
-        mutableListOf<UriInfo?>(null),
-        mutableListOf<UriInfo?>(null),
-        mutableListOf<UriInfo?>(null)
+        mutableListOf<UriInfoVocab1?>(null),
+        mutableListOf<UriInfoVocab1?>(null),
+        mutableListOf<UriInfoVocab1?>(null),
+        mutableListOf<UriInfoVocab1?>(null)
     )
 
     if (vocabData.isNotEmpty() && vocabData[0].status) {
         val question = vocabData[0].question
         val answer = vocabData[0].answer
         Log.d("FirebaseCheck", "Question List: $question, Answer List: $answer")
-        audioUri = Vocab1MP3Storage("${question[0].sound}", "Vocab-Type2-Question-Sound")
+        audioUri = vocab1MP3Storage(question[0].sound, "Vocab-Type2-Question-Sound")
         questionText = question[0].text
         val answerOrder = remember { answerNumber.shuffled(Random) }
-        var i = 0
-        for (num in answerOrder) {
+        for ((i, num) in answerOrder.withIndex()) {
             answerDisplay[num].add(answer[i])
-            i++
         }
-        val UriTemp1 = Uri.parse("${Vocab1PicStorage("${answerDisplay[0][0].pic}", "Vocab-Type2-Answer1")}") // Create Uri from pic string
-        imageUriList[0][0] = UriInfo(UriTemp1, answerDisplay[0][0].text, answerDisplay[0][0].correctAnswer)
-        val UriTemp2 = Uri.parse("${Vocab1PicStorage("${answerDisplay[1][0].pic}","Vocab-Type2-Answer2")}")
-        imageUriList[1][0] = UriInfo(UriTemp2, answerDisplay[1][0].text, answerDisplay[1][0].correctAnswer)
-        val UriTemp3 = Uri.parse("${Vocab1PicStorage("${answerDisplay[2][0].pic}","Vocab-Type2-Answer3")}")
-        imageUriList[2][0] = UriInfo(UriTemp3, answerDisplay[2][0].text, answerDisplay[2][0].correctAnswer)
-        val UriTemp4 = Uri.parse("${Vocab1PicStorage("${answerDisplay[3][0].pic}","Vocab-Type2-Answer4")}")
-        imageUriList[3][0] = UriInfo(UriTemp4, answerDisplay[3][0].text, answerDisplay[3][0].correctAnswer)
+        val uriTemp1 = Uri.parse("${vocab1PicStorage(answerDisplay[0][0].pic, "Vocab-Type2-Answer1")}") // Create Uri from pic string
+        imageUriList[0][0] = UriInfoVocab1(uriTemp1, answerDisplay[0][0].text, answerDisplay[0][0].correctAnswer)
+        val uriTemp2 = Uri.parse("${vocab1PicStorage(answerDisplay[1][0].pic,"Vocab-Type2-Answer2")}")
+        imageUriList[1][0] = UriInfoVocab1(uriTemp2, answerDisplay[1][0].text, answerDisplay[1][0].correctAnswer)
+        val uriTemp3 = Uri.parse("${vocab1PicStorage(answerDisplay[2][0].pic,"Vocab-Type2-Answer3")}")
+        imageUriList[2][0] = UriInfoVocab1(uriTemp3, answerDisplay[2][0].text, answerDisplay[2][0].correctAnswer)
+        val uriTemp4 = Uri.parse("${vocab1PicStorage(answerDisplay[3][0].pic,"Vocab-Type2-Answer4")}")
+        imageUriList[3][0] = UriInfoVocab1(uriTemp4, answerDisplay[3][0].text, answerDisplay[3][0].correctAnswer)
     } else {
         Log.d("FirebaseCheck", "List Extraction Failed!")
     }
-    val context = LocalContext.current
+        val context = LocalContext.current
+        var cardType1 by remember { mutableStateOf(CardType.WHITE) }
+        var cardType2 by remember { mutableStateOf(CardType.WHITE) }
+        var cardType3 by remember { mutableStateOf(CardType.WHITE) }
+        var cardType4 by remember { mutableStateOf(CardType.WHITE) }
+        var selectedCard by remember { mutableIntStateOf(0) }
+        var answerResultStatus by remember { mutableStateOf(false) }
+        Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
+            .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
+            Spacer(modifier = Modifier.height(70.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
+            ) {
+                CloseButton(onClick = { ExitLesson() })
+                Spacer(modifier = Modifier.width(10.dp))
+                LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Column(modifier = modifier
+                .fillMaxSize()) {
+                Row(modifier = modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically){
+                    TextToSpeechButton(onClick = {
 
-    var AnswerResultStatus = false
-    Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
-        .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
-        Spacer(modifier = Modifier.height(70.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
-        ) {
-            CloseButton(onClick = { ExitLesson() })
-            Spacer(modifier = Modifier.width(10.dp))
-            LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Column(modifier = modifier
-            .fillMaxSize()) {
-            Row(modifier = modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically){
-                TextToSpeechButton(onClick = {
-
-                    Log.i("AudioStatus", "PRESSED $audioUri")
-                    if (audioUri != null) {
-                        try {
-                            val mediaPlayer = MediaPlayer().apply {
-                                setDataSource(context, audioUri)
-                                prepare()
-                                start()
+                        Log.i("AudioStatus", "PRESSED $audioUri")
+                        if (audioUri != null) {
+                            try {
+                                MediaPlayer().apply {
+                                    setDataSource(context, audioUri)
+                                    prepare()
+                                    start()
+                                }
+                            } catch (e: Exception) {
+                                Log.e("AudioStatus", "Error playing audio: ${e.message}")
                             }
-                        } catch (e: Exception) {
-                            Log.e("AudioStatus", "Error playing audio: ${e.message}")
+                        } else {
+                            Log.w("AudioStatus", "Audio file not downloaded yet!")
+                        }
+                    } )
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Column ( modifier = modifier
+                        .fillMaxWidth()
+                        .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 20.dp)).padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally){
+                        Text(text = questionText,
+                            fontFamily = SeravekFontFamily,
+                            fontWeight = FontWeight.Medium,
+                            textAlign = TextAlign.Center)
+                    }
+                }
+                Spacer(modifier = Modifier.height(50.dp))
+                Row(modifier = modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center){
+                    val imageUri1 = imageUriList[0][0]?.uri
+                    val title1 = imageUriList[0][0]?.name ?: "Loading..."
+                    Card(
+                        title = title1,
+                        description = null,
+                        cardType = cardType1,
+                        cardShape = CardShape.CHOICES_SQUARE,
+                        progress = null,
+                        complete = null,
+                        onClick = {
+                            cardType1 = CardType.BLUE
+                            cardType2 = CardType.WHITE
+                            cardType3 = CardType.WHITE
+                            cardType4 = CardType.WHITE
+                            selectedCard = 1
+                            answerResultStatus = imageUriList[0][0]?.status ?: false
+                                  },
+                        imageResId = null,
+                        imageUri = imageUri1
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
+                    val imageUri2 = imageUriList[1][0]?.uri
+                    val title2 = imageUriList[1][0]?.name ?: "Loading..."
+                    Card(
+                        title = title2,
+                        description = null,
+                        cardType = cardType2,
+                        cardShape = CardShape.CHOICES_SQUARE,
+                        progress = null,
+                        complete = null,
+                        onClick = {
+                            cardType1 = CardType.WHITE
+                            cardType2 = CardType.BLUE
+                            cardType3 = CardType.WHITE
+                            cardType4 = CardType.WHITE
+                            selectedCard = 2
+                            answerResultStatus = imageUriList[1][0]?.status ?: false
+                                  },
+                        imageResId = null,
+                        imageUri = imageUri2
+                    )
+                }
+                Spacer(modifier = Modifier.height(30.dp))
+                Row(modifier = modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center){
+                    val imageUri3 = imageUriList[2][0]?.uri
+                    val title3 = imageUriList[2][0]?.name ?: "Loading..."
+                    Card(
+                        title = title3,
+                        description = null,
+                        cardType = cardType3,
+                        cardShape = CardShape.CHOICES_SQUARE,
+                        progress = null,
+                        complete = null,
+                        onClick = {
+                            cardType1 = CardType.WHITE
+                            cardType2 = CardType.WHITE
+                            cardType3 = CardType.BLUE
+                            cardType4 = CardType.WHITE
+                            selectedCard = 3
+                            answerResultStatus = imageUriList[2][0]?.status ?: false
+                                  },
+                        imageResId = null,
+                        imageUri = imageUri3
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
+                    val imageUri4 = imageUriList[3][0]?.uri
+                    val title4 = imageUriList[3][0]?.name ?: "Loading..."
+                    Card(
+                        title = title4,
+                        description = null,
+                        cardType = cardType4,
+                        cardShape = CardShape.CHOICES_SQUARE,
+                        progress = null,
+                        complete = null,
+                        onClick = {
+                            cardType1 = CardType.WHITE
+                            cardType2 = CardType.WHITE
+                            cardType3 = CardType.WHITE
+                            cardType4 = CardType.BLUE
+                            selectedCard = 4
+                            answerResultStatus = imageUriList[3][0]?.status ?: false
+                                  },
+                        imageResId = null,
+                        imageUri = imageUri4
+                    )
+                }
+                Spacer(modifier = Modifier.height(60.dp))
+                MainButton(button = "CONTINUE", onClick = { //ON CLICK, CHECK IF THE CHOSEN ANSWER IS CORRECT OR NOT BY CHECKING answerResultStatus = false or true AND CHANGE ANSWER COLOUR
+                    if (answerResultStatus) {
+                        when (selectedCard) {
+                            1 -> cardType1 = CardType.GREEN
+                            2 -> cardType2 = CardType.GREEN
+                            3 -> cardType3 = CardType.GREEN
+                            4 -> cardType4 = CardType.GREEN
                         }
                     } else {
-                        Log.w("AudioStatus", "Audio file not downloaded yet!")
+                        when (selectedCard) {
+                            1 -> cardType1 = CardType.RED
+                            2 -> cardType2 = CardType.RED
+                            3 -> cardType3 = CardType.RED
+                            4 -> cardType4 = CardType.RED
+                        }
                     }
-                } )
-                Spacer(modifier = Modifier.width(20.dp))
-                Column ( modifier = modifier
-                    .fillMaxWidth()
-                    .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 20.dp)).padding(10.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally){
-                    Text(text = "${questionText}",
-                        fontFamily = SeravekFontFamily,
-                        fontWeight = FontWeight.Medium,
-                        textAlign = TextAlign.Center)
+                    //delay
+                    NextExercise()
+                },
+                    mainButtonType = MainButtonType.BLUE
+                )
+                Spacer(modifier = Modifier.height(50.dp))
+                HorizontalDivider(thickness = 2.dp, color = Color.White)
+                val discussionComments: List<String>
+                if (vocabData.isNotEmpty()) {
+                    val comment = vocabData[0].comments
+                    if (comment.isNotEmpty()) {
+                        discussionComments = vocabData[0].comments
+                        Discussion(comments = discussionComments)
+                    }
                 }
             }
-            Spacer(modifier = Modifier.height(50.dp))
-            Row(modifier = modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center){
-                var imageUri1 = imageUriList[0][0]?.Uri ?: null
-                var title1 = imageUriList[0][0]?.name ?: "Loading..."
-                Card(
-                    title = title1,
-                    description = null,
-                    cardType = CardType.WHITE,
-                    cardShape = CardShape.CHOICES_SQUARE,
-                    progress = null,
-                    complete = null,
-                    onClick = { AnswerResultStatus = imageUriList[0][0]?.status ?: false },
-                    imageResId = null,
-                    imageUri = imageUri1
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                var imageUri2 = imageUriList[1][0]?.Uri ?: null
-                var title2 = imageUriList[1][0]?.name ?: "Loading..."
-                Card(
-                    title = title2,
-                    description = null,
-                    cardType = CardType.WHITE,
-                    cardShape = CardShape.CHOICES_SQUARE,
-                    progress = null,
-                    complete = null,
-                    onClick = { AnswerResultStatus = imageUriList[1][0]?.status ?: false  },
-                    imageResId = null,
-                    imageUri = imageUri2
-                )
-            }
-            Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center){
-                var imageUri3 = imageUriList[2][0]?.Uri ?: null
-                var title3 = imageUriList[2][0]?.name ?: "Loading..."
-                Card(
-                    title = title3,
-                    description = null,
-                    cardType = CardType.WHITE,
-                    cardShape = CardShape.CHOICES_SQUARE,
-                    progress = null,
-                    complete = null,
-                    onClick = { AnswerResultStatus = imageUriList[2][0]?.status ?: false  },
-                    imageResId = null,
-                    imageUri = imageUri3
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                var imageUri4 = imageUriList[3][0]?.Uri ?: null
-                var title4 = imageUriList[3][0]?.name ?: "Loading..."
-                Card(
-                    title = title4,
-                    description = null,
-                    cardType = CardType.WHITE,
-                    cardShape = CardShape.CHOICES_SQUARE,
-                    progress = null,
-                    complete = null,
-                    onClick = { AnswerResultStatus = imageUriList[3][0]?.status ?: false  },
-                    imageResId = null,
-                    imageUri = imageUri4
-                )
-            }
-            Spacer(modifier = Modifier.height(60.dp))
-            MainButton(button = "CONTINUE", onClick = {
-                //ON CLICK, CHECK IF THE CHOSEN ANSWER IS CORRECT OR NOT BY CHECKING AnswerResultStatus = false or true AND CHANGE ANSWER COLOUR
-                NextExercise() }, mainButtonType = MainButtonType.BLUE)
-            Spacer(modifier = Modifier.height(50.dp))
-            HorizontalDivider(thickness = 2.dp, color = Color.White)
-            Discussion()
         }
-    }
 
-}
+    }
 
 @Preview(showBackground = true)
 @Composable

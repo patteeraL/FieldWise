@@ -77,7 +77,7 @@ fun SpeakingScreen1(
             MainButton(button = "CONTINUE", onClick = { NextExercise() }, mainButtonType = MainButtonType.BLUE)
             Spacer(modifier = Modifier.height(50.dp))
             HorizontalDivider(thickness = 2.dp, color = Color.White)
-            Discussion()
+            Discussion(comments = listOf("Hi", "HI", "HI"))
         }
     }
 
