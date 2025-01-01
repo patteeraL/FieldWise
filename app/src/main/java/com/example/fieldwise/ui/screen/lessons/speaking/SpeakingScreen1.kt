@@ -46,6 +46,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
+//back-end
 data class SpeakingItemQuestion(val name: String, val text: String, val sound: String)
 data class QuestionDataSpeaking(val status: Boolean, val question: List<SpeakingItemQuestion>, val comments: List<String>)
 
