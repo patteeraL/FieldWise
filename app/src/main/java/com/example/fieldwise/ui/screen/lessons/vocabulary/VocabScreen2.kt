@@ -67,13 +67,9 @@ fun getDataVocab2(language: String, course: String, lesson: String, question: St
     val dataStatus = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
         courseListRef.get().addOnSuccessListener { dataSnapshot ->
-            val questionPath =
-                dataSnapshot.child(language).child(course).child(lesson).child("Vocabulary")
-                    .child("Type1").child(question)
-            val questionText =
-                questionPath.child("Question").child("Text").getValue(String::class.java) ?: ""
-            val questionSound =
-                questionPath.child("Question").child("Sound").getValue(String::class.java) ?: ""
+            val questionPath = dataSnapshot.child(language).child(course).child(lesson).child("Vocabulary").child("Type1").child(question)
+            val questionText = questionPath.child("Question").child("Text").getValue(String::class.java) ?: ""
+            val questionSound = questionPath.child("Question").child("Sound").getValue(String::class.java) ?: ""
             questionData.add(Vocab2ItemQuestion("Question", questionText, questionSound))
 
             val commentsSnapshot = questionPath.child("Comments")
