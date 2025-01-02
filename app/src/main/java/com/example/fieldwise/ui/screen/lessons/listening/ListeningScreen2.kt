@@ -2,6 +2,7 @@ package com.example.fieldwise.ui.screen.lessons.listening
 
 
 import Discussion
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
@@ -135,6 +136,7 @@ fun listen2MP3Storage(location: String, fileName: String): Uri? {
     return fileUri.value
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun ListeningScreen2(
     modifier: Modifier = Modifier,
