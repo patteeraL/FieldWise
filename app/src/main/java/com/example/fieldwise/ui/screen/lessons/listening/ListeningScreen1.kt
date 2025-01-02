@@ -258,12 +258,25 @@ fun ListeningScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.BLUE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 1
                             answerResultStatus = answerDisplay[0][0].correctAnswer
+                            if (answerResultStatus) {
+                                cardType1 = CardType.GREEN
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.WHITE
+                                selectedCard = 1
+
+                            } else{
+                                cardType1 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                         },
                         imageResId = null,
                         imageUri = null
@@ -278,12 +291,25 @@ fun ListeningScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.BLUE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 2
                             answerResultStatus = answerDisplay[1][0].correctAnswer
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.GREEN
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.WHITE
+                                selectedCard = 2
+
+                            } else{
+                                cardType2 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                         },
                         imageResId = null,
                         imageUri = null
@@ -304,12 +330,25 @@ fun ListeningScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.BLUE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 3
                             answerResultStatus = answerDisplay[2][0].correctAnswer
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.GREEN
+                                cardType4 = CardType.WHITE
+                                selectedCard = 3
+
+                            } else{
+                                cardType3 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                         },
                         imageResId = null,
                         imageUri = null
@@ -324,12 +363,25 @@ fun ListeningScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.BLUE
-                            selectedCard = 4
                             answerResultStatus = answerDisplay[3][0].correctAnswer
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.GREEN
+                                selectedCard = 4
+
+                            } else{
+                                cardType4 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                         },
                         imageResId = null,
                         imageUri = null
@@ -338,26 +390,11 @@ fun ListeningScreen1(
                 Spacer(modifier = Modifier.height(60.dp))
                 MainButton(
                     button = "CONTINUE",
-                    onClick = { //ON CLICK, CHECK IF THE CHOSEN ANSWER IS CORRECT OR NOT BY CHECKING answerResultStatus = false or true AND CHANGE ANSWER COLOUR
-                        if (answerResultStatus) {
-                            when (selectedCard) {
-                                1 -> cardType1 = CardType.GREEN
-                                2 -> cardType2 = CardType.GREEN
-                                3 -> cardType3 = CardType.GREEN
-                                4 -> cardType4 = CardType.GREEN
-                            }
-                        } else {
-                            when (selectedCard) {
-                                1 -> cardType1 = CardType.RED
-                                2 -> cardType2 = CardType.RED
-                                3 -> cardType3 = CardType.RED
-                                4 -> cardType4 = CardType.RED
-
-                            }
+                    onClick = {
+                        if (!answerResultStatus){ //IF ANSWER IS NOT CORRECT
+                            //POP-UP
                         }
-                        //delay
-                        NextExercise()
-                    },
+                        NextExercise()},
                     mainButtonType = MainButtonType.BLUE
                 )
                 Spacer(modifier = Modifier.height(50.dp))

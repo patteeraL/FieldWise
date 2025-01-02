@@ -259,12 +259,25 @@ fun VocabScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.BLUE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 1
                             answerResultStatus = imageUriList[0][0]?.status ?: false
+                            if (answerResultStatus) {
+                                cardType1 = CardType.GREEN
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.WHITE
+                                selectedCard = 1
+
+                            } else{
+                                cardType1 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                                   },
                         imageResId = null,
                         imageUri = imageUri1
@@ -280,12 +293,25 @@ fun VocabScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.BLUE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 2
                             answerResultStatus = imageUriList[1][0]?.status ?: false
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.GREEN
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.WHITE
+                                selectedCard = 2
+
+                            } else{
+                                cardType2 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                                   },
                         imageResId = null,
                         imageUri = imageUri2
@@ -305,12 +331,25 @@ fun VocabScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.BLUE
-                            cardType4 = CardType.WHITE
-                            selectedCard = 3
                             answerResultStatus = imageUriList[2][0]?.status ?: false
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.GREEN
+                                cardType4 = CardType.WHITE
+                                selectedCard = 3
+
+                            } else{
+                                cardType3 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                                   },
                         imageResId = null,
                         imageUri = imageUri3
@@ -326,35 +365,35 @@ fun VocabScreen1(
                         progress = null,
                         complete = null,
                         onClick = {
-                            cardType1 = CardType.WHITE
-                            cardType2 = CardType.WHITE
-                            cardType3 = CardType.WHITE
-                            cardType4 = CardType.BLUE
-                            selectedCard = 4
                             answerResultStatus = imageUriList[3][0]?.status ?: false
+                            if (answerResultStatus) {
+                                cardType1 = CardType.WHITE
+                                cardType2 = CardType.WHITE
+                                cardType3 = CardType.WHITE
+                                cardType4 = CardType.GREEN
+                                selectedCard = 4
+
+                            } else{
+                                cardType4 = CardType.RED
+                                if (selectedCard != 0){
+                                    when(selectedCard){
+                                        1 -> cardType1 = CardType.WHITE
+                                        2 -> cardType2 = CardType.WHITE
+                                        3 -> cardType3 = CardType.WHITE
+                                        4 -> cardType4 = CardType.WHITE
+                                    }
+                                }
+                            }
                                   },
                         imageResId = null,
                         imageUri = imageUri4
                     )
                 }
                 Spacer(modifier = Modifier.height(60.dp))
-                MainButton(button = "CONTINUE", onClick = { //ON CLICK, CHECK IF THE CHOSEN ANSWER IS CORRECT OR NOT BY CHECKING answerResultStatus = false or true AND CHANGE ANSWER COLOUR
-                    if (answerResultStatus) {
-                        when (selectedCard) {
-                            1 -> cardType1 = CardType.GREEN
-                            2 -> cardType2 = CardType.GREEN
-                            3 -> cardType3 = CardType.GREEN
-                            4 -> cardType4 = CardType.GREEN
-                        }
-                    } else {
-                        when (selectedCard) {
-                            1 -> cardType1 = CardType.RED
-                            2 -> cardType2 = CardType.RED
-                            3 -> cardType3 = CardType.RED
-                            4 -> cardType4 = CardType.RED
-                        }
+                MainButton(button = "CONTINUE", onClick = {
+                    if (!answerResultStatus){ //IF ANSWER IS NOT CORRECT
+                        //POP-UP
                     }
-                    //delay
                     NextExercise()
                 },
                     mainButtonType = MainButtonType.BLUE
