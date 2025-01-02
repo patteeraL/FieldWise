@@ -1,18 +1,13 @@
 package com.example.fieldwise.ui.widget
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,33 +25,25 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 
 @Composable
-fun TestNotavailablePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
+fun ExerciseNotCompletePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = onDismiss,
             icon = {
-                Icon(
-                    imageVector = Icons.Rounded.Lock,
-                    contentDescription = "You need to complete the exercises to access the test",
-                    tint = Color(0xFF555252),
-                    modifier = Modifier.size(100.dp)
+                Image(
+                    painter = painterResource(id=R.drawable.crossicon),
+                    contentDescription = "Check Icon Green",
+                    modifier = Modifier
+                        .size(100.dp)
                 )
-            },
-            title = {
-                Text(
-                    text = buildAnnotatedString {
-                        append("NOT AVAILABLE")
-                    },
-                    textAlign = TextAlign.Center,
-                    style = TextStyle(color = Color.Black, fontSize = 23.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold))
             },
             text = {Text(
                 text = buildAnnotatedString {
-                    append("Please complete the exercises to access it.")},
+                    append("Some answers are incorrect. Please complete the exercise.")},
                 textAlign = TextAlign.Center,
                 style = TextStyle(color = Color.Black, fontSize = 18.sp, fontFamily = InterFontFamily)) }
-            ,
+                ,
             confirmButton = {
                 Button(
                     onClick = {
@@ -82,9 +69,9 @@ fun TestNotavailablePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun TestNotAvailablePreview() {
+fun ExerciseNotCompletePopUpPreview() {
     FieldWiseTheme {
-        TestNotavailablePopUp(
+        ExerciseNotCompletePopUp(
             showDialog = true,
             onDismiss = {}
         )
