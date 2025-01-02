@@ -33,7 +33,7 @@ fun ExerciseNotCompletePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
             icon = {
                 Image(
                     painter = painterResource(id=R.drawable.crossicon),
-                    contentDescription = "Check Icon Green",
+                    contentDescription = "Cross Icon",
                     modifier = Modifier
                         .size(100.dp)
                 )
