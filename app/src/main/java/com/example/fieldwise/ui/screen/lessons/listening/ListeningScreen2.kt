@@ -247,7 +247,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor01 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor01 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor01 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544) ,
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -271,7 +271,7 @@ fun ListeningScreen2(
                                         } else {
                                             Log.w("AudioStatus", "Audio file not downloaded yet!")
                                         }
-                                        buttonColor01 = Color(0xFF156D91)
+                                        buttonColor01 = Color(0xFF1AB8E8)
                                         if (!buttonStatus02){buttonColor02 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus03){buttonColor03 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus04){buttonColor04 = Color(0xFFFFFFFF)}
@@ -290,7 +290,7 @@ fun ListeningScreen2(
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.voiceicon),
+                                        painter = painterResource(id = if (buttonColor01 == Color(0xFFFFFFFF)) R.drawable.voiceicon else R.drawable.voiceicon_white),
                                         contentDescription = "Voice Icon"
                                     )
                                 }
@@ -309,7 +309,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor11 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor11 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor11 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -318,7 +318,7 @@ fun ListeningScreen2(
                                 onClick = {
                                     if(!buttonStatus11) {
                                         if (selectedCard != 0) {
-                                        buttonColor11 = Color(0xFF156D91)
+                                        //buttonColor11 = Color(0xFF156D91)
                                         val checkLink = answerDisplay[0][0].link
                                             if (checkLink == selectedCard) { //Check Logic if the selected question matches with the answer or not
                                                 when (selectedCard) {
@@ -409,6 +409,7 @@ fun ListeningScreen2(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
+
                     Box(
                         modifier
                             .width(150.dp)
@@ -420,7 +421,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor02 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor02 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor02 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544) ,
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -445,7 +446,7 @@ fun ListeningScreen2(
                                             Log.w("AudioStatus", "Audio file not downloaded yet!")
                                         }
                                         if (!buttonStatus01){buttonColor01 = Color(0xFFFFFFFF)}
-                                        buttonColor02 = Color(0xFF156D91)
+                                        buttonColor02 = Color(0xFF1AB8E8)
                                         if (!buttonStatus03){buttonColor03 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus04){buttonColor04 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus11){buttonColor11 = Color(0xFFFFFFFF)}
@@ -463,7 +464,7 @@ fun ListeningScreen2(
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.voiceicon),
+                                        painter = painterResource(id = if (buttonColor02 == Color(0xFFFFFFFF)) R.drawable.voiceicon else R.drawable.voiceicon_white),
                                         contentDescription = "Voice Icon"
                                     )
                                 }
@@ -482,7 +483,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor12 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor12 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor12 == Color(0xFF156D91)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -491,7 +492,7 @@ fun ListeningScreen2(
                                 onClick = {
                                     if (!buttonStatus12) {
                                         if (selectedCard != 0) {
-                                        buttonColor12 = Color(0xFF156D91)
+                                        buttonColor12 = Color(0xFF1AB8E8)
                                         val checkLink = answerDisplay[1][0].link
                                             if (checkLink == selectedCard) { //Check Logic if the selected question matches with the answer or not
                                                 when (selectedCard) {
@@ -593,7 +594,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        if (buttonColor03 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor03 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor03 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -616,7 +617,7 @@ fun ListeningScreen2(
                                     }
                                     if (!buttonStatus01){buttonColor01 = Color(0xFFFFFFFF)}
                                     if (!buttonStatus02){buttonColor02 = Color(0xFFFFFFFF)}
-                                    buttonColor03 = Color(0xFF156D91)
+                                    buttonColor03 = Color(0xFF1AB8E8)
                                     if (!buttonStatus04){buttonColor04 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus11){buttonColor11 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus12){buttonColor12 = Color(0xFFFFFFFF)}
@@ -634,7 +635,7 @@ fun ListeningScreen2(
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.voiceicon),
+                                        painter = painterResource(id = if (buttonColor03 == Color(0xFFFFFFFF)) R.drawable.voiceicon else R.drawable.voiceicon_white),
                                         contentDescription = "Voice Icon"
                                     )
                                 }
@@ -653,7 +654,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        if (buttonColor13 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor13 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor13 == Color(0xFF156D91)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -662,7 +663,7 @@ fun ListeningScreen2(
                                 onClick = {
                                     if (!buttonStatus13) {
                                         if (selectedCard != 0) {
-                                        buttonColor13 = Color(0xFF156D91)
+                                        buttonColor13 = Color(0xFF1AB8E8)
                                         val checkLink = answerDisplay[2][0].link
                                             if (checkLink == selectedCard) { //Check Logic if the selected question matches with the answer or not
                                                 when (selectedCard) {
@@ -764,7 +765,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor04 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor04 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor04 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -791,7 +792,7 @@ fun ListeningScreen2(
                                         if (!buttonStatus01){buttonColor01 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus02){buttonColor02 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus03){buttonColor03 = Color(0xFFFFFFFF)}
-                                        buttonColor04 = Color(0xFF156D91)
+                                        buttonColor04 = Color(0xFF1AB8E8)
                                         if (!buttonStatus11){buttonColor11 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus12){buttonColor12 = Color(0xFFFFFFFF)}
                                         if (!buttonStatus13){buttonColor13 = Color(0xFFFFFFFF)}
@@ -807,7 +808,7 @@ fun ListeningScreen2(
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
                                     Image(
-                                        painter = painterResource(id = R.drawable.voiceicon),
+                                        painter = painterResource(id = if (buttonColor04 == Color(0xFFFFFFFF)) R.drawable.voiceicon else R.drawable.voiceicon_white),
                                         contentDescription = "Voice Icon"
                                     )
                                 }
@@ -826,7 +827,7 @@ fun ListeningScreen2(
                                     .fillMaxSize()
                                     .offset(y = 10.dp)
                                     .background(
-                                        color = Color(0xFFC5C5C5),
+                                        color = if (buttonColor14 == Color(0xFFFFFFFF)) Color(0xFFC5C5C5) else if (buttonColor14 == Color(0xFF58CC02)) Color(0xFF4DAB07) else if (buttonColor14 == Color(0xFF1AB8E8)) Color(0xFF039DC4) else Color(0xFFC34544),
                                         shape = RoundedCornerShape(10.dp)
                                     )
                             )
@@ -835,7 +836,7 @@ fun ListeningScreen2(
                                 onClick = {
                                     if (!buttonStatus14) {
                                         if (selectedCard != 0) {
-                                        buttonColor14 = Color(0xFF156D91)
+                                        buttonColor14 = Color(0xFF1AB8E8)
                                         val checkLink = answerDisplay[3][0].link
                                             if (checkLink == selectedCard) { //Check Logic if the selected question matches with the answer or not
                                                 when (selectedCard) {
