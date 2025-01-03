@@ -302,7 +302,8 @@ fun SpeakingScreen1(
             BottomControls(
                 showDialog = showDialog.value,
                 onDismissDialog = { showDialog.value = false },
-                isEnable = (processingResult.value?.isCorrect == true)
+                isEnable = (processingResult.value?.isCorrect == true),
+                NextExercise = NextExercise
             )
 
             // Comments Section
@@ -429,14 +430,17 @@ fun BodyContent(
 fun BottomControls(
     showDialog: Boolean,
     onDismissDialog: () -> Unit,
-    isEnable: Boolean
+    isEnable: Boolean,
+    NextExercise: () -> Unit
 ) {
     Spacer(modifier = Modifier.height(20.dp))
 
     MainButton(
         button = "CONTINUE",
         onClick = {
-            continueStatus = true
+            if (isEnable) {
+                NextExercise()
+            }
                   },
         mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
         isEnable = isEnable
