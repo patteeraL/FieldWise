@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.ConverseResponse
 import com.example.fieldwise.model.TranscribeResponse
-import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
@@ -15,7 +14,9 @@ import io.ktor.http.HttpHeaders
 
 private const val BACKEND_URL = "https://backend-ai--fieldwise-26b6e.europe-west4.hosted.app"
 
-class ApiService(private val client: HttpClient) {
+class ApiService {
+    private val client = KtorClient.client
+
     suspend fun converse(request: ConverseRequest): ConverseResponse {
         return try { client.post("$BACKEND_URL/ai/converse") {
             setBody(request)

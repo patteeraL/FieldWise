@@ -9,6 +9,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,8 +21,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Text
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -37,7 +38,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import com.example.fieldwise.model.ProcessingResult
-import com.example.fieldwise.model.RecordingState
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
@@ -174,6 +174,7 @@ fun SpeakingScreen1(
     modifier: Modifier = Modifier,
     NextExercise: () -> Unit,
     ExitLesson: () -> Unit,
+    type: String?
 ) {
     val context = LocalContext.current
     val viewModel = AiViewModel()
@@ -186,8 +187,7 @@ fun SpeakingScreen1(
     val processingResult = remember { mutableStateOf<ProcessingResult?>(null) }
     val showDialog = remember { mutableStateOf(false) }
     val dialogType = remember { mutableStateOf("") }
-    val transcriptionText = remember { mutableStateOf<String?>(null) }
-    val isProcessing = remember { mutableStateOf(false) }
+    val isBeingTranscribed = remember { mutableStateOf(false) }
 
     // Permission
     val permissionLauncher = rememberLauncherForActivityResult(
@@ -257,7 +257,6 @@ fun SpeakingScreen1(
                 onRecordingStart = {
                     Log.d("SpeakingScreen", "Starting new recording")
                     processingResult.value = null
-                    transcriptionText.value = null
                     audioFilePath.value = audioManager.startRecording()
                     recordingState.value = if (audioFilePath.value != null) {
                         RecordingState.Recording
@@ -270,7 +269,7 @@ fun SpeakingScreen1(
                     Log.d("SpeakingScreen", "Stopping recording")
                     audioManager.stopRecording()
                     recordingState.value = RecordingState.Completed
-                    isProcessing.value = true
+                    isBeingTranscribed.value = true
 
                     // Process the audio
                     audioFilePath.value?.let { filePath ->
@@ -279,10 +278,9 @@ fun SpeakingScreen1(
                             if (response.error != null) {
                                 dialogType.value = "TRANSCRIPTION_ERROR"
                                 showDialog.value = true
-                                isProcessing.value = false
+                                isBeingTranscribed.value = false
                                 return@observe
                             }
-                            transcriptionText.value = response.transcription
                             val isCorrect = isTranscriptionEqualsToQuestion(
                                 response.transcription ?: "",
                                 questionText.value
@@ -291,12 +289,12 @@ fun SpeakingScreen1(
                                 isCorrect = isCorrect,
                                 transcript = response.transcription ?: ""
                             )
-                            isProcessing.value = false
+                            isBeingTranscribed.value = false
                         }
                     }
                 },
-                transcriptionText = transcriptionText.value,
-                isProcessing = isProcessing.value
+                transcriptionText = processingResult.value?.transcript,
+                isProcessing = isBeingTranscribed.value
             )
 
             // “Continue” Button + Pop-up Handling
@@ -406,21 +404,34 @@ fun BodyContent(
 
         // Processing text
         if (isProcessing) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
             Text(
                 text = "Processing your answer...",
                 color = Color.White,
-                modifier = Modifier.padding(16.dp)
-            )
+                textAlign = TextAlign.Center
+            )}
         }
 
         // Transcription
         transcriptionText?.let { text ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
             Text(
                 text = "Your answer: $text",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
                 modifier = Modifier.padding(16.dp)
-            )
+            )}
         }
     }
 }
@@ -431,7 +442,7 @@ fun BottomControls(
     showDialog: Boolean,
     onDismissDialog: () -> Unit
 ) {
-    Spacer(modifier = Modifier.height(50.dp))
+    Spacer(modifier = Modifier.height(20.dp))
 
     MainButton(
         button = "CONTINUE",

@@ -2,25 +2,21 @@ package com.example.fieldwise.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.fieldwise.model.*
-import com.example.fieldwise.repository.AiRepository
+import com.example.fieldwise.model.ConverseRequest
+import com.example.fieldwise.network.ApiService
 import kotlinx.coroutines.Dispatchers
 
-// ViewModel class for the AI feature:
-// - Uses the AiRepository class to interact with the API
-// - Provides live data for the UI to observe
-// - Uses the Dispatchers.IO coroutine context for network operations
 class AiViewModel : ViewModel() {
 
-    private val repository = AiRepository()
+    private val service = ApiService()
 
     fun converse(request: ConverseRequest) = liveData(Dispatchers.IO) {
-        val response = repository.converse(request)
+        val response = service.converse(request)
         emit(response)
     }
 
     fun transcribe(audio: ByteArray) = liveData(Dispatchers.IO) {
-        val response = repository.transcribe(audio)
+        val response = service.transcribe(audio)
         emit(response)
     }
 }
