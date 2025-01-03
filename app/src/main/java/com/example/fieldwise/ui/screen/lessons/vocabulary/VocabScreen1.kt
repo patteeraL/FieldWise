@@ -58,6 +58,8 @@ data class Vocab1ItemAnswer(val name: String, val correctAnswer: Boolean, val te
 data class Vocab1ItemQuestion(val name: String, val text: String, val sound: String)
 data class QuestionAnswerDataVocab1(val status: Boolean, val question: List<Vocab1ItemQuestion>, val answer: List<Vocab1ItemAnswer>, val comments: List<String>)
 data class UriInfoVocab1(val uri: Uri, val name: String, val status: Boolean)
+var commentNumberVocab1 = 0
+var newCommentsDataVocab1: List<String> = emptyList()
 
 @Composable
 fun getDataVocab1(language: String, course: String, lesson: String, question: String):List<QuestionAnswerDataVocab1> {
@@ -75,6 +77,7 @@ fun getDataVocab1(language: String, course: String, lesson: String, question: St
             questionData.add(Vocab1ItemQuestion("Question", questionText, questionSound))
             val commentsSnapshot = questionPath.child("Comments")
             commentsSnapshot.children.forEach { commentSnapshot ->
+                commentNumberVocab1++
                 val commentText = commentSnapshot.getValue(String::class.java)
                 if (!commentText.isNullOrEmpty()) {
                     commentsData.add(commentText)
@@ -126,6 +129,24 @@ fun vocab1PicStorage(location: String, fileName: String): Uri? {
 }
 
 @Composable
+fun WriteCommentVocab1(language: String, course: String, lesson: String, question: String, newComment: String, commentNumberVocab1: Int) {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val commentPath = courseListRef.child(language).child(course).child(lesson).child("Vocabulary").child("Type2").child(question).child("Comments")
+
+    val newCommentKey = "Text$commentNumberVocab1"
+    LaunchedEffect(Unit) {
+        commentPath.child(newCommentKey).setValue(newComment)
+            .addOnSuccessListener {
+                Log.d("FirebaseCheck", "Comment added successfully!")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirebaseCheck", "Failed to add comment!", exception)
+            }
+    }
+}
+
+@Composable
 fun vocab1MP3Storage(location: String, fileName: String): Uri? {
     val context = LocalContext.current
     val storageReference = Firebase.storage.getReferenceFromUrl(location)
@@ -156,8 +177,8 @@ fun VocabScreen1(
     val language = "English"
     val course = "CS"
     val lesson = "Basics of Program Development"
-    val question = "Q1"
-    val vocabData = getDataVocab1(language, course, lesson, question)
+    val question1 = "Q1"
+    val vocabData = getDataVocab1(language, course, lesson, question1)
 
     var questionText = "Loading..."
     var audioUri: Uri? = null
@@ -179,6 +200,7 @@ fun VocabScreen1(
     var dialogType by remember { mutableStateOf("") }
 
     if (vocabData.isNotEmpty() && vocabData[0].status) {
+        val discussionComments = vocabData[0].comments
         val question = vocabData[0].question
         val answer = vocabData[0].answer
         Log.d("FirebaseCheck", "Question List: $question, Answer List: $answer")
@@ -196,9 +218,7 @@ fun VocabScreen1(
         imageUriList[2][0] = UriInfoVocab1(uriTemp3, answerDisplay[2][0].text, answerDisplay[2][0].correctAnswer)
         val uriTemp4 = Uri.parse("${vocab1PicStorage(answerDisplay[3][0].pic,"Vocab-Type2-Answer4")}")
         imageUriList[3][0] = UriInfoVocab1(uriTemp4, answerDisplay[3][0].text, answerDisplay[3][0].correctAnswer)
-    } else {
-        Log.d("FirebaseCheck", "List Extraction Failed!")
-    }
+
         val context = LocalContext.current
         var cardType1 by remember { mutableStateOf(CardType.WHITE) }
         var cardType2 by remember { mutableStateOf(CardType.WHITE) }
@@ -206,6 +226,8 @@ fun VocabScreen1(
         var cardType4 by remember { mutableStateOf(CardType.WHITE) }
         var selectedCard by remember { mutableIntStateOf(0) }
         var answerResultStatus by remember { mutableStateOf(false) }
+        var continueStatus by remember { mutableStateOf(false) }
+
         Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
             .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.height(70.dp))
@@ -400,7 +422,8 @@ fun VocabScreen1(
                         showDialog = true
                     }
                     if (answerResultStatus){
-                        NextExercise()}
+                        continueStatus = true
+                    }
                 },
                     mainButtonType = MainButtonType.BLUE
                 )
@@ -413,14 +436,24 @@ fun VocabScreen1(
                     }}}
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
-                val discussionComments: List<String>
                 if (vocabData.isNotEmpty()) {
                     val comment = vocabData[0].comments
                     if (comment.isNotEmpty()) {
-                        discussionComments = vocabData[0].comments
-                        Discussion(comments = discussionComments)
+                        newCommentsDataVocab1 = Discussion(comments = discussionComments)
                     }
                 }
+            }
+            if (continueStatus) {
+                val addedCommentsNo = newCommentsDataVocab1.size - discussionComments.size
+                commentNumberVocab1 = discussionComments.size
+                for (i in 0 until addedCommentsNo) {
+                    commentNumberVocab1++
+                    val newComment = newCommentsDataVocab1[discussionComments.size + i]
+                    WriteCommentVocab1(language, course, lesson, question1, newComment, commentNumberVocab1)
+                }
+                continueStatus = false
+                NextExercise()
+            }
             }
         }
 

@@ -60,6 +60,8 @@ import kotlin.random.Random
 data class Listen1ItemAnswer(val name: String, val correctAnswer: Boolean, val text: String)
 data class Listen1ItemQuestion(val name: String, val sound: String)
 data class QuestionAnswerDataListen1(val status: Boolean, val question: List<Listen1ItemQuestion>, val answer: List<Listen1ItemAnswer>, val comments: List<String>)
+var commentNumberListen1 = 0
+var newCommentsDataListen1: List<String> = emptyList()
 
 @Composable
 fun getDataListen1(language: String, course: String, lesson: String, question: String):List<QuestionAnswerDataListen1> {
@@ -77,6 +79,7 @@ fun getDataListen1(language: String, course: String, lesson: String, question: S
 
             val commentsSnapshot = questionPath.child("Comments")
             commentsSnapshot.children.forEach { commentSnapshot ->
+                commentNumberListen1++
                 val commentText = commentSnapshot.getValue(String::class.java)
                 if (!commentText.isNullOrEmpty()) {
                     commentsData.add(commentText)
@@ -104,6 +107,24 @@ fun getDataListen1(language: String, course: String, lesson: String, question: S
         listOf(QuestionAnswerDataListen1(true, questionData, answerData, commentsData))
     } else {
         emptyList()
+    }
+}
+
+@Composable
+fun WriteCommentListen1(language: String, course: String, lesson: String, question1: String, newComment: String, commentNumberListen1: Int) {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val commentPath = courseListRef.child(language).child(course).child(lesson).child("Listening").child("Type2").child(question1).child("Comments")
+
+    val newCommentKey = "Text$commentNumberListen1"
+    LaunchedEffect(Unit) {
+        commentPath.child(newCommentKey).setValue(newComment)
+            .addOnSuccessListener {
+                Log.d("FirebaseCheck", "Comment added successfully!")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirebaseCheck", "Failed to add comment!", exception)
+            }
     }
 }
 
@@ -138,8 +159,8 @@ fun ListeningScreen1(
     val language = "English"
     val course = "CS"
     val lesson = "Basics of Program Development"
-    val question = "Q1"
-    val listenData = getDataListen1(language, course, lesson, question)
+    val question1 = "Q1"
+    val listenData = getDataListen1(language, course, lesson, question1)
 
     val audioUri: Uri?
     val answerNumber = listOf(0, 1, 2, 3)
@@ -156,6 +177,7 @@ fun ListeningScreen1(
     if (listenData.isNotEmpty() && listenData[0].status) {
         val question = listenData[0].question
         val answer = listenData[0].answer
+        val discussionComments = listenData[0].comments
         Log.d("FirebaseCheck", "Question List: $question, Answer List: $answer")
         audioUri = listen1MP3Storage(question[0].sound, "listen-Type2-Question-Sound")
         val answerOrder = remember { answerNumber.shuffled(Random) }
@@ -170,6 +192,8 @@ fun ListeningScreen1(
         var cardType4 by remember { mutableStateOf(CardType.WHITE) }
         var selectedCard by remember { mutableIntStateOf(0) }
         var answerResultStatus by remember { mutableStateOf(false) }
+        var continueStatus by remember { mutableStateOf(false) }
+
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -398,7 +422,8 @@ fun ListeningScreen1(
                         showDialog = true
                     }
                     if (answerResultStatus){
-                        NextExercise()}
+                        continueStatus = true
+                    }
                 },
                     mainButtonType = MainButtonType.BLUE
                 )
@@ -411,15 +436,24 @@ fun ListeningScreen1(
                     }}}
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
-                val discussionComments: List<String>
                 if (listenData.isNotEmpty()) {
                     val comment = listenData[0].comments
                     if (comment.isNotEmpty()) {
-                        discussionComments = listenData[0].comments
-                        Discussion(comments = discussionComments)
+                        newCommentsDataListen1 = Discussion(comments = discussionComments)
                     }
                 }
             }
+        }
+        if (continueStatus) {
+            val addedCommentsNo = newCommentsDataListen1.size - discussionComments.size
+            commentNumberListen1 = discussionComments.size
+            for (i in 0 until addedCommentsNo) {
+                commentNumberListen1++
+                val newComment = newCommentsDataListen1[discussionComments.size + i]
+                WriteCommentListen1(language, course, lesson, question1, newComment, commentNumberListen1)
+            }
+            continueStatus = false
+            NextExercise()
         }
     }
 }

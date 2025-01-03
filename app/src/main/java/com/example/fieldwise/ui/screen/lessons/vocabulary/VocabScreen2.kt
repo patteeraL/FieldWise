@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.R
+import com.example.fieldwise.ui.screen.lessons.listening.commentNumberListen2
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.Card
@@ -58,6 +59,8 @@ import kotlin.random.Random
 data class Vocab2ItemAnswer(val name: String, val correctAnswer: Boolean, val text: String)
 data class Vocab2ItemQuestion(val name: String, val text: String, val sound: String)
 data class QuestionAnswerDataVocab2(val status: Boolean, val question: List<Vocab2ItemQuestion>, val answer: List<Vocab2ItemAnswer>, val comments: List<String>)
+var commentNumberVocab2 = 0
+var newCommentsDataVocab2: List<String> = emptyList()
 
 @Composable
 fun getDataVocab2(language: String, course: String, lesson: String, question: String):List<QuestionAnswerDataVocab2> {
@@ -76,6 +79,7 @@ fun getDataVocab2(language: String, course: String, lesson: String, question: St
 
             val commentsSnapshot = questionPath.child("Comments")
             commentsSnapshot.children.forEach { commentSnapshot ->
+                commentNumberVocab2++
                 val commentText = commentSnapshot.getValue(String::class.java)
                 if (!commentText.isNullOrEmpty()) {
                     commentsData.add(commentText)
@@ -104,6 +108,24 @@ fun getDataVocab2(language: String, course: String, lesson: String, question: St
         listOf(QuestionAnswerDataVocab2(true, questionData, answerData, commentsData))
     } else {
         emptyList()
+    }
+}
+
+@Composable
+fun WriteCommentVocab2(language: String, course: String, lesson: String, question: String, newComment: String, commentNumberVocab2: Int) {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val commentPath = courseListRef.child(language).child(course).child(lesson).child("Vocabulary").child("Type1").child(question).child("Comments")
+
+    val newCommentKey = "Text$commentNumberVocab2"
+    LaunchedEffect(Unit) {
+        commentPath.child(newCommentKey).setValue(newComment)
+            .addOnSuccessListener {
+                Log.d("FirebaseCheck", "Comment added successfully!")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirebaseCheck", "Failed to add comment!", exception)
+            }
     }
 }
 
@@ -139,8 +161,8 @@ fun VocabScreen2(
     val language = "English"
     val course = "CS"
     val lesson = "Basics of Program Development"
-    val question = "Q1"
-    val vocabData = getDataVocab2(language, course, lesson, question)
+    val question1 = "Q1"
+    val vocabData = getDataVocab2(language, course, lesson, question1)
 
     val questionText: String
     val audioUri: Uri?
@@ -157,6 +179,7 @@ fun VocabScreen2(
     if (vocabData.isNotEmpty() && vocabData[0].status) {
         val question = vocabData[0].question
         val answer = vocabData[0].answer
+        val discussionComments = vocabData[0].comments
         Log.d("FirebaseCheck", "Question List: $question, Answer List: $answer")
         audioUri = vocab2MP3Storage(question[0].sound, "Vocab-Type1-Question-Sound")
         questionText = question[0].text
@@ -171,6 +194,8 @@ fun VocabScreen2(
         var cardType3 by remember { mutableStateOf(CardType.WHITE) }
         var selectedCard by remember { mutableIntStateOf(0) }
         var answerResultStatus by remember { mutableStateOf(false) }
+        var continueStatus by remember { mutableStateOf(false) }
+
         Column(
             modifier = modifier.fillMaxSize().background(Color(0xFF073748))
                 .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())
@@ -333,7 +358,8 @@ fun VocabScreen2(
                         showDialog = true
                     }
                     if (answerResultStatus){
-                    NextExercise()}
+                        continueStatus = true
+                    }
                 },
                     mainButtonType = MainButtonType.BLUE
                 )
@@ -346,17 +372,25 @@ fun VocabScreen2(
                     }}}
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
-                val discussionComments: List<String>
                 if (vocabData.isNotEmpty()) {
                     val comment = vocabData[0].comments
                     if (comment.isNotEmpty()) {
-                        discussionComments = vocabData[0].comments
-                        Discussion(comments = discussionComments)
+                        newCommentsDataVocab2 = Discussion(comments = discussionComments)
                     }
                 }
             }
         }
-
+        if (continueStatus) {
+            val addedCommentsNo = newCommentsDataVocab2.size - discussionComments.size
+            commentNumberVocab2 = discussionComments.size
+            for (i in 0 until addedCommentsNo) {
+                commentNumberVocab2++
+                val newComment = newCommentsDataVocab2[discussionComments.size + i]
+                WriteCommentVocab2(language, course, lesson, question1, newComment, commentNumberVocab2)
+            }
+            continueStatus = false
+            NextExercise()
+        }
     }
 }
 

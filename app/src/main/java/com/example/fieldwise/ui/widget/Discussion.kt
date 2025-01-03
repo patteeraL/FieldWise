@@ -31,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,12 +42,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.ui.screen.lessons.vocabulary.QuestionAnswerDataVocab2
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Discussion(modifier: Modifier = Modifier, comments: List<String>) {
+fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<String> {
     var isExpanded by remember { mutableStateOf(false) }
     var comment by remember { mutableStateOf("") }
     var commentsList by remember { mutableStateOf(comments) }
@@ -247,6 +249,7 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>) {
         }
         }
     }
+    return commentsList
 }
 
 
