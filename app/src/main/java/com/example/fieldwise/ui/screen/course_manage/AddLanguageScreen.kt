@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +45,9 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
         R.drawable.spanish_circle,
         R.drawable.thai_circle
     )
+
+    var selectedOption by remember { mutableStateOf("") }
+
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
         Spacer(modifier = Modifier.height(70.dp))
@@ -81,7 +88,7 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds)
+            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds, onSelectionChange = {selectedOption = it})
             Spacer(modifier = Modifier.height(30.dp))
             Row{
                 Text(
@@ -96,7 +103,7 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds)
+            SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds, onSelectionChange = {selectedOption = it})
             Spacer(modifier = Modifier.height(30.dp))
             MainButton(button = "CONTINUE", onClick = { NavigateToComplete() },  mainButtonType = MainButtonType.BLUE, isEnable = true)
         }

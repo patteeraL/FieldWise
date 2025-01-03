@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +40,7 @@ fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Uni
         R.drawable.computer, // Replace with your actual vector drawable resource
         R.drawable.map
     )
+    var selectedOption by remember { mutableStateOf("") }
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
@@ -77,7 +82,7 @@ fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Uni
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds)
+            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds, onSelectionChange = {selectedOption = it})
             Spacer(modifier = Modifier.height(30.dp))
             Spacer(modifier = Modifier.height(30.dp))
             Spacer(modifier = Modifier.height(30.dp))
