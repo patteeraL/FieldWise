@@ -139,14 +139,13 @@ fun NavigationWrapper() {
 
 
         composable("${Routes.AddDailyGoal}/{type}"){ backStackEntry ->
-            var type = backStackEntry.arguments?.getString("type")
+            val type = backStackEntry.arguments?.getString("type")
             AddDailyGoalScreen(
                 type = type,
-                MainButtonClick = { //Go to a different screen depending on the type value
-                    if (type == "language") {
-                        navController.navigate(Routes.AddLanguage)
-                    } else if (type == "course") {
-                        navController.navigate(Routes.AddField)
+                MainButtonClick = {
+                    when (type) { //Go to a different screen depending on the type value
+                        "language" -> navController.navigate(Routes.AddLanguage)
+                        "course" -> navController.navigate(Routes.AddField)
                     }
                 },
                 NavigateToHome = {navController.navigate(Routes.Home)}
@@ -164,7 +163,7 @@ fun NavigationWrapper() {
 
         composable(Routes.AddField) {
             AddFieldScreen(
-                NavigateToDailyGoal = {navController.navigate("${Routes.AddDailyGoal}/{type}")},
+                NavigateToDailyGoal = {navController.navigate("${Routes.AddDailyGoal}/course")},
                 NavigateToComplete = {navController.navigate(Routes.Complete)}
 
             )
@@ -173,7 +172,7 @@ fun NavigationWrapper() {
         composable(Routes.AddLanguage) {
             AddLanguageScreen(
                 NavigateToComplete = {navController.navigate(Routes.Complete)},
-                NavigateToDailyGoal = {navController.navigate("${Routes.AddDailyGoal}/{type}")} //contains type's value (example: it come back to AddDailyGoal/language
+                NavigateToDailyGoal = {navController.navigate("${Routes.AddDailyGoal}/language")} //contains type's value (example: it come back to AddDailyGoal/language
             )
         }
 
