@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -294,7 +295,7 @@ fun SpeakingScreen1(
                     }
                 },
                 transcriptionText = processingResult.value?.transcript,
-                isProcessing = isBeingTranscribed.value
+                isBeingTranscribed = isBeingTranscribed.value
             )
 
             // “Continue” Button + Pop-up Handling
@@ -348,7 +349,7 @@ fun BodyContent(
     onRecordingStart: () -> Unit,
     onRecordingStop: () -> Unit,
     transcriptionText: String?,
-    isProcessing: Boolean
+    isBeingTranscribed: Boolean
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         // Question area
@@ -378,9 +379,40 @@ fun BodyContent(
             }
         }
 
-        Spacer(modifier = Modifier.height(220.dp))
+        // Box for expandable text content
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(270.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (isBeingTranscribed) {
+                    Text(
+                        text = "Processing your answer...",
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+                transcriptionText?.let { text ->
+                    Text(
+                        text = "Your answer: $text",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
+
         HorizontalDivider(thickness = 2.dp, color = Color.White)
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         // Recording controls
         Row(
@@ -401,38 +433,6 @@ fun BodyContent(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-
-        // Processing text
-        if (isProcessing) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-            Text(
-                text = "Processing your answer...",
-                color = Color.White,
-                textAlign = TextAlign.Center
-            )}
-        }
-
-        // Transcription
-        transcriptionText?.let { text ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-            Text(
-                text = "Your answer: $text",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
-            )}
-        }
     }
 }
 
