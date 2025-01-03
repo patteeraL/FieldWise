@@ -41,7 +41,6 @@ import com.example.fieldwise.ui.widget.Card
 import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.CloseButton
-import com.example.fieldwise.ui.widget.ExerciseNotCompletePopUp
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -195,9 +194,6 @@ fun VocabScreen1(
         mutableListOf<UriInfoVocab1?>(null),
         mutableListOf<UriInfoVocab1?>(null)
     )
-
-    var showDialog by remember { mutableStateOf(false) }
-    var dialogType by remember { mutableStateOf("") }
 
     if (vocabData.isNotEmpty() && vocabData[0].status) {
         val discussionComments = vocabData[0].comments
@@ -416,24 +412,17 @@ fun VocabScreen1(
                     )
                 }
                 Spacer(modifier = Modifier.height(60.dp))
-                MainButton(button = "CONTINUE", onClick = {
-                    if (!answerResultStatus){ //IF ANSWER IS NOT CORRECT
-                        dialogType = "INCORRECT_ANS"
-                        showDialog = true
-                    }
-                    if (answerResultStatus){
-                        continueStatus = true
-                    }
-                },
-                    mainButtonType = MainButtonType.BLUE
+                MainButton(
+                    button = "CONTINUE",
+                    onClick = {
+                        if (answerResultStatus){
+                            continueStatus = true
+                        }
+                    },
+                    mainButtonType = if (!answerResultStatus) MainButtonType.GREY else MainButtonType.BLUE,
+                    isEnable = answerResultStatus
                 )
-                if (showDialog) {
-                    when (dialogType) { "INCORRECT_ANS" -> {
-                        ExerciseNotCompletePopUp(
-                            showDialog = showDialog,
-                            onDismiss = { showDialog = false}
-                        )
-                    }}}
+
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
                 if (vocabData.isNotEmpty()) {

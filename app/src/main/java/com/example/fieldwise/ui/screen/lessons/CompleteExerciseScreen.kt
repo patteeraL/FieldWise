@@ -87,7 +87,7 @@ fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, ty
                         .size(50.dp)
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "Return to Home ", onClick = { Finish() }, mainButtonType = MainButtonType.GREEN)
+                MainButton(button = "Return to Home ", onClick = { Finish() }, mainButtonType = MainButtonType.GREEN, isEnable = true)
 
             }}
 

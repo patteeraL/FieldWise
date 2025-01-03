@@ -49,7 +49,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import com.example.fieldwise.ui.widget.ExerciseNotCompletePopUp
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -170,9 +169,6 @@ fun ListeningScreen1(
         mutableListOf<Listen1ItemAnswer>(),
         mutableListOf<Listen1ItemAnswer>(),
     )
-
-    var showDialog by remember { mutableStateOf(false) }
-    var dialogType by remember { mutableStateOf("") }
 
     if (listenData.isNotEmpty() && listenData[0].status) {
         val question = listenData[0].question
@@ -416,24 +412,16 @@ fun ListeningScreen1(
                     )
                 }
                 Spacer(modifier = Modifier.height(60.dp))
-                MainButton(button = "CONTINUE", onClick = {
-                    if (!answerResultStatus){ //IF ANSWER IS NOT CORRECT
-                        dialogType = "INCORRECT_ANS"
-                        showDialog = true
-                    }
-                    if (answerResultStatus){
-                        continueStatus = true
-                    }
-                },
-                    mainButtonType = MainButtonType.BLUE
+                MainButton(
+                    button = "CONTINUE",
+                    onClick = {
+                        if (answerResultStatus){
+                            continueStatus = true
+                        }
+                    },
+                    mainButtonType = if (!answerResultStatus) MainButtonType.GREY else MainButtonType.BLUE,
+                    isEnable = answerResultStatus
                 )
-                if (showDialog) {
-                    when (dialogType) { "INCORRECT_ANS" -> {
-                        ExerciseNotCompletePopUp(
-                            showDialog = showDialog,
-                            onDismiss = { showDialog = false}
-                        )
-                    }}}
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
                 if (listenData.isNotEmpty()) {

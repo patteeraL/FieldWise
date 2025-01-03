@@ -34,10 +34,14 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.PleaseEnterUserNamePopUp
 import com.example.fieldwise.ui.widget.ProgressType
 
 @Composable
 fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
+
+    var username by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
@@ -62,9 +66,22 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
             )
         )
         Spacer(modifier = Modifier.height(16.dp))
-        NameTextField()
+        NameTextField(username = username, onValueChange = { newName -> username = newName})
         Spacer(modifier = Modifier.height(16.dp))
-        MainButton(button = "CONTINUE", onClick = { NavigateToGoal() }, mainButtonType = MainButtonType.BLUE)
+        MainButton(button = "CONTINUE",
+            onClick = {
+                if (username.isEmpty()) {
+                    showDialog = true
+                } else {
+                    NavigateToGoal() } },
+            mainButtonType = MainButtonType.BLUE, isEnable = true)
+
+        if (showDialog) {
+            PleaseEnterUserNamePopUp(
+                showDialog = showDialog,
+                onDismiss = {showDialog = false}
+            )
+        }
 
     }
 
@@ -72,15 +89,15 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NameTextField(modifier: Modifier = Modifier) {
-    var username by remember { mutableStateOf("") }
+fun NameTextField(modifier: Modifier = Modifier, username: String, onValueChange: (String) -> Unit) {
+
 
     OutlinedTextField(
         modifier = modifier
             .size(346.dp, 55.dp)
             .border(3.dp, Color(0xFFD9D9D9), RoundedCornerShape(10.dp)),
         value = username,
-        onValueChange = { username = it },
+        onValueChange = onValueChange,
         colors = androidx.compose.material3.TextFieldDefaults.outlinedTextFieldColors(
             containerColor = Color.Transparent, // Avoid conflicting background
             focusedBorderColor = Color.Transparent,

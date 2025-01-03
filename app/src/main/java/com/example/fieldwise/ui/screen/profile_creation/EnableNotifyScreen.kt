@@ -98,7 +98,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
                 Notify(onAllowClick = { showDialog = true })
             }
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToCourse() },mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { NavigateToCourse() },mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }
 }

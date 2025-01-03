@@ -43,6 +43,7 @@ fun SplashScreen(navigateToLoading: () -> Unit) {
             onClick = { navigateToLoading() },
             mainButtonType = MainButtonType.BLUE,
             button = "GET STARTED",
+            isEnable = true
         )
         //change the format to be able to navigate
     }// Renamed for clarity button = "GET STARTED"

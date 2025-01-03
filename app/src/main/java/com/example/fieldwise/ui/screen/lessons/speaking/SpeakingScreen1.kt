@@ -41,7 +41,6 @@ import com.example.fieldwise.model.ProcessingResult
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
-import com.example.fieldwise.ui.widget.ExerciseNotCompletePopUp
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -70,6 +69,8 @@ data class QuestionDataSpeaking(
     val question: List<SpeakingItemQuestion>,
     val comments: List<String>
 )
+
+var continueStatus = false
 
 fun isTranscriptionEqualsToQuestion(transcription: String, question: String): Boolean {
     val cleanedTranscription = transcription
@@ -166,7 +167,7 @@ fun speakingMP3Storage(location: String, fileName: String): Uri? {
 }
 
 // -------------------------------------------------
-// COMPOSABLES
+// COMPOSABLES PART
 // -------------------------------------------------
 
 @Composable
@@ -294,34 +295,24 @@ fun SpeakingScreen1(
                     }
                 },
                 transcriptionText = processingResult.value?.transcript,
-                isProcessing = isBeingTranscribed.value
+                isBeingTranscribed = isBeingTranscribed.value
             )
 
             // “Continue” Button + Pop-up Handling
             BottomControls(
-                onContinueClick = {
-                    when {
-                        recordingState.value !is RecordingState.Completed -> {
-                            dialogType.value = "NO_RECORDING"
-                            showDialog.value = true
-                        }
-                        processingResult.value?.isCorrect == false -> {
-                            dialogType.value = "INCORRECT_ANS"
-                            showDialog.value = true
-                        }
-                        processingResult.value?.isCorrect == true -> {
-                            NextExercise()
-                        }
-                    }
-                },
                 showDialog = showDialog.value,
-                onDismissDialog = { showDialog.value = false }
+                onDismissDialog = { showDialog.value = false },
+                isEnable = (processingResult.value?.isCorrect == true),
+                NextExercise = NextExercise
             )
 
             // Comments Section
             if (speakingData[0].comments.isNotEmpty()) {
                 Discussion(comments = speakingData[0].comments)
             }
+        }
+        if (continueStatus){
+            NextExercise()
         }
     }
 }
@@ -348,7 +339,7 @@ fun BodyContent(
     onRecordingStart: () -> Unit,
     onRecordingStop: () -> Unit,
     transcriptionText: String?,
-    isProcessing: Boolean
+    isBeingTranscribed: Boolean
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         // Question area
@@ -378,9 +369,40 @@ fun BodyContent(
             }
         }
 
-        Spacer(modifier = Modifier.height(220.dp))
+        // Box for expandable text content
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(270.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (isBeingTranscribed) {
+                    Text(
+                        text = "Processing your answer...",
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
+                transcriptionText?.let { text ->
+                    Text(
+                        text = "Your answer: $text",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                    )
+                }
+            }
+        }
+
         HorizontalDivider(thickness = 2.dp, color = Color.White)
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         // Recording controls
         Row(
@@ -401,61 +423,29 @@ fun BodyContent(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
-
-        // Processing text
-        if (isProcessing) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-            Text(
-                text = "Processing your answer...",
-                color = Color.White,
-                textAlign = TextAlign.Center
-            )}
-        }
-
-        // Transcription
-        transcriptionText?.let { text ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-            Text(
-                text = "Your answer: $text",
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(16.dp)
-            )}
-        }
     }
 }
 
 @Composable
 fun BottomControls(
-    onContinueClick: () -> Unit,
     showDialog: Boolean,
-    onDismissDialog: () -> Unit
+    onDismissDialog: () -> Unit,
+    isEnable: Boolean,
+    NextExercise: () -> Unit
 ) {
     Spacer(modifier = Modifier.height(20.dp))
 
     MainButton(
         button = "CONTINUE",
-        onClick = onContinueClick,
-        mainButtonType = MainButtonType.BLUE
+        onClick = {
+            if (isEnable) {
+                NextExercise()
+            }
+                  },
+        mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
+        isEnable = isEnable
     )
 
-    if (showDialog) {
-        ExerciseNotCompletePopUp(
-            showDialog = true,
-            onDismiss = onDismissDialog
-        )
-    }
 
     Spacer(modifier = Modifier.height(50.dp))
     HorizontalDivider(thickness = 2.dp, color = Color.White)
