@@ -73,7 +73,7 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(options, descriptions, iconResIds = null)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToNotification() }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { NavigateToNotification() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }
 

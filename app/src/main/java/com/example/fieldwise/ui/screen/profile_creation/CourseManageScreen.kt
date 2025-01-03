@@ -99,7 +99,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
             Spacer(modifier = Modifier.height(30.dp))
             SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds)
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() }, mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }
 

@@ -64,7 +64,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
         NameTextField()
         Spacer(modifier = Modifier.height(16.dp))
-        MainButton(button = "CONTINUE", onClick = { NavigateToGoal() }, mainButtonType = MainButtonType.BLUE)
+        MainButton(button = "CONTINUE", onClick = { NavigateToGoal() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
 
     }
 

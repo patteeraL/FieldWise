@@ -41,7 +41,6 @@ import com.example.fieldwise.model.ProcessingResult
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
-import com.example.fieldwise.ui.widget.ExerciseNotCompletePopUp
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -70,6 +69,8 @@ data class QuestionDataSpeaking(
     val question: List<SpeakingItemQuestion>,
     val comments: List<String>
 )
+
+var continueStatus = false
 
 fun isTranscriptionEqualsToQuestion(transcription: String, question: String): Boolean {
     val cleanedTranscription = transcription
@@ -299,29 +300,18 @@ fun SpeakingScreen1(
 
             // “Continue” Button + Pop-up Handling
             BottomControls(
-                onContinueClick = {
-                    when {
-                        recordingState.value !is RecordingState.Completed -> {
-                            dialogType.value = "NO_RECORDING"
-                            showDialog.value = true
-                        }
-                        processingResult.value?.isCorrect == false -> {
-                            dialogType.value = "INCORRECT_ANS"
-                            showDialog.value = true
-                        }
-                        processingResult.value?.isCorrect == true -> {
-                            NextExercise()
-                        }
-                    }
-                },
                 showDialog = showDialog.value,
-                onDismissDialog = { showDialog.value = false }
+                onDismissDialog = { showDialog.value = false },
+                isEnable = (processingResult.value?.isCorrect == true)
             )
 
             // Comments Section
             if (speakingData[0].comments.isNotEmpty()) {
                 Discussion(comments = speakingData[0].comments)
             }
+        }
+        if (continueStatus){
+            NextExercise()
         }
     }
 }
@@ -438,24 +428,21 @@ fun BodyContent(
 
 @Composable
 fun BottomControls(
-    onContinueClick: () -> Unit,
     showDialog: Boolean,
-    onDismissDialog: () -> Unit
+    onDismissDialog: () -> Unit,
+    isEnable: Boolean
 ) {
     Spacer(modifier = Modifier.height(20.dp))
 
     MainButton(
         button = "CONTINUE",
-        onClick = onContinueClick,
-        mainButtonType = MainButtonType.BLUE
+        onClick = {
+            continueStatus = true
+                  },
+        mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
+        isEnable = isEnable
     )
 
-    if (showDialog) {
-        ExerciseNotCompletePopUp(
-            showDialog = true,
-            onDismiss = onDismissDialog
-        )
-    }
 
     Spacer(modifier = Modifier.height(50.dp))
     HorizontalDivider(thickness = 2.dp, color = Color.White)

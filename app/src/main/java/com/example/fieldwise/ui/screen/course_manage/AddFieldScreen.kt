@@ -81,7 +81,7 @@ fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Uni
             Spacer(modifier = Modifier.height(30.dp))
             Spacer(modifier = Modifier.height(30.dp))
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() },  mainButtonType = MainButtonType.BLUE)
+            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() },  mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }
 

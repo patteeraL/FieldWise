@@ -82,7 +82,7 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
                     )
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "I'M READY !", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.BLUE)
+                MainButton(button = "I'M READY !", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
 
             }}
 

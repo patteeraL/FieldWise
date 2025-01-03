@@ -49,7 +49,6 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
-import com.example.fieldwise.ui.widget.ExerciseNotCompletePopUp
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -163,9 +162,6 @@ fun ListeningScreen2(
         mutableListOf<Listen2ItemAnswer>(),
         mutableListOf<Listen2ItemAnswer>(),
     )
-
-    var showDialog by remember { mutableStateOf(false) }
-    var dialogType by remember { mutableStateOf("") }
 
     if (listenData.isNotEmpty() && listenData[0].status) {
         val question = listenData[0].question
@@ -926,23 +922,14 @@ fun ListeningScreen2(
                     }
                 }
                 Spacer(modifier = Modifier.height(130.dp))
-                MainButton(button = "CONTINUE", onClick = {
-                    if (!buttonStatus01 || !buttonStatus02 || !buttonStatus03 || !buttonStatus04 || !buttonStatus11 || !buttonStatus12 || !buttonStatus13 || !buttonStatus14){ //IF ANSWER IS NOT CORRECT
-                        dialogType = "INCORRECT_ANS"
-                        showDialog = true
-                    }
-                    if (buttonStatus01 && buttonStatus02 && buttonStatus03 && buttonStatus04 && buttonStatus11 && buttonStatus12 && buttonStatus13 && buttonStatus14){
-                        NextExercise()}
-                },
-                    mainButtonType = MainButtonType.BLUE
+                MainButton(
+                    button = "CONTINUE",
+                    onClick = {
+                        NextExercise()
+                    },
+                    mainButtonType = if (!buttonStatus01 || !buttonStatus02 || !buttonStatus03 || !buttonStatus04 || !buttonStatus11 || !buttonStatus12 || !buttonStatus13 || !buttonStatus14) MainButtonType.GREY else MainButtonType.BLUE,
+                    isEnable = buttonStatus01 && buttonStatus02 && buttonStatus03 && buttonStatus04 && buttonStatus11 && buttonStatus12 && buttonStatus13 && buttonStatus14
                 )
-                if (showDialog) {
-                    when (dialogType) { "INCORRECT_ANS" -> {
-                        ExerciseNotCompletePopUp(
-                            showDialog = showDialog,
-                            onDismiss = { showDialog = false}
-                        )
-                    }}}
                 Spacer(modifier = Modifier.height(50.dp))
                 HorizontalDivider(thickness = 2.dp, color = Color.White)
                 val discussionComments: List<String>

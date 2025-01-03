@@ -163,19 +163,19 @@ fun DropDownDemo(Restart: () -> Unit) {
         MainButton(button = "SAVE CHANGES", onClick = {
             dialogType = "SAVE_CHANGES"
             showDialog = true
-        }, mainButtonType = MainButtonType.BLUE)
+        }, mainButtonType = MainButtonType.BLUE, isEnable = true)
 
         Spacer(modifier = Modifier.height(25.dp))
 
         MainButton(button = "DELETE COURSE",
             onClick = {dialogType = "DELETE_COURSE"
-            showDialog = true }, mainButtonType = MainButtonType.RED)
+            showDialog = true }, mainButtonType = MainButtonType.RED, isEnable = true)
 
         Spacer(modifier = Modifier.height(25.dp))
 
         MainButton(button = "DELETE ACCOUNT",
             onClick = {dialogType = "DELETE_ACCOUNT"
-                showDialog = true }, mainButtonType = MainButtonType.NOCOLOR)
+                showDialog = true }, mainButtonType = MainButtonType.NOCOLOR, isEnable = true)
 
         if (showDialog) {
             when (dialogType) { "DELETE_COURSE" -> {

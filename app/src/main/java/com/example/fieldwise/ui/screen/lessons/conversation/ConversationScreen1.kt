@@ -198,7 +198,7 @@ fun ConversationScreen1(
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
-        MainButton(button = "CONTINUE", onClick = { NextExercise()}, mainButtonType = MainButtonType.BLUE)
+        MainButton(button = "CONTINUE", onClick = { NextExercise()}, mainButtonType = MainButtonType.BLUE, isEnable = true)
         Spacer(modifier = Modifier.height(50.dp))
         HorizontalDivider(thickness = 2.dp, color = Color.White)
         Discussion(comments = listOf("Hi", "HI", "HI"))

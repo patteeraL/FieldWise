@@ -84,7 +84,7 @@ fun AddDailyGoalScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 SetUpButton(options, descriptions, iconResIds = null)
                 Spacer(modifier = Modifier.height(30.dp))
-                MainButton(button = "CONTINUE", onClick = { MainButtonClick() },  mainButtonType = MainButtonType.BLUE)
+                MainButton(button = "CONTINUE", onClick = { MainButtonClick() },  mainButtonType = MainButtonType.BLUE, isEnable = true)
             } // tengo que hacer que dependiendo de el botón que se haya pulsado vaya a añadir lenguaje o campo
         }
     }

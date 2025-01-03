@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 
-enum class MainButtonType { YELLOW, BLUE, RED, GREEN, WHITE_B, WHITE_G, NOCOLOR }
+enum class MainButtonType { YELLOW, BLUE, RED, GREEN, WHITE_B, WHITE_G, GREY, NOCOLOR }
 
 @Composable
 fun getColorForMainButtonType (mainButtonType: MainButtonType): Color {
@@ -39,6 +39,7 @@ fun getColorForMainButtonType (mainButtonType: MainButtonType): Color {
         MainButtonType.GREEN -> Color(0xFF58CC02)
         MainButtonType.WHITE_B -> Color(0xFFFFFFFF)
         MainButtonType.WHITE_G -> Color(0xFFFFFFFF)
+        MainButtonType.GREY -> Color(0xFFC5C5C5)
         MainButtonType.NOCOLOR -> Color.Transparent
     }
 }
@@ -53,6 +54,7 @@ fun getShadowColorForMainButtonType(mainButtonType: MainButtonType): Color {
         MainButtonType.GREEN -> Color(0xFF4DAB07)
         MainButtonType.WHITE_B -> Color(0xFFC5C5C5)
         MainButtonType.WHITE_G -> Color(0xFFC5C5C5)
+        MainButtonType.GREY -> Color(0xFF828282)
         MainButtonType.NOCOLOR -> Color.Transparent
     }
 }
@@ -64,13 +66,14 @@ fun getTextColorForMainButtonType(mainButtonType: MainButtonType): Color {
         MainButtonType.YELLOW -> Color(0xFF524102)
         MainButtonType.WHITE_B -> Color.Black
         MainButtonType.WHITE_G -> Color(0xFF58CC02)
+        MainButtonType.GREY -> Color(0xFF828282)
         else -> Color.White
     }
 }
 
 
 @Composable
-fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit,  mainButtonType: MainButtonType) {
+fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Unit,  mainButtonType: MainButtonType, isEnable: Boolean) {
 
     val backgroundColor = getColorForMainButtonType(mainButtonType)
     val shadowColor = getShadowColorForMainButtonType(mainButtonType)
@@ -106,7 +109,8 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
                 onClick()
                 buttomPressed = false
                       },
-            colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+            enabled = isEnable,
+            colors = ButtonDefaults.buttonColors(containerColor = backgroundColor, disabledContainerColor = Color(0xFFC5C5C5)),
             modifier = Modifier
                 .width(369.dp)
                 .height(49.dp),
@@ -130,7 +134,7 @@ fun MainButton(modifier: Modifier = Modifier, button: String, onClick: () -> Uni
 @Composable
 fun MainButtonPreview() {
     FieldWiseTheme {
-        MainButton(button = "CONTINUE", onClick = {  }, mainButtonType = MainButtonType.BLUE)
+        MainButton(button = "CONTINUE", onClick = {  }, mainButtonType = MainButtonType.BLUE, isEnable = true)
     }
 }
 
