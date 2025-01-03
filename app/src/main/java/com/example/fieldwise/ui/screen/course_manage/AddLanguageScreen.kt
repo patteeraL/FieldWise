@@ -30,6 +30,7 @@ import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.widget.PleaseSelectPopUp
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
 
@@ -46,7 +47,9 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
         R.drawable.thai_circle
     )
 
-    var selectedOption by remember { mutableStateOf("") }
+    var selectedOption1 by remember { mutableStateOf("") }
+    var selectedOption2 by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
@@ -88,7 +91,7 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds, onSelectionChange = {selectedOption = it})
+            SetUpButton(fieldOptions, descriptions = null, iconResIds = fieldIconResIds, onSelectionChange = {selectedOption1 = it})
             Spacer(modifier = Modifier.height(30.dp))
             Row{
                 Text(
@@ -103,12 +106,23 @@ fun AddLanguageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> U
 
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds, onSelectionChange = {selectedOption = it})
+            SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds, onSelectionChange = {selectedOption2 = it})
             Spacer(modifier = Modifier.height(30.dp))
-            MainButton(button = "CONTINUE", onClick = { NavigateToComplete() },  mainButtonType = MainButtonType.BLUE, isEnable = true)
+            MainButton(button = "CONTINUE",
+                onClick = { if (selectedOption1.isEmpty() or selectedOption2.isEmpty()) {
+                    showDialog = true
+                } else {NavigateToComplete()}
+                          },
+                mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }
 
+    if (showDialog) {
+        PleaseSelectPopUp(
+            showDialog = showDialog,
+            onDismiss = {showDialog = false }
+        )
+    }
 
 }
 
