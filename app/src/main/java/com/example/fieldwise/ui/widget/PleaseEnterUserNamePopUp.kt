@@ -1,5 +1,6 @@
 package com.example.fieldwise.ui.widget
 
+
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Warning
@@ -22,7 +23,7 @@ import com.example.fieldwise.ui.theme.InterFontFamily
 import kotlinx.coroutines.delay
 
 @Composable
-fun PleaseSelectPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
+fun PleaseEnterUserNamePopUp(showDialog: Boolean, onDismiss: () -> Unit) {
     if (showDialog) {
         LaunchedEffect(Unit) {
             delay(2000) // Delay for 1000 milliseconds
@@ -34,7 +35,7 @@ fun PleaseSelectPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
             icon = {
                 Icon(
                     imageVector = Icons.Rounded.Warning,
-                    contentDescription = "Warning Select Option",
+                    contentDescription = "Warning Enter a username",
                     tint = Color(0xFFFFB703),
                     modifier = Modifier.size(60.dp)
                 )
@@ -42,7 +43,7 @@ fun PleaseSelectPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
             title = {
                 Text(
                     text = buildAnnotatedString {
-                        append("Choose an option to proceed")
+                        append("Enter a username to proceed")
                     },
                     textAlign = TextAlign.Center,
                     style = TextStyle(color = Color.Black, fontSize = 18.sp, fontFamily = InterFontFamily, fontWeight = FontWeight.Bold)
@@ -55,9 +56,9 @@ fun PleaseSelectPopUp(showDialog: Boolean, onDismiss: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun PleaseSelectPopUpPreview() {
+fun PleaseEnterUserNamePreview() {
     FieldWiseTheme {
-        PleaseSelectPopUp(
+        PleaseEnterUserNamePopUp(
             showDialog = true,
             onDismiss = {}
         )
