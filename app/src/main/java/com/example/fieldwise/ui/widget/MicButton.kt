@@ -25,18 +25,23 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
 fun MicButton(modifier: Modifier = Modifier,
-                onClick: () -> Unit) {
+                onClick: () -> Unit, isRecording: Boolean = false) {
     Column(modifier = modifier.height(80.dp).width(90.dp)){
         Box(modifier = modifier) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .offset(y = 10.dp)
-                    .background(color = Color(0xFFC34544), shape = RoundedCornerShape(15.dp))
+                    .background(
+                        color = if (isRecording) Color(0xFFC34544) else Color(0xFF4DAB07),
+                        shape = RoundedCornerShape(15.dp)
+                    )
             )
             Button(
                 onClick = onClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6060)),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isRecording) Color(0xFFFF6060) else Color(0xFF58CC02),
+                ),
                 modifier = Modifier.fillMaxSize(),
                 shape = RoundedCornerShape(15.dp)
             ) {
