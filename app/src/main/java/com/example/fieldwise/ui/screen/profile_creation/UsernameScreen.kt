@@ -49,6 +49,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
 
     var username by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
@@ -75,6 +76,19 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
         NameTextField(username = username, onValueChange = { newName -> username = newName})
         Spacer(modifier = Modifier.height(16.dp))
+        if (errorMessage.isNotEmpty()) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = InterFontFamily
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
         MainButton(button = "CONTINUE",
             onClick = {
                 if (username.isEmpty()) {
@@ -94,7 +108,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                             userListNumber++
                         }
                         if (isUsernameExists) {
-                            //ErrorPopUp()
+                            errorMessage = "The username is already in use!"
                             Log.d("Error","Error")
                         } else {
                             userListNumber++
