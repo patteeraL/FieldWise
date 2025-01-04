@@ -34,14 +34,15 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
 @Composable
-fun SetUpButton(options: List<String>, descriptions: List<String>?, iconResIds: List<Int>?) {
+fun SetUpButton(options: List<String>, descriptions: List<String>?, iconResIds: List<Int>?, onSelectionChange: (String) -> Unit) {
     var selectedButton by remember { mutableStateOf<Int?>(null) }
 
     Column() {
         // Loop through the options list and create buttons dynamically
         options.forEachIndexed { index, option ->
             Button(
-                onClick = { selectedButton = index }, // Set state to the current button index
+                onClick = { selectedButton = index
+                          onSelectionChange(option)}, // Set state to the current button index
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (selectedButton == index) Color(0xFFECFBFF) else Color.Transparent
                 ),
@@ -117,6 +118,6 @@ fun SetUpButtonPreview() {
             R.drawable.computer
         )
 
-        SetUpButton(options = options, descriptions = descriptions, iconResIds = iconResIds)
+        SetUpButton(options = options, descriptions = descriptions, iconResIds = iconResIds, onSelectionChange = {})
     }
 }
