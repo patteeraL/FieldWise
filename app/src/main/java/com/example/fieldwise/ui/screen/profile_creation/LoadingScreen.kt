@@ -1,5 +1,6 @@
 package com.example.fieldwise.ui.screen.profile_creation
 
+import androidx.compose.animation.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +26,12 @@ import com.example.fieldwise.ui.theme.ShantellSansFontFamily
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
+import androidx.compose.ui.graphics.graphicsLayer
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier, NavigateToUserName: () -> Unit ) {
@@ -52,11 +60,30 @@ fun LoadingScreen(modifier: Modifier = Modifier, NavigateToUserName: () -> Unit 
 
 @Composable
 fun LoadingIcon(modifier: Modifier = Modifier){
+
+    //rotating animation for loading icon
+
+    val LoadingRotate = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
+        LoadingRotate.animateTo(
+            targetValue = 360f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = 2000, easing = LinearEasing
+                ),
+                repeatMode = RepeatMode.Restart
+            )
+
+        )
+
+    }
     Image(
         painter = painterResource(id = R.drawable.loading_icon),
-        contentDescription = "Loading icon",
+        contentDescription = "Rotating loading icon",
         modifier = modifier
             .size(250.dp) // Set a default size
+            .graphicsLayer { rotationZ = LoadingRotate.value }
     )
 }
 
