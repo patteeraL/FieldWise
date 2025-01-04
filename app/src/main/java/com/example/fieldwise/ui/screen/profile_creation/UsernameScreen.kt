@@ -1,6 +1,11 @@
 package com.example.fieldwise.ui.screen.profile_creation
 
 import android.util.Log
+import android.view.animation.OvershootInterpolator
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +22,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,7 +60,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
 
     Column(modifier = modifier.fillMaxSize()
         .padding(start = 20.dp, end = 20.dp)) {
-        Spacer(modifier = Modifier.height(70.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         LinearProgress(target = 0.1f, progressType = ProgressType.LIGHT)
     }
     Column(
@@ -63,7 +70,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         Profile()
-        Spacer(modifier = Modifier.height(16.dp)) // Add spacing between icon and button
+        Spacer(modifier = Modifier.height(30.dp)) // Add spacing between icon and button
         Text(
             text = "What’s your name?",
             color = Color(0xFF4B4B4B),
@@ -156,11 +163,35 @@ fun NameTextField(modifier: Modifier = Modifier, username: String, onValueChange
 }
 @Composable
 fun Profile(modifier: Modifier = Modifier) {
+
+    // bounce animation for profile icon
+
+    val profileAn = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
+        profileAn.animateTo(
+            targetValue = 20f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = 1000,
+                    easing = {OvershootInterpolator(4f).getInterpolation(it)}
+                ),
+                repeatMode = RepeatMode.Reverse
+            )
+
+
+        )
+
+    }
+
+
+
     Image(
         painter = painterResource(id = R.drawable.profile),
         contentDescription = "Profile",
         modifier = modifier
             .size(250.dp) // Set a default size
+            .offset(y = profileAn.value.dp)
     )
 }
 
