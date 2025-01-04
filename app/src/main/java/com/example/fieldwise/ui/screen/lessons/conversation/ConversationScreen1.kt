@@ -1,16 +1,43 @@
 package com.example.fieldwise.ui.screen.lessons.conversation
 
 import Discussion
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +48,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.model.ConverseRequest
+import com.example.fieldwise.model.Message
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
@@ -29,8 +58,51 @@ import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.ProgressType
+import com.example.fieldwise.viewmodel.AiViewModel
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-data class Message(val text: String, val isUser: Boolean)
+
+/**
+ * Function to retrieve a conversation script from Firebase Realtime Database.
+ * The script is stored in the path: <Language> -> <Course Name> -> Conversation -> <Question>.
+ * This function retrieves one particular script at a time.
+ *
+ * @param language The language of the course.
+ * @param course The name of the course.
+ * @param question The specific question (Q1, Q2, Q3, etc.) to retrieve.
+ * @return A string containing the conversation script.
+ */
+@Composable
+fun getConversationScript1(language: String, course: String, lesson: String, question: String): String {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val scriptData = remember { mutableStateOf("") }
+    val dataStatus = remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        courseListRef.get().addOnSuccessListener { dataSnapshot ->
+            val script = dataSnapshot
+                .child(language)
+                .child(course)
+                .child(lesson)
+                .child("Conversation").
+                child(question).getValue(String::class.java) ?: ""
+            scriptData.value = script
+            dataStatus.value = true
+            Log.d("FirebaseCheck", "Database Extraction Successful! Extracted Script: $script")
+        }.addOnFailureListener { exception ->
+            Log.e("FirebaseCheck", "Database Extraction Error!", exception)
+            dataStatus.value = false
+        }
+    }
+
+    return if (dataStatus.value) {
+        scriptData.value
+    } else {
+        ""
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,11 +110,55 @@ fun ConversationScreen1(
     modifier: Modifier = Modifier,
     ExitLesson: () -> Unit,
     NextExercise: () -> Unit,
-    type: String?
+    type: String?,
+    viewModel: AiViewModel = AiViewModel()
 ) {
-    var text by remember { mutableStateOf("") }
-    val messages = remember { mutableStateListOf(Message("Hi, how are you?", false)) }
+    var userInput by remember { mutableStateOf("") }
+    val history = remember { mutableStateListOf<Message>() }
+    var isGeneratingReply by remember { mutableStateOf(false) }
+    val script = getConversationScript1("English", "CS", "Basics of Program Development", "Q1")
+    val conversationFinished = if (!history.isEmpty() && history.last().content.uppercase().contains("@END_CONVERSATION")) true else false
+    // map: {"msgText": "feedback" or null}
+    var feedbacks = remember { mutableMapOf<String, String?>() }
+    val listState = rememberLazyListState()
 
+    LaunchedEffect(history.lastOrNull()) {
+        listState.animateScrollToItem((history.size - 1).coerceAtLeast(0))
+    }
+
+    LaunchedEffect(Unit) {
+        history.add(Message(role = "assistant", content = "Hi, are you ready for today's lesson?" ))
+    }
+
+    fun sendMessage(message: String) {
+        if (message.isBlank() || isGeneratingReply) return
+
+        history.add(Message(role = "user", content = message))
+        // Add temporary AI message
+        history.add(Message(role = "assistant", content = "..."))
+        isGeneratingReply = true
+
+        val request = ConverseRequest(
+            language = "English",
+            script = script,
+            history = history.dropLast(1) // Remove loading message
+        )
+
+        viewModel.converse(request).observeForever { response ->
+            if (response.error != null) {
+                history.add(Message(role = "assistant", content = response.error))
+                isGeneratingReply = false
+                return@observeForever
+            }
+
+            feedbacks[history.dropLast(1).last().content] = response.feedback
+            isGeneratingReply = false
+            history.removeAt(history.lastIndex) // Remove loading message
+            history.add(Message(role = "assistant", content = response.reply))
+        }
+    }
+
+    // UI
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -50,14 +166,15 @@ fun ConversationScreen1(
             .padding(start = 20.dp, end = 20.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        // Header
         Spacer(modifier = Modifier.height(70.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            CloseButton(onClick = { ExitLesson()})
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            CloseButton(onClick = ExitLesson)
             Spacer(modifier = Modifier.width(10.dp))
             LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
         }
+
+        // Title
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Let's Chat with AI !",
@@ -68,28 +185,34 @@ fun ConversationScreen1(
                 fontFamily = InterFontFamily
             )
         )
-        Spacer(modifier = Modifier.height(20.dp))
 
-        LazyColumn(modifier = Modifier.fillMaxWidth().weight(1f)) {
-            items(messages.size) { index ->
-                val message = messages[index]
-                Row(
+        // Chat Messages
+        Spacer(modifier = Modifier.height(20.dp))
+        LazyColumn(modifier = Modifier.weight(1f), state = listState) {
+            items(history.size) { index ->
+                val message = history[index]
+                val feedback: String? = feedbacks[message.content]
+                val isUser = message.role == "user"
+
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
-                    horizontalArrangement = if (message.isUser) Arrangement.End else Arrangement.Start
+                        .padding(vertical = 20.dp),
+                    horizontalAlignment = if (isUser) Alignment.End else Alignment.Start
                 ) {
                     Box(
                         modifier = Modifier
+                            .widthIn(max = 280.dp)
                             .background(
-                                color = if (message.isUser) Color(0xFF00CCFF) else Color.White,
+                                color = if (isUser) Color(0xFF00CCFF) else Color.White,
                                 shape = RoundedCornerShape(8.dp)
                             )
                             .padding(15.dp)
                     ) {
                         Text(
-                            text = message.text,
-                            color = if (message.isUser) Color.White else Color.Black,
+                            // replace @someconsecutivestring in the message with a blank string
+                            text = message.content.replace(Regex("@[_a-zA-Z]+"), ""),
+                            color = if (isUser) Color.White else Color.Black,
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
@@ -97,74 +220,87 @@ fun ConversationScreen1(
                             )
                         )
                     }
-                }
-                if (message.isUser) {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 1.5.dp,
-                                color = Color(0xFF62AAC2),
-                                shape = RoundedCornerShape(size = 10.dp)
-                            )
-                            .width(338.dp)
-                            .height(83.dp)
-                            .background(
-                                color = Color(0xFF24586A),
-                                shape = RoundedCornerShape(size = 10.dp)
-                            )
-                    ) {
-                        Row(
+
+                    // Display feedback if available
+                    if (isUser && feedback != null && !feedback.uppercase().contains("@NO_FEEDBACK")) {
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Box(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                                .border(
+                                    width = 1.5.dp,
+                                    color = Color(0xFF62AAC2),
+                                    shape = RoundedCornerShape(size = 10.dp)
+                                )
+                                .defaultMinSize(minWidth = 338.dp)
+                                .wrapContentHeight()
+                                .background(
+                                    color = Color(0xFF24586A),
+                                    shape = RoundedCornerShape(size = 10.dp)
+                                )
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.lightbulbicon),
-                                contentDescription = "Light Bulb Icon",
-                                modifier = Modifier.size(24.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "AI feedback : ",
-                                color = Color.White,
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = SeravekFontFamily
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.lightbulbicon),
+                                    contentDescription = "Light Bulb Icon",
+                                    modifier = Modifier.size(24.dp)
                                 )
-                            )
-                            Text(
-                                text = "(( The feedback))",
-                                color = Color.White,
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Light,
-                                    fontFamily = SeravekFontFamily
-                                )
-                            )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column(
+                                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                                    horizontalAlignment = Alignment.Start,
+                                    verticalArrangement = Arrangement.Top,
+                                ) {
+                                    Text(
+                                        text = "Feedback:",
+                                        color = Color.White,
+                                        style = TextStyle(
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = SeravekFontFamily
+                                        )
+                                    )
+                                    Text(
+                                        text = feedback,
+                                        color = Color.White,
+                                        style = TextStyle(
+                                            fontSize = 16.sp,
+                                            fontWeight = FontWeight.Light,
+                                            fontFamily = SeravekFontFamily
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Input Area
         Box(
-            modifier = Modifier.fillMaxWidth().height(70.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(70.dp),
             contentAlignment = Alignment.TopEnd
         ) {
+            if (!conversationFinished)
             TextField(
-                value = text,
-                onValueChange = { text = it },
-                modifier = Modifier.fillMaxWidth().height(60.dp),
-                placeholder = {
-                    Text(
-                        text = "Type a message...",
-                        color = Color(0xFF0B4D65)
-                    )
-                },
+                value = userInput,
+                onValueChange = { userInput = it },
+                enabled = !isGeneratingReply,
+                modifier = Modifier.
+                    fillMaxWidth()
+                        .height(65.dp)
+                        .padding(end = if (isGeneratingReply) 0.dp else 80.dp),
+                placeholder = { Text("Type a message...", color = Color(0xFF0B4D65)) },
                 textStyle = TextStyle(
                     color = Color.White,
                     fontWeight = FontWeight.Light,
@@ -176,29 +312,39 @@ fun ConversationScreen1(
                 ),
                 shape = RoundedCornerShape(10.dp)
             )
-            Button(
-                onClick = {
-                    if (text.isNotBlank()) {
-                        messages.add(Message(text, true))
-                        text = ""
-                    }
-                },
-                shape = RoundedCornerShape(10.dp),
-                modifier = modifier
-                    .width(70.dp)
-                    .height(50.dp)
-                    .padding(top = 10.dp, end = 10.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF))
-            ) {
-                Image(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painterResource(id = R.drawable.sendicon),
-                    contentDescription = null
-                )
+
+            if (!isGeneratingReply && !conversationFinished) {
+                Button(
+                    onClick = {
+                        if (userInput.isNotBlank()) {
+                            sendMessage(userInput)
+                            userInput = ""
+                        }
+                    },
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = modifier
+                        .width(60.dp)
+                        .height(50.dp)
+                        .padding(top = 10.dp, end = 0.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF))
+                ) {
+                    Image(
+                        modifier = Modifier.fillMaxSize(),
+                        painter = painterResource(id = R.drawable.sendicon),
+                        contentDescription = null
+                    )
+                }
             }
         }
+
+        // Footer
         Spacer(modifier = Modifier.height(20.dp))
-        MainButton(button = "CONTINUE", onClick = { NextExercise()}, mainButtonType = MainButtonType.BLUE, isEnable = true)
+        MainButton(
+            button = "CONTINUE",
+            onClick = NextExercise,
+            mainButtonType = if (conversationFinished) MainButtonType.BLUE else MainButtonType.GREY,
+            isEnable = conversationFinished
+        )
         Spacer(modifier = Modifier.height(50.dp))
         HorizontalDivider(thickness = 2.dp, color = Color.White)
         Discussion(comments = listOf("Hi", "HI", "HI"))
@@ -216,3 +362,4 @@ fun ConversationScreen1Preview() {
         )
     }
 }
+
