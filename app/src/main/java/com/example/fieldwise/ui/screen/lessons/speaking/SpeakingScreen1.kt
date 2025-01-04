@@ -70,7 +70,15 @@ data class QuestionDataSpeaking(
     val comments: List<String>
 )
 
-var continueStatus = false
+var discussionComments: List<String> = emptyList()
+var commentNumberSpeaking = 0
+var newCommentsDataSpeaking: List<String> = emptyList()
+
+// Data from Firebase
+const val SpeakingLanguage = "English"
+const val SpeakingCourse = "CS"
+const val SpeakingLesson = "Basics of Program Development"
+const val SpeakingQuestion = "Q1"
 
 fun isTranscriptionEqualsToQuestion(transcription: String, question: String): Boolean {
     val cleanedTranscription = transcription
@@ -120,6 +128,7 @@ fun getDataSpeaking(
 
             val commentsSnapshot = questionPath.child("Comments")
             commentsSnapshot.children.forEach { commentSnapshot ->
+                commentNumberSpeaking++
                 val commentText = commentSnapshot.getValue(String::class.java)
                 if (!commentText.isNullOrEmpty()) {
                     commentsData.add(commentText)
@@ -207,17 +216,13 @@ fun SpeakingScreen1(
         permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
 
-    // Data from Firebase
-    val language = "English"
-    val course = "CS"
-    val lesson = "Basics of Program Development"
-    val question = "Q1"
-    val speakingData = getDataSpeaking(language, course, lesson, question)
+    val speakingData = getDataSpeaking(SpeakingLanguage, SpeakingCourse, SpeakingLesson, SpeakingQuestion)
 
     // If we have data
     if (speakingData.isNotEmpty() && speakingData[0].status) {
         val questionList = speakingData[0].question
         questionText.value = questionList[0].text
+        discussionComments = speakingData[0].comments
         val audioUri = speakingMP3Storage(questionList[0].sound, "Speaking-Question-Sound")
 
         // Main layout
@@ -308,11 +313,11 @@ fun SpeakingScreen1(
 
             // Comments Section
             if (speakingData[0].comments.isNotEmpty()) {
-                Discussion(comments = speakingData[0].comments)
+                val comment = speakingData[0].comments
+                if (comment.isNotEmpty()) {
+                    newCommentsDataSpeaking = Discussion(comments = discussionComments)
+                }
             }
-        }
-        if (continueStatus){
-            NextExercise()
         }
     }
 }
@@ -439,13 +444,24 @@ fun BottomControls(
         button = "CONTINUE",
         onClick = {
             if (isEnable) {
+                val database = Firebase.database
+                val courseListRef = database.reference.child("Exercises")
+                val commentPath = courseListRef.child(SpeakingLanguage).child(SpeakingCourse).child(SpeakingLesson).child("Speaking").child(SpeakingQuestion).child("Comments")
+                val addedCommentsNo = newCommentsDataSpeaking.size - discussionComments.size
+                commentNumberSpeaking = discussionComments.size
+                for (i in 0 until addedCommentsNo) {
+                    commentNumberSpeaking++
+                    val newComment = newCommentsDataSpeaking[discussionComments.size + i]
+                    val newCommentKey = "Text$commentNumberSpeaking"
+
+                    commentPath.child(newCommentKey).setValue(newComment)
+                }
                 NextExercise()
             }
                   },
         mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
         isEnable = isEnable
     )
-
 
     Spacer(modifier = Modifier.height(50.dp))
     HorizontalDivider(thickness = 2.dp, color = Color.White)
