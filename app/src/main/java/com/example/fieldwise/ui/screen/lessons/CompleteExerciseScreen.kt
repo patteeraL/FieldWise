@@ -26,6 +26,9 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, type: String?) {
@@ -87,7 +90,20 @@ fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, ty
                         .size(50.dp)
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "Return to Home ", onClick = { Finish() }, mainButtonType = MainButtonType.GREEN, isEnable = true)
+                MainButton(button = "Return to Home", onClick = {
+                    val database = Firebase.database
+                    val userListSnapshot = database.reference.child("Leaderboard")
+                    userListSnapshot.get().addOnSuccessListener { dataSnapshot ->
+                        dataSnapshot.children.forEach { userSnapshot ->
+                            val name = userSnapshot.child("Name").getValue(String::class.java) ?: ""
+                            if (globalUsername == name) {
+                                val currentStreak = userSnapshot.child("Streak").getValue(Int::class.java) ?: 0
+                                val updatedStreak = currentStreak + 1
+                                userSnapshot.ref.child("Streak").setValue(updatedStreak)
+                            }
+                        }
+                    }
+                    Finish() }, mainButtonType = MainButtonType.GREEN, isEnable = true)
 
             }}
 

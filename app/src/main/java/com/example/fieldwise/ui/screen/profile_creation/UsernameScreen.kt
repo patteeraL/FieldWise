@@ -1,5 +1,6 @@
 package com.example.fieldwise.ui.screen.profile_creation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,12 @@ import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.PleaseEnterUserNamePopUp
 import com.example.fieldwise.ui.widget.ProgressType
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlin.random.Random
+
+
+var globalUsername: String = ""
 
 @Composable
 fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
@@ -73,7 +80,35 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                 if (username.isEmpty()) {
                     showDialog = true
                 } else {
-                    NavigateToGoal() } },
+                    globalUsername = username
+                    var userListNumber = 0
+                    val database = Firebase.database
+                    val userListSnapshot = database.reference.child("Leaderboard")
+                    userListSnapshot.get().addOnSuccessListener { dataSnapshot ->
+                        var isUsernameExists = false
+                        dataSnapshot.children.forEach { userSnapshot ->
+                            val name = userSnapshot.child("Name").getValue(String::class.java) ?: ""
+                            if (globalUsername == name) {
+                                isUsernameExists = true
+                            }
+                            userListNumber++
+                        }
+                        if (isUsernameExists) {
+                            //ErrorPopUp()
+                            Log.d("Error","Error")
+                        } else {
+                            userListNumber++
+                            val newUserKey = "User$userListNumber"
+                            val newUser = mapOf(
+                                "Name" to globalUsername,
+                                "Profile" to Random.nextInt(1, 3),
+                                "Streak" to 0
+                            )
+                            userListSnapshot.child(newUserKey).setValue(newUser)
+                            NavigateToGoal()
+                        }
+                    }
+                } },
             mainButtonType = MainButtonType.BLUE, isEnable = true)
 
         if (showDialog) {
