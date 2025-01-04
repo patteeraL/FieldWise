@@ -23,12 +23,12 @@ fun CourseManageButton(
     NavigateToAddCourse: () -> Unit,
     NavigateToAddLanguage: () -> Unit) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedLang by remember { mutableStateOf(R.drawable.spain_rectangle) }
+    var selectedLang by remember { mutableStateOf(R.drawable.eng_rectangle) }
     var selectedField by remember { mutableStateOf(R.drawable.map) }
 
     val langFields = remember {
         mapOf(
-            R.drawable.spain_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer"),
+            R.drawable.eng_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer"),
             R.drawable.thai_rectangle to listOf(R.drawable.computer to "Computer")
         )
     }
@@ -58,7 +58,7 @@ fun CourseManageButton(
                         selectedField = langFields[lang]?.firstOrNull()?.first ?: selectedField
                     },
                     onFieldSelected = { field -> selectedField = field },
-                    langs = listOf(R.drawable.spain_rectangle to "Spanish", R.drawable.thai_rectangle to "Thai"),
+                    langs = listOf(R.drawable.eng_rectangle to "English", R.drawable.thai_rectangle to "Thai"),
                     fields = langFields[selectedLang] ?: emptyList(),
                     selectedLang = selectedLang,
                     selectedField = selectedField,

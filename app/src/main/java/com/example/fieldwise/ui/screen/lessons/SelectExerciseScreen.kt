@@ -39,7 +39,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
         modifier = modifier
             .background(color = Color(0xFF073748))
             .fillMaxSize()
-            .padding(20.dp, 30.dp, 20.dp, 0.dp)
+            .padding(20.dp, 70.dp, 20.dp, 0.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
