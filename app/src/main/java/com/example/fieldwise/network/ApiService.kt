@@ -9,8 +9,12 @@ import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 private const val BACKEND_URL = "https://backend-ai--fieldwise-26b6e.europe-west4.hosted.app"
 
@@ -18,18 +22,33 @@ class ApiService {
     private val client = KtorClient.client
 
     suspend fun converse(request: ConverseRequest): ConverseResponse {
-        return try { client.post("$BACKEND_URL/ai/converse") {
-            setBody(request)
-        }.body()
+        return try {
+            Log.d("ApiService", "Sending converse request: $request")
+            val response = client.post("$BACKEND_URL/ai/converse") {
+                contentType(ContentType.Application.Json)
+                setBody(request)
+            }
+            Log.d("ApiService", "Response status: ${response.status}")
+            val converseResponse = response.body<ConverseResponse>()
+
+            if (converseResponse.error != null) {
+                Log.e("ApiService", "Conversation failed: ${converseResponse.error}")
+            }
+
+            converseResponse
         } catch (e: Exception) {
             Log.e("ApiService", "Conversation failed: ${e.message}")
+            Log.e("ApiService", "Request: $request")
+            Log.e("ApiService", "JsonRequest: ${Json.encodeToString(request)}")
+
             ConverseResponse(
-                reply = "Sorry, I couldn't understand that.",
+                reply = e.message ?: "Conversation failed",
                 feedback = "",
                 correctnessPercent = 0
             )
         }
     }
+
 
     suspend fun transcribe(audio: ByteArray): TranscribeResponse {
         return try {

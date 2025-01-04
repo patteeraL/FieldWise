@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class ConverseResponse(
     val reply: String,
     val feedback: String,
-    val correctnessPercent: Int
+    val correctnessPercent: Int,
+    val error: String? = null
 )
