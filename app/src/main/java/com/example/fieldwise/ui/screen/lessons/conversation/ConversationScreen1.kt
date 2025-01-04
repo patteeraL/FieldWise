@@ -74,6 +74,10 @@ import com.google.firebase.ktx.Firebase
  * @param question The specific question (Q1, Q2, Q3, etc.) to retrieve.
  * @return A string containing the conversation script.
  */
+
+var commentNumberConvo = 0
+var newCommentsDataConvo: List<String> = emptyList()
+
 @Composable
 fun getConversationScript1(language: String, course: String, lesson: String, question: String): String {
     val database = Firebase.database
@@ -105,6 +109,49 @@ fun getConversationScript1(language: String, course: String, lesson: String, que
     }
 }
 
+@Composable
+fun getConversationComments(language: String, course: String, lesson: String): List<String> {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val commentsData = remember { mutableStateListOf<String>() }
+
+    LaunchedEffect(Unit) {
+        courseListRef.get().addOnSuccessListener { dataSnapshot ->
+            val commentsPath = dataSnapshot.child(language).child(course).child(lesson).child("Conversation")
+            val commentsSnapshot = commentsPath.child("Comments")
+            commentsSnapshot.children.forEach { commentSnapshot ->
+                commentNumberConvo++
+                val commentText = commentSnapshot.getValue(String::class.java)
+                if (!commentText.isNullOrEmpty()) {
+                    commentsData.add(commentText)
+                }
+            }
+            if (commentsData.isEmpty()) {
+                commentsData.add("Loading...")
+            }
+        }
+    }
+    return commentsData
+}
+
+@Composable
+fun WriteCommentConvo(language: String, course: String, lesson: String, newComment: String, commentNumberConvo: Int) {
+    val database = Firebase.database
+    val courseListRef = database.reference.child("Exercises")
+    val commentPath = courseListRef.child(language).child(course).child(lesson).child("Conversation").child("Comments")
+
+    val newCommentKey = "Text$commentNumberConvo"
+    LaunchedEffect(Unit) {
+        commentPath.child(newCommentKey).setValue(newComment)
+            .addOnSuccessListener {
+                Log.d("FirebaseCheck", "Comment added successfully!")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FirebaseCheck", "Failed to add comment!", exception)
+            }
+    }
+}
+
 @SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,10 +162,18 @@ fun ConversationScreen1(
     type: String?,
     viewModel: AiViewModel = AiViewModel()
 ) {
+    //Variables to change for each exercise
+    val convoLanguage = "English"
+    val convoCourse = "CS"
+    val convoLesson = "Basics of Program Development"
+    val convoQuestion = "Q1"
+
     var userInput by remember { mutableStateOf("") }
     val history = remember { mutableStateListOf<Message>() }
     var isGeneratingReply by remember { mutableStateOf(false) }
-    val script = getConversationScript1("English", "CS", "Basics of Program Development", "Q1")
+    val script = getConversationScript1(convoLanguage, convoCourse, convoLesson, convoQuestion)
+    val discussionComments = getConversationComments(convoLanguage, convoCourse, convoLesson)
+    var continueStatus by remember { mutableStateOf(false) }
     val conversationFinished = if (!history.isEmpty() && history.last().content.uppercase().contains("@END_CONVERSATION")) true else false
     // map: {"msgText": "feedback" or null}
     var feedbacks = remember { mutableMapOf<String, String?>() }
@@ -343,13 +398,28 @@ fun ConversationScreen1(
         Spacer(modifier = Modifier.height(20.dp))
         MainButton(
             button = "CONTINUE",
-            onClick = NextExercise,
+            onClick = {
+                continueStatus = true
+                },
             mainButtonType = if (conversationFinished) MainButtonType.BLUE else MainButtonType.GREY,
             isEnable = conversationFinished
         )
         Spacer(modifier = Modifier.height(50.dp))
         HorizontalDivider(thickness = 2.dp, color = Color.White)
-        Discussion(comments = listOf("Hi", "HI", "HI"))
+            if (discussionComments.isNotEmpty()) {
+                newCommentsDataConvo = Discussion(comments = discussionComments)
+            }
+        }
+    if (continueStatus) {
+        val addedCommentsNo = newCommentsDataConvo.size - discussionComments.size
+        commentNumberConvo = discussionComments.size
+        for (i in 0 until addedCommentsNo) {
+            commentNumberConvo++
+            val newComment = newCommentsDataConvo[discussionComments.size + i]
+            WriteCommentConvo(convoLanguage, convoCourse, convoLesson, newComment, commentNumberConvo)
+        }
+        continueStatus = false
+        NextExercise()
     }
 }
 
