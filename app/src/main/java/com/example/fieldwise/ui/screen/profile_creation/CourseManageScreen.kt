@@ -42,9 +42,9 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
         R.drawable.computer,
         R.drawable.map
     )
-    val langOptions = listOf("Spanish", "Thai")
+    val langOptions = listOf("English", "Thai")
     val langIconResIds = listOf(
-        R.drawable.spanish_circle,
+        R.drawable.eng_circle,
         R.drawable.thai_circle
     )
 

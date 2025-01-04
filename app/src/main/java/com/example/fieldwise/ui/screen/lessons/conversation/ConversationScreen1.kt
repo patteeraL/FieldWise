@@ -1,6 +1,7 @@
 package com.example.fieldwise.ui.screen.lessons.conversation
 
 import Discussion
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -104,6 +105,7 @@ fun getConversationScript1(language: String, course: String, lesson: String, que
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationScreen1(
