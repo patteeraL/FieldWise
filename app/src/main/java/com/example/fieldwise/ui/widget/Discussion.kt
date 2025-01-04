@@ -226,13 +226,13 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<Stri
                     Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                         Row {
                             Image(
-                                painter = painterResource(id = R.drawable.profile), // Replace with your user icon resource
+                                painter = painterResource(id = R.drawable.anonymous_icon), // Replace with your user icon resource
                                 contentDescription = "User Icon",
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Thee",
+                                text = "Anonymous",
                                 color = Color.White,
                                 style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold, fontFamily = SeravekFontFamily)
                             )
