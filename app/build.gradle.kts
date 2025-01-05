@@ -74,8 +74,6 @@ dependencies {
     implementation(libs.androidx.tv.material)
     implementation(libs.firebase.storage)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
@@ -90,4 +88,28 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("io.ktor:ktor-client-logging:2.0.0")
 
+    // MockK
+    testImplementation("io.mockk:mockk:1.13.14")
+
+    // Coroutines Test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Ktor HTTP Mock
+    testImplementation("io.ktor:ktor-client-mock:2.0.0")
+
+    // Junit 5
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
+    //  AndroidX Test
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.slf4j:slf4j-simple:2.0.9")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }

@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class ConverseRequest(
     val language: String,
     val script: String,
-    val history: List<Message>? = null
+    val history: List<Message>
 )

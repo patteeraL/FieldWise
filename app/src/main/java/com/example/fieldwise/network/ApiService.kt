@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.ConverseResponse
 import com.example.fieldwise.model.TranscribeResponse
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
@@ -13,14 +14,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 private const val BACKEND_URL = "https://backend-ai--fieldwise-26b6e.europe-west4.hosted.app"
 
-class ApiService {
-    private val client = KtorClient.client
-
+open class ApiService(protected open val client: HttpClient = KtorClient.client) {
     suspend fun converse(request: ConverseRequest): ConverseResponse {
         return try {
             Log.d("ApiService", "Sending converse request: $request")
@@ -28,19 +25,9 @@ class ApiService {
                 contentType(ContentType.Application.Json)
                 setBody(request)
             }
-            Log.d("ApiService", "Response status: ${response.status}")
-            val converseResponse = response.body<ConverseResponse>()
-
-            if (converseResponse.error != null) {
-                Log.e("ApiService", "Conversation failed: ${converseResponse.error}")
-            }
-
-            converseResponse
+            response.body()
         } catch (e: Exception) {
             Log.e("ApiService", "Conversation failed: ${e.message}")
-            Log.e("ApiService", "Request: $request")
-            Log.e("ApiService", "JsonRequest: ${Json.encodeToString(request)}")
-
             ConverseResponse(
                 reply = e.message ?: "Conversation failed",
                 feedback = "",
@@ -49,8 +36,13 @@ class ApiService {
         }
     }
 
-
-    suspend fun transcribe(audio: ByteArray): TranscribeResponse {
+    suspend fun transcribe(audio: ByteArray, fileType: String = "mp4"): TranscribeResponse {
+        val fromTypeToContentType = mapOf(
+            "mp3" to "mpeg",
+            "mp4" to "mp4",
+            "wav" to "wav",
+            "ogg" to "ogg"
+        )
         return try {
             Log.d("ApiService", "Audio data size: ${audio.size}")
 
@@ -61,8 +53,8 @@ class ApiService {
                         "audio",
                         audio,
                         Headers.build {
-                            append(HttpHeaders.ContentType, "audio/mp4")
-                            append(HttpHeaders.ContentDisposition, """filename="audio_record.mp4"""")
+                            append(HttpHeaders.ContentType, "audio/${fromTypeToContentType[fileType]}")
+                            append(HttpHeaders.ContentDisposition, """filename="audio_record.$fileType"""")
                         }
                     )
                 }
@@ -78,7 +70,6 @@ class ApiService {
         } catch (e: Exception) {
             Log.e("ApiService", "Transcription failed", e)
             TranscribeResponse(
-                transcription = null,
                 error = e.message
             )
         }

@@ -4,7 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TranscribeResponse(
-    val transcription: String? = null,
+    val transcription: String = "",
     val error: String? = null,
-    val detailedError: String? = null
 )

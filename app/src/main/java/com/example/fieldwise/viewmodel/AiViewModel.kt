@@ -6,17 +6,12 @@ import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.network.ApiService
 import kotlinx.coroutines.Dispatchers
 
-class AiViewModel : ViewModel() {
-
-    private val service = ApiService()
-
+class AiViewModel(private val service: ApiService = ApiService()) : ViewModel() {
     fun converse(request: ConverseRequest) = liveData(Dispatchers.IO) {
-        val response = service.converse(request)
-        emit(response)
+        emit(service.converse(request))
     }
 
     fun transcribe(audio: ByteArray) = liveData(Dispatchers.IO) {
-        val response = service.transcribe(audio)
-        emit(response)
+        emit(service.transcribe(audio))
     }
 }
