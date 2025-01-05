@@ -1,10 +1,9 @@
-package com.example.fieldwise.network
+package com.example.fieldwise
 
 import android.util.Log
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.example.fieldwise.MainActivity
 import com.example.fieldwise.navigation.NavigationWrapper
 import org.junit.Rule
 import org.junit.Test
