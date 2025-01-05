@@ -1,3 +1,6 @@
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -6,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +20,7 @@ import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
+import kotlinx.coroutines.launch
 
 @Composable
 fun CourseManageButton(
@@ -32,11 +37,30 @@ fun CourseManageButton(
             R.drawable.thai_rectangle to listOf(R.drawable.computer to "Computer")
         )
     }
+    //animation when click
+    val buttonAn = remember { Animatable(1f) }
+    val corountineScope = rememberCoroutineScope()
 
     Box(modifier = modifier) {
         Button(
-            onClick = { expanded = true },
-            modifier = Modifier.defaultMinSize(minWidth = 95.dp, minHeight = 33.dp),
+            onClick = {
+                corountineScope.launch {
+                    buttonAn.animateTo(
+                        targetValue = 0.8f,
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
+                    )
+                    buttonAn.animateTo(
+                        targetValue = 1f,
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
+                    )
+                }
+                expanded = true },
+            modifier = Modifier
+                .defaultMinSize(minWidth = 95.dp, minHeight = 33.dp)
+                .graphicsLayer {
+                    scaleX = buttonAn.value
+                    scaleY = buttonAn.value
+                },
             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
             contentPadding = PaddingValues(0.dp)
         ) {
@@ -83,6 +107,8 @@ fun CourseManageDropdown(
     NavigateToAddCourse: () -> Unit,
     NavigateToAddLanguage: () -> Unit
 ) {
+
+
     Column(
         modifier = Modifier
             .width(350.dp)
