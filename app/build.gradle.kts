@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.androidx.tv.material)
     implementation(libs.firebase.storage)
 
+
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
@@ -113,6 +114,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.9")
+
 }
 
 tasks.withType<Test> {
