@@ -2,6 +2,9 @@ package com.example.fieldwise.ui.widget
 
 import android.net.Uri
 import android.util.Log
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,9 +14,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +30,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
+import kotlinx.coroutines.launch
 
 enum class CardType { YELLOW, BLUE, RED, GREEN, PURPLE, ORANGE, WHITE_GREEN, WHITE }
 enum class CardShape { SELECT_LESSON, QUIZ_RESUME, SELECT_EXERCISE, CHOICES_SQUARE, CHOICES_RECTANGLE }
@@ -316,6 +323,10 @@ fun CardBase(
         )
     }
 ) {
+    //animation when click
+    val CardAn = remember { Animatable(1f) }
+    val corountineScope = rememberCoroutineScope()
+
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -329,9 +340,26 @@ fun CardBase(
                 )
         )
         Button(
-            onClick = onClick,
+            onClick = {
+                corountineScope.launch {
+                    CardAn.animateTo(
+                        targetValue = 0.8f,
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
+                    )
+                    CardAn.animateTo(
+                        targetValue = 1f,
+                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
+                    )
+                }
+                onClick()
+            },
             colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    scaleX = CardAn.value
+                    scaleY = CardAn.value
+                },
             shape = if (cardShape == CardShape.QUIZ_RESUME) RoundedCornerShape(15.dp) else RoundedCornerShape(20.dp)
         ) {
             Column(modifier = modifier.fillMaxSize()) {
