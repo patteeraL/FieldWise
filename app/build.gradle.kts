@@ -73,6 +73,8 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(libs.androidx.tv.material)
     implementation(libs.firebase.storage)
+    implementation(libs.androidx.ui.test.junit4.android)
+    testImplementation(libs.junit.jupiter)
 
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
