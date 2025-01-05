@@ -154,7 +154,13 @@ fun VocabScreen2(
     NextExercise: () -> Unit,
     type: String?
 ) {
-
+    //Progress bar dynamic
+    val progress = when (type) {
+        "exercise" -> 0.77f
+        "quiz" -> 0.9f
+        "resume" -> 0.9f
+        else -> 0f
+    }
     //FOR EACH VOCAB EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
     val language = "English"
     val course = "CS"
@@ -201,7 +207,7 @@ fun VocabScreen2(
             ) {
                 CloseButton(onClick = { ExitLesson() })
                 Spacer(modifier = Modifier.width(10.dp))
-                LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
+                LinearProgress(target = progress, progressType = ProgressType.DARK)
             }
             Spacer(modifier = Modifier.height(20.dp))
             Column(

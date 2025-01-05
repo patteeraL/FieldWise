@@ -186,6 +186,14 @@ fun SpeakingScreen1(
     ExitLesson: () -> Unit,
     type: String?
 ) {
+
+    //Progress bar dynamic
+    val progress = when (type) {
+        "exercise" -> 0.33f
+        "quiz" -> 0.5f
+        "resume" -> 0.5f
+        else -> 0f
+    }
     val context = LocalContext.current
     val viewModel = AiViewModel()
     val audioManager = remember { AudioManager(context) }
@@ -235,11 +243,13 @@ fun SpeakingScreen1(
         ) {
             Spacer(modifier = Modifier.height(70.dp))
 
-            // Top bar: close + progress
-            TopBar(
-                onCloseClick = { ExitLesson() }
-            )
-
+            Row(
+                verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
+            ) {
+                CloseButton(onClick = { ExitLesson() })
+                Spacer(modifier = Modifier.width(10.dp))
+                LinearProgress(target = progress, progressType = ProgressType.DARK)
+            }
             Spacer(modifier = Modifier.height(20.dp))
 
             // Body content
@@ -326,14 +336,6 @@ fun SpeakingScreen1(
 // SUBCOMPOSABLES
 // -------------------------------------------------
 
-@Composable
-fun TopBar(onCloseClick: () -> Unit) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        CloseButton(onClick = onCloseClick)
-        Spacer(modifier = Modifier.width(10.dp))
-        LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
-    }
-}
 
 @Composable
 fun BodyContent(

@@ -162,6 +162,14 @@ fun ConversationScreen1(
     type: String?,
     viewModel: AiViewModel = AiViewModel()
 ) {
+
+    //Progress bar dynamic
+    val progress = when (type) {
+        "exercise" -> 0.33f
+        "quiz" -> 0.6f
+        "resume" -> 0.6f
+        else -> 0f
+    }
     //Variables to change for each exercise
     val convoLanguage = "English"
     val convoCourse = "CS"
@@ -228,7 +236,7 @@ fun ConversationScreen1(
         Row(verticalAlignment = Alignment.CenterVertically) {
             CloseButton(onClick = ExitLesson)
             Spacer(modifier = Modifier.width(10.dp))
-            LinearProgress(target = 0.3f, progressType = ProgressType.DARK)
+            LinearProgress(target = progress, progressType = ProgressType.DARK)
         }
 
         // Title
