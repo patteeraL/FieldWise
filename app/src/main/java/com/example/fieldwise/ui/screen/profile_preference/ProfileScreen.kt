@@ -1,6 +1,8 @@
 package com.example.fieldwise.ui.screen.profile_preference
 
 import StreakItem
+import android.view.animation.OvershootInterpolator
+import androidx.compose.animation.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,6 +27,14 @@ import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.ui.graphics.graphicsLayer
 
 data class FriendboardItem(val name: String, val profileImage: Int, val streak: Int)
 
@@ -50,6 +60,16 @@ val FriendboardData = listOf(
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, NavigateToSettings: () -> Unit, NavigateToLeader: () -> Unit, NavigateToAddFriend: () -> Unit) {
 
+    //animation profile image
+    var profAn =  remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
+        profAn.animateTo(
+            targetValue = 360f,
+            animationSpec = tween(durationMillis = 1000,
+                easing = LinearOutSlowInEasing
+        ))
+    }
     Box(
         modifier = modifier
             .background(color = Color(0xFF66DBFF))
@@ -84,7 +104,9 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                     Image(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
-                        modifier = modifier.size(200.dp)
+                        modifier = modifier
+                            .size(200.dp)
+                            .graphicsLayer(rotationY = profAn.value)
                     )
                     LeaderBoardButton(onClick = { NavigateToLeader() })
                 }
