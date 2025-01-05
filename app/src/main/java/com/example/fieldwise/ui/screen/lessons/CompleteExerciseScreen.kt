@@ -1,6 +1,8 @@
 package com.example.fieldwise.ui.screen.lessons
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,6 +59,31 @@ fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, ty
                 durationMillis = 1000
             )
         )}
+    }
+
+    //animation for streak
+
+    val streakAn = remember { Animatable(1f) }
+
+    LaunchedEffect(Unit) {
+        streakAn.animateTo(
+            targetValue = 1.3f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = 900,
+                    delayMillis = 0
+                ), repeatMode = RepeatMode.Reverse
+            )
+        )
+        streakAn.animateTo(
+            targetValue = 1f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(
+                    durationMillis = 900,
+                    delayMillis = 0
+                ), repeatMode = RepeatMode.Reverse
+            )
+        )
     }
 
     //content
@@ -116,6 +144,10 @@ fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, ty
                     contentDescription = "Streak Increase by 1",
                     modifier = Modifier
                         .size(50.dp)
+                        .graphicsLayer {
+                            scaleX = streakAn.value
+                            scaleY = streakAn.value
+                        }
                 )
                 Spacer(modifier = Modifier.height(100.dp))
                 MainButton(button = "Return to Home", onClick = {
