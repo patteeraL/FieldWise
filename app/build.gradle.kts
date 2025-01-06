@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
     alias(libs.plugins.google.services)
-    kotlin("kapt") version "1.8.10"
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -99,7 +99,9 @@ dependencies {
     //Room
 
     implementation("androidx.room:room-runtime:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.5.2")
+
 
     // Testing
     testImplementation("io.mockk:mockk:1.13.14")
