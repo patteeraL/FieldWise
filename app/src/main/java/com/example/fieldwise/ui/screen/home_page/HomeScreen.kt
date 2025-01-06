@@ -21,8 +21,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.testTag
+import com.example.fieldwise.core.DatabaseProvider
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import androidx.compose.ui.platform.LocalContext
+import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
+
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
 
@@ -65,6 +70,16 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToProfile: () -> Unit,
                NavigateToLessons: () -> Unit,
                NavigateToQuiz: () -> Unit) {
+
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
+
+    // Taking userdata from localdatabase
+    val userProfile = remember { mutableStateOf<UserProfile?>(null) }
+
+    LaunchedEffect(Unit) {
+        userProfile.value = userRepository.getUserProfile(globalUsername)
+    }
 
     Box(
         modifier = modifier
