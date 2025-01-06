@@ -1,12 +1,9 @@
 package com.example.fieldwise.viewmodel
 
-import android.util.Log
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.Message
 import com.example.fieldwise.network.ApiService
 import com.example.fieldwise.network.KtorClient
-import io.mockk.every
-import io.mockk.mockkStatic
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -18,11 +15,6 @@ class ApiServiceIntegrationTest {
 
    @BeforeEach
    fun setup() {
-      // Mock Android Log calls
-      mockkStatic(Log::class)
-      every { Log.e(any(), any()) } returns 0
-      every { Log.d(any(), any()) } returns 0
-
       apiService = ApiService(KtorClient.client) // Real client
    }
 
