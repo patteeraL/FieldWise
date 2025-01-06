@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,7 +50,8 @@ fun LeaderBoardButton(
             .clip(CircleShape)
             .graphicsLayer {
                 scaleX = buttonAn.value
-                scaleY = buttonAn.value}, // Apply CircleShape to make it circular
+                scaleY = buttonAn.value}
+            .testTag("LeaderBoardButton"), // Apply CircleShape to make it circular
         colors = ButtonDefaults.buttonColors(containerColor = Color.White) // Optional: Set button color
     ) {
         Image(

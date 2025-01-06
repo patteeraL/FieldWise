@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fieldwise.R
@@ -18,6 +19,7 @@ fun ProfileIconButton(
 
         onClick = onClick, // Use the provided onClick parameter
         modifier = modifier // Apply the modifier parameter
+            .testTag("ProfileIconButton")
     ) {
         Image(
             painter = painterResource(id = R.drawable.profile),
