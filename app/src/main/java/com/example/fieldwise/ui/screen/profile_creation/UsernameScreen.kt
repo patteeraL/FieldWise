@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -48,12 +49,19 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
+import com.example.fieldwise.data.UserRepository //for localdatabase
+import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.core.DatabaseProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 var globalUsername: String = ""
 
 @Composable
 fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
+    val context = LocalContext.current //
 
     var username by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
@@ -130,6 +138,23 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                                 "Streak" to 0
                             )
                             userListSnapshot.child(newUserKey).setValue(newUser)
+
+                            //initial values for a new user
+                            val userRepository = DatabaseProvider.provideUserRepository(context)
+                            val newUserProfile = UserProfile(
+                                username = globalUsername,
+                                selectedCourse = "",
+                                preferredLanguage = "",
+                                dailyGoal = 5,
+                                notificationsEnabled = true,
+                                streak = 0
+                            )
+
+                            //saving user in local database
+                            CoroutineScope(Dispatchers.IO).launch {
+                                userRepository.saveUserProfile(newUserProfile)
+                            }
+
                             NavigateToGoal()
                         }
                     }

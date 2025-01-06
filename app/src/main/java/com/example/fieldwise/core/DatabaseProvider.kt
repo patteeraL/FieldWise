@@ -3,6 +3,8 @@ package com.example.fieldwise.core
 import android.content.Context
 import androidx.room.Room
 import com.example.fieldwise.data.AppDatabase
+import com.example.fieldwise.data.UserRepository
+
 
 object DatabaseProvider {
     private var database: AppDatabase? = null
@@ -18,4 +20,10 @@ object DatabaseProvider {
             instance
         }
     }
+
+    fun provideUserRepository(context: Context): UserRepository {
+        val database = provideDatabase(context)
+        return UserRepository(database.userProfileDao())
+    }
+
 }
