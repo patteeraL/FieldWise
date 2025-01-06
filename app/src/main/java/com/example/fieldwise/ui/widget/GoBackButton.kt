@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import kotlinx.coroutines.launch
@@ -46,6 +47,7 @@ fun GoBackButton(
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = "Back",
             modifier = Modifier
+                .testTag("GoBackButton")
                 .graphicsLayer {
                 scaleX = buttonAn.value
                 scaleY = buttonAn.value
