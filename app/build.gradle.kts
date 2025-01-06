@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
     alias(libs.plugins.google.services)
+    kotlin("kapt") version "1.8.10"
 }
 
 android {
@@ -53,6 +54,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.fragment:fragment-ktx:1.5.5")
 
+
     // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -94,6 +96,11 @@ dependencies {
     // Images
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //Room
+
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
+
     // Testing
     testImplementation("io.mockk:mockk:1.13.14")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
@@ -114,6 +121,8 @@ dependencies {
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
 }
 
 tasks.withType<Test> {
