@@ -35,6 +35,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 
 data class FriendboardItem(val name: String, val profileImage: Int, val streak: Int)
 
@@ -85,11 +86,13 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
         ) {
             IconButton(
                 onClick = { NavigateToSettings() },
-                modifier = modifier.size(40.dp)
+                modifier = modifier
+                    .size(40.dp)
+                    .testTag("SettingScreen"),
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.gear_setting),
-                    contentDescription = "Gear Setting"
+                    contentDescription = "Gear Setting",
                 )
             }
         }
@@ -107,6 +110,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                         modifier = modifier
                             .size(200.dp)
                             .graphicsLayer(rotationY = profAn.value)
+                            .testTag("ProfileScreen"),
                     )
                     LeaderBoardButton(onClick = { NavigateToLeader() })
                 }
@@ -175,7 +179,8 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                                     )
                                     Image(
                                         painter = painterResource(id = R.drawable.streak),
-                                        modifier = modifier.size(40.dp),
+                                        modifier = modifier
+                                            .size(40.dp),
                                         contentDescription = "Streak Icon"
                                     )
                                 }
@@ -208,11 +213,12 @@ fun FriendBoard(NavigateToAddFriend: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .padding(10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier.padding(start = 5.dp),
                     text = "Friends",
                     color = Color.White,
                     fontSize = 24.sp,

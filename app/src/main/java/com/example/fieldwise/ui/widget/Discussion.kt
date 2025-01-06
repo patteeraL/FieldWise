@@ -35,6 +35,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -52,7 +53,7 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<Stri
     var isExpanded by remember { mutableStateOf(false) }
     var comment by remember { mutableStateOf("") }
     var commentsList by remember { mutableStateOf(comments) }
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth().testTag("Discussion")) {
         // Header Section
         Box(
             Modifier
@@ -93,7 +94,7 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<Stri
                         onClick = {
                             isExpanded = !isExpanded
                         },
-                        modifier = modifier.offset(20.dp)
+                        modifier = modifier.offset(20.dp).testTag("DropDownButton")
                     ) {
                         Icon(
                             imageVector = if (isExpanded) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown,
@@ -124,7 +125,8 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<Stri
                     onValueChange = { comment = it },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp),
+                        .height(60.dp)
+                        .testTag("CommentField"),
                     placeholder = {
                         Text(
                             text = "Type a comment...",
@@ -154,7 +156,8 @@ fun Discussion(modifier: Modifier = Modifier, comments: List<String>): List<Stri
                     modifier = Modifier
                         .width(70.dp)
                         .height(50.dp)
-                        .padding(top = 10.dp, end = 10.dp),
+                        .padding(top = 10.dp, end = 10.dp)
+                        .testTag("SendButton"),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF))
                 ) {
                     Image(

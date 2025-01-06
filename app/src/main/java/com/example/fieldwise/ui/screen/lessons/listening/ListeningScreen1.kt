@@ -49,6 +49,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -203,6 +204,7 @@ fun ListeningScreen1(
                 .background(Color(0xFF073748))
                 .padding(start = 20.dp, end = 20.dp)
                 .verticalScroll(rememberScrollState())
+                .testTag("Listen1Screen")
         ) {
             Spacer(modifier = Modifier.height(70.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -257,7 +259,7 @@ fun ListeningScreen1(
                                         0xFF1AB8E8
                                     )
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("SoundButton"),
                                 shape = RoundedCornerShape(15.dp)
                             ) {}
                             Column(
@@ -282,6 +284,7 @@ fun ListeningScreen1(
                 ) {
                     val title1 = answerDisplay[0][0].text
                     Card(
+                        modifier = Modifier.testTag("Content1"),
                         title = title1,
                         description = null,
                         cardType = cardType1,
@@ -315,6 +318,7 @@ fun ListeningScreen1(
                     Spacer(modifier = Modifier.width(20.dp))
                     val title2 = answerDisplay[1][0].text
                     Card(
+                        modifier = Modifier.testTag("Content2"),
                         title = title2,
                         description = null,
                         cardType = cardType2,
@@ -354,6 +358,7 @@ fun ListeningScreen1(
                 ) {
                     val title3 = answerDisplay[2][0].text
                     Card(
+                        modifier = Modifier.testTag("Content3"),
                         title = title3,
                         description = null,
                         cardType = cardType3,
@@ -387,6 +392,7 @@ fun ListeningScreen1(
                     Spacer(modifier = Modifier.width(20.dp))
                     val title4 = answerDisplay[3][0].text
                     Card(
+                        modifier = Modifier.testTag("Content4"),
                         title = title4,
                         description = null,
                         cardType = cardType4,

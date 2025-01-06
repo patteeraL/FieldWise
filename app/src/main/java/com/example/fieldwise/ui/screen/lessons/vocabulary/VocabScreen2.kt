@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -198,7 +199,7 @@ fun VocabScreen2(
         var continueStatus by remember { mutableStateOf(false) }
 
         Column(
-            modifier = modifier.fillMaxSize().background(Color(0xFF073748))
+            modifier = modifier.fillMaxSize().background(Color(0xFF073748)).testTag("Vocab2Screen")
                 .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(70.dp))
@@ -246,6 +247,7 @@ fun VocabScreen2(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
+                            modifier = modifier.testTag("QuestionText"),
                             text = questionText,
                             fontFamily = SeravekFontFamily,
                             fontWeight = FontWeight.Medium,
@@ -260,6 +262,7 @@ fun VocabScreen2(
                 ) {
                     val title1 = answerDisplay[0][0].text
                     Card(
+                        modifier = Modifier.testTag("Content1"),
                         title = title1,
                         description = null,
                         cardType = cardType1,
@@ -291,6 +294,7 @@ fun VocabScreen2(
                     Spacer(modifier = Modifier.height(40.dp))
                     val title2 = answerDisplay[1][0].text
                     Card(
+                        modifier = Modifier.testTag("Content2"),
                         title = title2,
                         description = null,
                         cardType = cardType2,
@@ -322,6 +326,7 @@ fun VocabScreen2(
                     Spacer(modifier = Modifier.height(40.dp))
                     val title3 = answerDisplay[2][0].text
                     Card(
+                        modifier = Modifier.testTag("Content3"),
                         title = title3,
                         description = null,
                         cardType = cardType3,

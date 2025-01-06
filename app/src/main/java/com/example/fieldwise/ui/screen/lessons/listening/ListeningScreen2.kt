@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -232,6 +233,7 @@ fun ListeningScreen2(
                 .background(Color(0xFF073748))
                 .padding(start = 20.dp, end = 20.dp)
                 .verticalScroll(rememberScrollState())
+                .testTag("Listen2Screen")
         ) {
             Spacer(modifier = Modifier.height(70.dp))
             Row(
@@ -316,7 +318,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor01
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button01"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
@@ -411,7 +413,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor11
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button11"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(
@@ -490,7 +492,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor02
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button02"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
@@ -585,7 +587,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor12
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button12"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(
@@ -661,7 +663,7 @@ fun ListeningScreen2(
                                     containerColor = buttonColor03
 
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button03"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
@@ -756,7 +758,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor13
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button13"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(
@@ -834,7 +836,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor04
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button04"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(modifier = modifier.fillMaxSize()) {
@@ -929,7 +931,7 @@ fun ListeningScreen2(
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = buttonColor14
                                 ),
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxSize().testTag("Button14"),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Column(
