@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,7 +40,6 @@ import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.DeleteAccountPopUp
 import com.example.fieldwise.ui.widget.DeleteCoursePopUp
-import com.example.fieldwise.ui.widget.DeleteCoursePreview
 import com.example.fieldwise.ui.widget.GoBackButton
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -64,7 +64,8 @@ fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit, 
                     text = "Setting",
                     modifier = modifier
                         .fillMaxWidth()
-                        .offset(x = (-20).dp),
+                        .offset(x = (-20).dp)
+                        .testTag("SettingScreen"),
                     fontSize = 29.sp,
                     fontFamily = InterFontFamily,
                     fontWeight = FontWeight.Bold,
@@ -99,7 +100,7 @@ fun DropDownDemo(Restart: () -> Unit) {
         mutableStateOf(0)
     }
 
-    val dailygoals = listOf("5 min / day (Light)", "10 min / day (Light)", "15 min / day (Light)", "20 min / day (Light)")
+    val dailygoals = listOf("5 min / day (Light)", "10 min / day (Moderate)", "15 min / day (Serious)", "20 min / day (Intense)")
 
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -118,6 +119,7 @@ fun DropDownDemo(Restart: () -> Unit) {
                     .width(346.dp)
                     .height(60.dp)
                     .background(color = Color.White)
+                    .testTag("DropDownMenu")
                     .border(
                         width = 2.5.dp,
                         color = Color(0xFFD9D9D9),

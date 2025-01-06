@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -112,7 +113,8 @@ fun FriendSearchCard(modifier: Modifier = Modifier, NavigateToProfile: () -> Uni
             GoBackButton(
                 modifier = Modifier
                     .size(80.dp)
-                    .background(color = Color.White, shape = CircleShape),
+                    .background(color = Color.White, shape = CircleShape)
+                    .testTag("GoBackButton"),
                 onClick = { NavigateToProfile() }
             )
         }
@@ -178,7 +180,8 @@ fun FriendSearchCard(modifier: Modifier = Modifier, NavigateToProfile: () -> Uni
                         modifier = modifier
                             .size(300.dp, 55.dp)
                             .border(3.dp, Color(0xFF1AB8E8), RoundedCornerShape(10.dp))
-                            .clip(shape = RoundedCornerShape(10.dp)),
+                            .clip(shape = RoundedCornerShape(10.dp))
+                            .testTag("SearchFriendField"),
                         value = searchText,
                         onValueChange = { searchText = it },
                         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -208,7 +211,7 @@ fun FriendSearchCard(modifier: Modifier = Modifier, NavigateToProfile: () -> Uni
                         )
                     }
                 } else {
-                    LazyColumn(modifier = Modifier.padding(vertical = 20.dp)) {
+                    LazyColumn(modifier = Modifier.padding(vertical = 20.dp).testTag("LazyColumn")) {
                         items(filteredList) { item ->
                             Row(
                                 modifier = Modifier

@@ -40,7 +40,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("LoadingScreen").assertDoesNotExist()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "LoadingScreen is still displayed")
+                Log.d("ExerciseContentTest", "LoadingScreen is still displayed")
                 false
             }
         }
@@ -58,7 +58,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("SetDailyGoalScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "SetDailyGoalScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "SetDailyGoalScreen is not displayed yet")
                 false
             }
         }
@@ -73,7 +73,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("EnableNotifyScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "EnableNotifyScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "EnableNotifyScreen is not displayed yet")
                 false
             }
         }
@@ -88,7 +88,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CourseManageScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CourseManageScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CourseManageScreen is not displayed yet")
                 false
             }
         }
@@ -104,7 +104,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CompleteScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CompleteScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CompleteScreen is not displayed yet")
                 false
             }
         }
@@ -116,7 +116,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "HomeScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "HomeScreen is not displayed yet")
                 false
             }
         }
@@ -262,7 +262,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CompleteExerciseScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CompleteExerciseScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CompleteExerciseScreen is not displayed yet")
                 false
             }
         }
@@ -292,7 +292,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("LoadingScreen").assertDoesNotExist()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "LoadingScreen is still displayed")
+                Log.d("ExerciseContentTest", "LoadingScreen is still displayed")
                 false
             }
         }
@@ -310,7 +310,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("SetDailyGoalScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "SetDailyGoalScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "SetDailyGoalScreen is not displayed yet")
                 false
             }
         }
@@ -325,7 +325,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("EnableNotifyScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "EnableNotifyScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "EnableNotifyScreen is not displayed yet")
                 false
             }
         }
@@ -340,7 +340,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CourseManageScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CourseManageScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CourseManageScreen is not displayed yet")
                 false
             }
         }
@@ -356,7 +356,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CompleteScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CompleteScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CompleteScreen is not displayed yet")
                 false
             }
         }
@@ -368,7 +368,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "HomeScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "HomeScreen is not displayed yet")
                 false
             }
         }
@@ -532,7 +532,7 @@ class ExerciseContentTest {
                 composeTestRule.onNodeWithTag("CompleteExerciseScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("SplashScreenTest", "CompleteExerciseScreen is not displayed yet")
+                Log.d("ExerciseContentTest", "CompleteExerciseScreen is not displayed yet")
                 false
             }
         }
