@@ -213,11 +213,12 @@ fun FriendBoard(NavigateToAddFriend: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .padding(10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier.padding(start = 5.dp),
                     text = "Friends",
                     color = Color.White,
                     fontSize = 24.sp,
