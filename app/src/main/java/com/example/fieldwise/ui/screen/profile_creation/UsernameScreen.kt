@@ -140,7 +140,7 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                             userListSnapshot.child(newUserKey).setValue(newUser)
 
                             //initial values for a new user
-                            val userRepository = DatabaseProvider.provideUserRepository(LocalContext. current)
+                            val userRepository = DatabaseProvider.provideUserRepository(context)
                             val newUserProfile = UserProfile(
                                 username = globalUsername,
                                 selectedCourse = "",
