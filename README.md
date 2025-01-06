@@ -1,7 +1,9 @@
 # FieldWise | Language Learning Application
 
+<p align="center"><img src="https://github.com/olala10/FieldWise/blob/0cac93273c14ffd0f4227fedbe4325c4a2c50809/app/src/main/ic_launcher-playstore.png" width="300"/></p>
+<p align="center"><i><b>Figure 1</b> App Icon </i></p>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/SplashScreen%20of%20FieldWise.png" width="300"/></p>
-<p align="center"><i><b>Figure 1</b> Splash Screen of FieldWise</i></p>
+<p align="center"><i><b>Figure 2</b> Splash Screen of FieldWise</i></p>
 
 # User Story Demonstration | Smartphone
 <table>
