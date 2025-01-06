@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -231,7 +232,7 @@ fun VocabScreen1(
         var answerResultStatus by remember { mutableStateOf(false) }
         var continueStatus by remember { mutableStateOf(false) }
 
-        Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748))
+        Column(modifier = modifier.fillMaxSize().background(Color(0xFF073748)).testTag("Vocab1Screen")
             .padding(start = 20.dp, end = 20.dp).verticalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.height(70.dp))
             Row(
@@ -268,7 +269,9 @@ fun VocabScreen1(
                         .fillMaxWidth()
                         .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 20.dp)).padding(10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally){
-                        Text(text = questionText,
+                        Text(
+                            modifier = modifier.testTag("QuestionText"),
+                            text = questionText,
                             fontFamily = SeravekFontFamily,
                             fontWeight = FontWeight.Medium,
                             textAlign = TextAlign.Center)
@@ -281,6 +284,7 @@ fun VocabScreen1(
                     val imageUri1 = imageUriList[0][0]?.uri
                     val title1 = imageUriList[0][0]?.name ?: "Loading..."
                     Card(
+                        modifier = Modifier.testTag("Content1"),
                         title = title1,
                         description = null,
                         cardType = cardType1,
@@ -315,6 +319,7 @@ fun VocabScreen1(
                     val imageUri2 = imageUriList[1][0]?.uri
                     val title2 = imageUriList[1][0]?.name ?: "Loading..."
                     Card(
+                        modifier = Modifier.testTag("Content2"),
                         title = title2,
                         description = null,
                         cardType = cardType2,
@@ -353,6 +358,7 @@ fun VocabScreen1(
                     val imageUri3 = imageUriList[2][0]?.uri
                     val title3 = imageUriList[2][0]?.name ?: "Loading..."
                     Card(
+                        modifier = Modifier.testTag("Content3"),
                         title = title3,
                         description = null,
                         cardType = cardType3,
@@ -387,6 +393,7 @@ fun VocabScreen1(
                     val imageUri4 = imageUriList[3][0]?.uri
                     val title4 = imageUriList[3][0]?.name ?: "Loading..."
                     Card(
+                        modifier = Modifier.testTag("Content4"),
                         title = title4,
                         description = null,
                         cardType = cardType4,

@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -90,7 +91,7 @@ fun ExerciseCompleteScreen(modifier: Modifier = Modifier, Finish: () -> Unit, ty
     Column(
         modifier = modifier
             .fillMaxSize().background(Color(0xFF073748))
-            .padding(20.dp, 50.dp, 20.dp, 0.dp),
+            .padding(20.dp, 50.dp, 20.dp, 0.dp).testTag("CompleteExerciseScreen"),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
