@@ -19,7 +19,7 @@
     <tr>
       <td><b>Profile Creation</b></td>
       <td colspan="2" align="center">
-        <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20profile_creation%20.gif" width="300" alt="Profile Creation Preview"/>
+        <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20profile_creation.gif" width="300" alt="Profile Creation Preview"/>
       </td>
       <td colspan="3" align="center">
         <img src="https://github.com/olala10/FieldWise/blob/dc9f3d07fb535c54187390d93b1e541926fdce5a/resourse/User%20story%20of%20profile%20creation%20diagram.png" width="1200" alt="Profile Creation Diagram"/>
