@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -70,6 +71,7 @@ fun EnableNotifyScreen(modifier: Modifier = Modifier, NavigateToCourse: () -> Un
             Row {
                 Text(
                     text = "Enable notification",
+                    modifier = modifier.testTag("EnableNotifyScreen"),
                     color = Color(0xFF4B4B4B),
                     style = TextStyle(
                         fontSize = 30.sp,
@@ -135,7 +137,7 @@ fun NotificationPermissionHandler(showDialog: Boolean, onDismiss: () -> Unit) {
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(56.dp),
+                        .height(56.dp).testTag("AllowButton"),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF00CCFF) // Blue button color
                     ),

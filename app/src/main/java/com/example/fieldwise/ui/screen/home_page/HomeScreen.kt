@@ -20,6 +20,7 @@ import android.util.Log
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.testTag
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -72,7 +73,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
             .padding(20.dp, 50.dp, 20.dp, 0.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().testTag("HomeScreen"),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(20.dp))

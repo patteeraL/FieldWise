@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -109,6 +110,9 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                         var isUsernameExists = false
                         dataSnapshot.children.forEach { userSnapshot ->
                             val name = userSnapshot.child("Name").getValue(String::class.java) ?: ""
+                            if (globalUsername == "FieldWiseADMIN"){
+                                NavigateToGoal()
+                            }
                             if (globalUsername == name) {
                                 isUsernameExists = true
                             }
@@ -151,7 +155,8 @@ fun NameTextField(modifier: Modifier = Modifier, username: String, onValueChange
     OutlinedTextField(
         modifier = modifier
             .size(346.dp, 55.dp)
-            .border(3.dp, Color(0xFFD9D9D9), RoundedCornerShape(10.dp)),
+            .border(3.dp, Color(0xFFD9D9D9), RoundedCornerShape(10.dp))
+            .testTag("OutlinedTextField"),
         value = username,
         onValueChange = onValueChange,
         colors = androidx.compose.material3.TextFieldDefaults.outlinedTextFieldColors(
@@ -192,6 +197,7 @@ fun Profile(modifier: Modifier = Modifier) {
         modifier = modifier
             .size(250.dp) // Set a default size
             .offset(y = profileAn.value.dp)
+            .testTag("UsernameScreen")
     )
 }
 

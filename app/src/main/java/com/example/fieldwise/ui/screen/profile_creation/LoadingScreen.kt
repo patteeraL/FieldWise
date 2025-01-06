@@ -32,6 +32,7 @@ import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier, NavigateToUserName: () -> Unit ) {
@@ -84,6 +85,7 @@ fun LoadingIcon(modifier: Modifier = Modifier){
         modifier = modifier
             .size(250.dp) // Set a default size
             .graphicsLayer { rotationZ = LoadingRotate.value }
+            .testTag("LoadingScreen")
     )
 }
 

@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -96,6 +97,7 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
                 Spacer(modifier = Modifier.height(80.dp))
                 Text(
                     text = "Set up is complete!",
+                    modifier = modifier.testTag("CompleteScreen"),
                     color = Color(0xFF4B4B4B),
                     style = TextStyle(
                         fontSize = 30.sp,
@@ -114,7 +116,7 @@ fun CompleteScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit) {
                     )
                 )
                 Spacer(modifier = Modifier.height(100.dp))
-                MainButton(button = "I'M READY !", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
+                MainButton(modifier = modifier.testTag("ConfirmButton"),button = "I'M READY !", onClick = { NavigateToHome() }, mainButtonType = MainButtonType.BLUE, isEnable = true)
 
             }}
 

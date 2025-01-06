@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.ui.platform.testTag
 
 
 @Composable
@@ -57,7 +58,7 @@ fun SplashScreen(navigateToLoading: () -> Unit) {
         )
     }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().testTag("SplashScreen"),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

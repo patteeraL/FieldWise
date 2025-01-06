@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,6 +70,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
             Row{
                 Text(
                     text = "I want to learn...",
+                    modifier = modifier.testTag("CourseManageScreen"),
                     color = Color(0xFF4B4B4B),
                     style = TextStyle(
                         fontSize = 30.sp,
