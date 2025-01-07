@@ -5,6 +5,8 @@ import android.media.MediaRecorder
 import android.util.Log
 import java.io.File
 
+// Audio Manager
+
 class AudioManager(private val context: Context) {
     private var mediaRecorder: MediaRecorder? = null
 
