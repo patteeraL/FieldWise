@@ -47,7 +47,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
         ) {
             Card(
                 modifier = Modifier.height(65.dp),
-                title = "Lesson 2",
+                title = "Lesson 1",
                 description = "Consumer and Producer Behavior",
                 cardType = CardType.GREEN,
                 cardShape = CardShape.SELECT_LESSON,

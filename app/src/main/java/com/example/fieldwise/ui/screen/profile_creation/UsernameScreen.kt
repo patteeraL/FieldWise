@@ -178,6 +178,7 @@ fun NameTextField(modifier: Modifier = Modifier, username: String, onValueChange
 
 
     OutlinedTextField(
+        singleLine = true,
         modifier = modifier
             .size(346.dp, 55.dp)
             .border(3.dp, Color(0xFFD9D9D9), RoundedCornerShape(10.dp))

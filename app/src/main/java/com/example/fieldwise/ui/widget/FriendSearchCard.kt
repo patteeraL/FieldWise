@@ -177,6 +177,7 @@ fun FriendSearchCard(modifier: Modifier = Modifier, NavigateToProfile: () -> Uni
                     horizontalArrangement = Arrangement.Center
                 ) {
                     OutlinedTextField(
+                        singleLine = true,
                         modifier = modifier
                             .size(300.dp, 55.dp)
                             .border(3.dp, Color(0xFF1AB8E8), RoundedCornerShape(10.dp))

@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -356,7 +357,7 @@ fun ConversationScreen1(
                 .height(70.dp),
             contentAlignment = Alignment.TopEnd
         ) {
-            if (!conversationFinished)
+            if (!conversationFinished){
             TextField(
                 value = userInput,
                 onValueChange = { userInput = it },
@@ -364,7 +365,7 @@ fun ConversationScreen1(
                 modifier = Modifier.
                     fillMaxWidth()
                         .height(65.dp)
-                        .padding(end = if (isGeneratingReply) 0.dp else 80.dp),
+                        .padding(end = 80.dp),
                 placeholder = { Text("Type a message...", color = Color(0xFF0B4D65)) },
                 textStyle = TextStyle(
                     color = Color.White,
@@ -378,28 +379,26 @@ fun ConversationScreen1(
                 shape = RoundedCornerShape(10.dp)
             )
 
-            if (!isGeneratingReply && !conversationFinished) {
                 Button(
+                    enabled = (!isGeneratingReply),
                     onClick = {
                         if (userInput.isNotBlank()) {
                             sendMessage(userInput)
                             userInput = ""
                         }
                     },
-                    shape = RoundedCornerShape(10.dp),
+                    shape = CircleShape,
                     modifier = modifier
-                        .width(60.dp)
-                        .height(50.dp)
-                        .padding(top = 10.dp, end = 0.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00CCFF))
+                        .size(60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor =  Color(0xFF00CCFF), disabledContainerColor =  Color(0xFFCACACA) )
                 ) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
                         painter = painterResource(id = R.drawable.sendicon),
                         contentDescription = null
                     )
-                }
-            }
+                }}
+
         }
 
         // Footer
