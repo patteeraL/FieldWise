@@ -80,25 +80,6 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToLessons: () -> Unit,
                NavigateToQuiz: () -> Unit) {
 
-    val context = LocalContext.current
-    val userRepository = DatabaseProvider.provideUserRepository(context)
-
-    // Taking userdata from localdatabase
-    val userProfile = remember { mutableStateOf<UserProfile?>(null) }
-
-    LaunchedEffect(Unit) {
-        val user = userRepository.getUserProfile(globalUsername)
-        if (user != null) {
-            userProfile.value = user
-        }
-    }
-
-    // Get filtered course list based on the user's selected language and course
-    val filteredCourses = getFilteredCourseList(
-        selectedLanguage = userProfile.value?.preferredLanguage ?: "",
-        selectedCourse = userProfile.value?.selectedCourse ?: ""
-    )
-
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -106,29 +87,10 @@ fun HomeScreen(modifier: Modifier = Modifier,
             .padding(20.dp, 50.dp, 20.dp, 0.dp)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .testTag("HomeScreen"),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(20.dp))
-
-            userProfile.value?.let { profile ->
-                Text(
-                    text = "Hello, ${profile.username}!",
-                    color = Color.White,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            } ?: run {
-                Text(
-                    text = "Loading user data...",
-                    color = Color.Gray,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
-
-
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically
@@ -142,45 +104,13 @@ fun HomeScreen(modifier: Modifier = Modifier,
                 ProfileIconButton(onClick = { NavigateToProfile() })
             }
             Spacer(modifier = Modifier.height(30.dp))
-
-
             Column(modifier = Modifier.fillMaxWidth()) {
-                if (filteredCourses.isNotEmpty()) {
-                    filteredCourses.forEach { course ->
-                        LessonCard(
-                            title = course.course,
-                            description = "Subject: ${course.subject}",
-                            cardType = CardType.BLUE,
-                            progress = 0f,
-                            complete = false, 
-                            NavigateToLessons = NavigateToLessons,
-                            NavigateToQuiz = NavigateToQuiz
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-                    }
-                } else {
-                    Text(
-                        text = "No courses available for the selected preferences.",
-                        color = Color.Gray,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                }
-                Row {
-                    LessonCard(
-                        title = "Lesson 2",
-                        description = "Consumer and Producer Behavior1",
-                        cardType = CardType.PURPLE,
-                        progress = 1f,
-                        complete = false,
-                        NavigateToLessons = NavigateToLessons,
-                        NavigateToQuiz = NavigateToQuiz
-                    )
-                }
+                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Spacer(modifier = Modifier.height(30.dp))
+                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+
+
             }
-
-
-
-
         }
         Row(
             modifier = Modifier
