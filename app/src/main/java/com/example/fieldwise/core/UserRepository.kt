@@ -15,4 +15,9 @@ class UserRepository(private val userProfileDao: UserProfileDao) {
     suspend fun saveUserProfile(userProfile: UserProfile) = withContext(Dispatchers.IO) {
         userProfileDao.insertUserProfile(userProfile)
     }
+
+    //getting user profile
+    suspend fun getUserProfile(username: String): UserProfile? {
+        return userProfileDao.getUserProfile(username)
+    }
 }

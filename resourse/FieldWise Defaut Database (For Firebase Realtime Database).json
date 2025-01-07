@@ -1,0 +1,2332 @@
+{
+  "Exercises": {
+    "English": {
+      "CS": {
+        "Basics of Program Development": {
+          "Conversation": {
+            "Comments": {
+              "Text1": "Good Question",
+              "Text2": "Perfect for practice!",
+              "Text3": "Well-crafted and engaging"
+            },
+            "Q1": "Name: Basics of Program Development - Part 1 Topics: 1. What is programming? (Definition, purpose, and examples of programming) 2. What are the basic steps in program development? (Planning, coding, testing, debugging, and maintenance)",
+            "Q2": "Name: Basics of Program Development - Part 2 Topics: 3. What is version control and why is it important? (Explanation of version control systems like Git, benefits of using version control) 4. What are some best practices in programming? (Code readability, commenting, following coding standards, and continuous learning)"
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "Analysis"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "Design"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "Coding"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "Testing"
+                },
+                "Comments": {
+                  "Text1": "Encourages critical thinking",
+                  "Text2": "Exceptional clarity",
+                  "Text3": "Highly relevant and useful"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "Identify exactly what is required from the program"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "Plan how the program should be developed"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "Develop a program written using a suitable programming language"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "Completed program is run with test data to ensure that all tasks work as specified"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Abstraction"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Coding"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Decomposition"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Debugging"
+                },
+                "Comments": {
+                  "Text1": "A good challenge",
+                  "Text2": "Nicely structured",
+                  "Text3": "Useful and relevant"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type2-Q1-Question.mp3"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Databases"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Structure Tasks"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Pseudocode"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Flowcharts"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Straightforward yet effective",
+                  "Text2": "Decent question",
+                  "Text3": "Could use improvement"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Comments": {
+                "Text1": "Great Question",
+                "Text2": "So interesting",
+                "Text3": "A good learning aid"
+              },
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-SPK-Q1-Question.mp3",
+              "Text": "Repeat: A computer program is a set of instructions that enable a computer to perform a specific task."
+            },
+            "Q2": {
+              "Comments": {
+                "Text1": "Well-planned",
+                "Text2": "A solid foundation",
+                "Text3": "Well-rounded question"
+              },
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-SPK-Q2-Question.mp3",
+              "Text": "Repeat: The steps of a program development life cycle consist of Analysis, Design, Coding and Testing."
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "A set of instructions that enable a computer to perform a specific task"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "The study of the use of systems to store, retrive and send information"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "The process of identifying and removing errors from computer programs"
+                },
+                "Comments": {
+                  "Text1": "It's passable",
+                  "Text2": "Meets basic requirements",
+                  "Text3": "It's not bad!"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "What is the definition of a Computer Program?"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Analysis"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Testing"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Coding"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Design"
+                },
+                "Comments": {
+                  "Text1": "Good for beginners",
+                  "Text2": "Good introductory question",
+                  "Text3": "Nicely phrased"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "What is the phase of determining the requirements of the program?"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Design"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Coding"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Testing"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Analysis"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "What is the phase of developing a detailed logic plan?"
+                },
+                "Comments": {
+                  "Text1": "Good level of difficulty",
+                  "Text2": "A top-tier question!",
+                  "Text3": "Well-rounded question"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Coding"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Design"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Analysis"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Testing"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "What is the phase of writing the program instructions?"
+                },
+                "Comments": {
+                  "Text1": "Highly impactful",
+                  "Text2": "Encourages creative thinking",
+                  "Text3": "A great learning tool"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Testing"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Analysis"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Design"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Coding"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "What is the phase where error checking is performed?"
+                },
+                "Comments": {
+                  "Text1": "Professionally designed",
+                  "Text2": "Very insightful question",
+                  "Text3": "Nicely worded question"
+                }
+              }
+            }
+          }
+        },
+        "Basics of Programming Language": {
+          "Conversation": {
+            "Q1": "Name: Basics of Programming Language - Part 1 Topics: 3. What are some common programming languages? (Examples include Python, Java, C++, JavaScript, and their uses) 4. What is an Integrated Development Environment (IDE)? (Definition, examples like Visual Studio Code, PyCharm, and their features)",
+            "Q2": "Name: Basics of Programming Language - Part 2 Topics: 5. What are variables and data types? (Explanation of variables, different data types like integers, strings, and their usage) 6. What are control structures? (Explanation of if statements, loops like for and while, and their importance in programming)",
+            "Comments": {
+              "Text1": "A solid foundation",
+              "Text2": "Easy to follow",
+              "Text3": "Not very engaging"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "Assembly"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "Debugging"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "Interpreter"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "Compiler"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "Low level programming language that can communicate directly with the computer hardware"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "Find errors in a computer program by running or tracing the program"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "A computer program that analyses and executes a program written in a high-level programming language"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "A computer program that translates source code written in high-level programming language to machine code"
+                },
+                "Comments": {
+                  "Text1": "Well-suited for learners",
+                  "Text2": "Well-organized",
+                  "Text3": "Exceptionally engaging question"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Integrated Development Environment (IDE)"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Translator"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Firmware"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Programming Language"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Perfect level of challenge",
+                  "Text2": "Impressive question design",
+                  "Text3": "A solid question!"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Python"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Terminal"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Assembly"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Machine Code"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Perfectly constructed question",
+                  "Text2": "A standout question!",
+                  "Text3": "Well-suited for practice"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-SPK-Q1-Question.mp3",
+              "Text": "Repeat: Machine code is binary instructions that a computer understands.",
+              "Comments": {
+                "Text1": "Encourages steady learning",
+                "Text2": "Nicely tailored for learners",
+                "Text3": "Highly motivational question"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-SPK-Q2-Question.mp3",
+              "Text": "Repeat: Binary is a number system using only 2 digits, 1 and 0. It is the base of all computing systems and operations.",
+              "Comments": {
+                "Text1": "Brilliant question!",
+                "Text2": "Fantastic question!",
+                "Text3": "Very insightful"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "The binary instructions that a computer understands"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "A programming language that is independent of computer hardware"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "A computer program that finds errors by running or tracing the program"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "What is Machine Code?"
+                },
+                "Comments": {
+                  "Text1": "Exceptionally well-phrased",
+                  "Text2": "Remarkable question!",
+                  "Text3": "Clear question"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "A utility program that translates programs into binary before a computer can use it"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "An editor that allows a program to be written and edited"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "A window that display source code using different colours and formatting"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type1-Q2-Question.mp3",
+                  "Text": "What is a Translator?"
+                },
+                "Comments": {
+                  "Text1": "Good question",
+                  "Text2": "Nicely asked",
+                  "Text3": "Solid question"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Machine Code"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Python"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Operating System"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "High-Level Programming Language"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "What type of language can a computer understand?"
+                },
+                "Comments": {
+                  "Text1": "Clear question",
+                  "Text2": "Well articulated",
+                  "Text3": "Nicely framed"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "Scratch"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "C++"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Python"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "Assembly"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "What is not a programming language?"
+                },
+                "Comments": {
+                  "Text1": "Nicely thought through question",
+                  "Text2": "Clear and concise",
+                  "Text3": "Not bad"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "Code Editor"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer2.png",
+                  "Text": "Interpreter"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "Assembler"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer4.png",
+                  "Text": "Compiler"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "What is not a type of translator?"
+                },
+                "Comments": {
+                  "Text1": "It's fine overall",
+                  "Text2": "Satisfactory",
+                  "Text3": "Fairly clear question"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GEO": {
+        "Basics of Human Geography": {
+          "Conversation": {
+            "Q1": "Name: Basics of Human Geography Topics: 1. What is human geography?    - Define human geography.    - Explain how it focuses on the relationship between humans and their environment.    - Mention key areas of study: population, culture, economy, and urban development.  2. How does population distribution shape human geography?    - Define population distribution and density.    - Discuss how factors like resources, climate, and politics influence where people live.    - Provide examples of densely and sparsely populated regions and why they differ.",
+            "Q2": "Name: Basics of Human Geography Topics: 1. What is the role of culture in human geography?    - Define culture in the context of geography.    - Explain how traditions, language, and religion shape human landscapes.    - Provide examples of cultural regions, like Latin America or the Middle East.  2. How does urbanization impact human geography?    - Define urbanization and its key drivers.    - Discuss the effects of urbanization on population density and land use.    - Provide examples, such as megacities like Tokyo or rapid urban growth in Africa.",
+            "Comments": {
+              "Text1": "It's fine overall",
+              "Text2": "Satisfactory",
+              "Text3": "Fairly clear question"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "Migration"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "Cultural Diffusion"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "Population Distribution"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "Urban Sprawl"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "Movement of people from place to place"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "Spread of Culture traits from one culture to another"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "Variations in population that vary across a country, continent, or the world"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "Spread of urban developments on land near a city"
+                },
+                "Comments": {
+                  "Text1": "Fairly clear",
+                  "Text2": "Well articulated question",
+                  "Text3": "Nicely Worded question"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Standard of Living"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Urban Sprawl"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Culture"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Quality of Life"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Top-quality question",
+                  "Text2": "Impressive question",
+                  "Text3": "Brilliantly framed"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Language Family"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Democracy"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Culture Diffusion"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Ethnic Group"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Top-notch question",
+                  "Text2": "Impressive question",
+                  "Text3": "Truly exceptional"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-SPK-Q1-Question.mp3",
+              "Text": "Repeat: Human Geography is the study of interrelationships between people, place and environment.",
+              "Comments": {
+                "Text1": "Nicely asked",
+                "Text2": "Clear question",
+                "Text3": "Well thought out"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-SPK-Q2-Question.mp3",
+              "Text": "Repeat: Natural Increase is the difference between the number of live births and deaths, generally calculated over a year.",
+              "Comments": {
+                "Text1": "Clear and concise",
+                "Text2": "Solid insight",
+                "Text3": "Solid depth"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "The study of interrelationships between people, places and the environment"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "The study of processes that shape the earth's surface and the animals and plants that inhabit it"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "The study of the distribution of species and ecosystems in geographic space and through geographical time"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "What is Human Geography?"
+                },
+                "Comments": {
+                  "Text1": "Nicely clear",
+                  "Text2": "Good framing",
+                  "Text3": "Well articulated"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Ethnic Group"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Language Family"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Traditional Economy"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Cultural Diffusion"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "What is a group of people who share a common ancestry, language, religion, customs or place of origin?"
+                },
+                "Comments": {
+                  "Text1": "Clear and detailed",
+                  "Text2": "Nicely thoughtful",
+                  "Text3": "Good question"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "Population Density"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "Population Distribution"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "Standard of Living"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer4.png",
+                  "Text": "Natural Increase"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "What is the average number of people living in a square mile of land?"
+                },
+                "Comments": {
+                  "Text1": "Well thought out question",
+                  "Text2": "Well detailed",
+                  "Text3": "Well expressed"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "Culture"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Ethnic Group"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "Democracy"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "Standard of Living"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "What is the way of life of a group of people who share similar culture traits"
+                },
+                "Comments": {
+                  "Text1": "Well phrased",
+                  "Text2": "Clear and insightful",
+                  "Text3": "Nice question"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Traditional Economy"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "Cultural Diffusion"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Ethnic Group"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Language Family"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "What is a system that relies on customs, history and time-honored beliefs"
+                },
+                "Comments": {
+                  "Text1": "Nice question",
+                  "Text2": "Well articulated",
+                  "Text3": "Good insight"
+                }
+              }
+            }
+          }
+        },
+        "Basics of World Geography": {
+          "Conversation": {
+            "Q1": "Name: Basics of World Geography Topics: 1. What are the major physical features of the world?    - Identify key features: continents, oceans, mountain ranges, and deserts.    - Discuss how these features influence climate and human activity.    - Provide examples, e.g., the Himalayas affecting weather patterns in South Asia.  2. How do climate zones affect human life?    - Define climate zones and their classification (tropical, temperate, polar, etc.).    - Explain how climate zones impact agriculture, lifestyle, and settlements.    - Provide examples: tropical climates supporting rainforests and deserts forming in arid zones.",
+            "Q2": "Name: Basics of World Geography Topics: 1. What are the world’s major geographic regions?    - Define the concept of geographic regions.    - Identify examples: North America, Sub-Saharan Africa, East Asia.    - Discuss how geography affects the cultural and economic identity of these regions.  2. How do natural resources shape geography?    - Define natural resources (renewable vs. non-renewable).    - Discuss how resources like water, oil, or minerals influence settlement and economies.    - Provide examples: the impact of oil in the Middle East or water scarcity in North Africa.",
+            "Comments": {
+              "Text1": "Good insight",
+              "Text2": "Well thought out question",
+              "Text3": "Good depth"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "Equator"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "Prime Meridian"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "Latitude"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "Longitude"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "Imaginary line that divides the earth into the northern and southern hemisphere"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "Imaginary line that divides the earth into the eastern and western hemisphere"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "Measurement of location north or south of the equator"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "Measurement of location east or west of the prime meridian"
+                },
+                "Comments": {
+                  "Text1": "Clear insight",
+                  "Text2": "Nicely thought through",
+                  "Text3": "Good detail"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Pacific Ocean"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Indian Ocean"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Atlantic Ocean"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Artic Ocean"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Well phrased",
+                  "Text2": "Good framing",
+                  "Text3": "Nicely thoughtful"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Humid"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "Dry"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "Cold"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Arid"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "Solid precision",
+                  "Text2": "Good clarity",
+                  "Text3": "Well expressed"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-SPK-Q1-Question.mp3",
+              "Text": "Repeat: Geography is the study of the earth's surface, examining places and the relationship between people and their environments.",
+              "Comments": {
+                "Text1": "Solid precision",
+                "Text2": "Nicely framed",
+                "Text3": "Well thought out"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-SPK-Q2-Question.mp3",
+              "Text": "Repeat: The world is separated into 7 geographic regions called continents. Continents are large areas of land that include many countries within them.",
+              "Comments": {
+                "Text1": "Good insight",
+                "Text2": "Nicely detailed",
+                "Text3": "Well phrased"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "The study of the earth's surface, examining places and the relationships between people and their environments"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "The study of life and living organisms"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "The study of the earth's materials, structures, composition and types of processes acting on it"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "What is Geography?"
+                },
+                "Comments": {
+                  "Text1": "Good articulation",
+                  "Text2": "Clear and concise",
+                  "Text3": "Good question"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Asia"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Africa"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "Europe"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "North America"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "Which continent has the largest landmass?"
+                },
+                "Comments": {
+                  "Text1": "Solid depth",
+                  "Text2": "Well expressed",
+                  "Text3": "Good percision"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "Coordinate"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "Atlas"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "Prime Meridian"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer4.png",
+                  "Text": "Geographic Grid"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "What is the point where lines of latitude and longitude meet called?"
+                },
+                "Comments": {
+                  "Text1": "Nicely thoughtful",
+                  "Text2": "Well detailed",
+                  "Text3": "Clear question"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "Russia"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer2.png",
+                  "Text": "China"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "Sweden"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer4.png",
+                  "Text": "USA"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "What is the largest country in the world by geographical area?"
+                },
+                "Comments": {
+                  "Text1": "Clear and insightful",
+                  "Text2": "Solid framing",
+                  "Text3": "Insightful question"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer1.png",
+                  "Text": "Sahara Desert"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer2.png",
+                  "Text": "Gobi Desert"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer3.png",
+                  "Text": "Kalahari Desert"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer4.png",
+                  "Text": "Atacama Desert"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "Where are the highest sand dunes found?"
+                },
+                "Comments": {
+                  "Text1": "Well phrased",
+                  "Text2": "Nicely precise",
+                  "Text3": "Wonderful question"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Thai": {
+      "CS": {
+        "พื้นฐานของการพัฒนาซอฟต์แวร์": {
+          "Conversation": {
+            "Comments": {
+              "Text1": "คำถามดี",
+              "Text2": "เหมาะสำหรับการฝึกฝน!",
+              "Text3": "สร้างสรรค์และน่าดึงดูด"
+            },
+            "Q1": "Name: พื้นฐานของการพัฒนาซอฟต์แวร์ - Part 1 Topics: 1. การเขียนโปรแกรมคืออะไร? (คำจำกัดความ, วัตถุประสงค์, และตัวอย่างของการเขียนโปรแกรม) 2. ขั้นตอนพื้นฐานของการพัฒนาซอฟต์แวร์มีอะไรบ้าง? (การวางแผน, การเขียนโค้ด, การทดสอบ, การแก้บั๊ก)",
+            "Q2": "Name: พื้นฐานของการพัฒนาซอฟต์แวร์ - Part 2 Topics: 3. การควบคุมเวอร์ชันคืออะไร และทำไมจึงสำคัญ? (คำอธิบายเกี่ยวกับระบบควบคุมเวอร์ชัน เช่น Git, และประโยชน์ของการใช้การควบคุมเวอร์ชัน) 4. แนวปฏิบัติที่ดีที่สุดในการเขียนโปรแกรมมีอะไรบ้าง? (ความสามารถในการอ่านโค้ด, การคอมเมนต์, การปฏิบัติตามมาตรฐานการเขียนโค้ด, และการเรียนรู้อย่างต่อเนื่อง)"
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "การวิเคราะห์"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "การออกแบบ"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "การเขียนโค้ด"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "การทดสอบ"
+                },
+                "Comments": {
+                  "Text1": "ส่งเสริมการคิดเชิงวิพากษ์",
+                  "Text2": "ชัดเจนอย่างยอดเยี่ยม",
+                  "Text3": "มีความเกี่ยวข้องและเป็นประโยชน์สูง"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "ระบุจุดประสงค์ของโปรแกรมให้ชัดเจน"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "วางแผนว่าโปรแกรมควรถูกพัฒนาอย่างไร"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "พัฒนาโปรแกรมโดยใช้ภาษาโปรแกรมที่เหมาะสม"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "โปรแกรมที่เสร็จสมบูรณ์ถูกทดสอบด้วยข้อมูลตัวอย่างเพื่อให้มั่นใจว่าทุกฟังก์ชันทำงานตามที่ระบุ"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "นามธรรม"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "การเขียนโค้ด"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "การแยกส่วน"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "การดีบั๊ก"
+                },
+                "Comments": {
+                    "Text1": "เป็นความท้าทายที่ดี",
+                    "Text2": "โครงสร้างดี",
+                    "Text3": "มีประโยชน์และเกี่ยวข้อง"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type2-Q1-Question.mp3"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "ฐานข้อมูล"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "กราฟ"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "รหัสคำสั่งลำลอง"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "ผังงาน"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                    "Text1": "ตรงไปตรงมาแต่ได้ผล",
+                    "Text2": "คำถามใช้ได้",
+                    "Text3": "อาจปรับปรุงได้อีก"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Comments": {
+                "Text1": "คำถามยอดเยี่ยม",
+                "Text2": "น่าสนใจมาก",
+                "Text3": "เป็นตัวช่วยการเรียนที่ดี"
+              },
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-SPK-Q1-Question.mp3",
+              "Text": "Repeat: โปรแกรมคอมพิวเตอร์คือชุดคำสั่งที่ช่วยให้คอมพิวเตอร์สามารถทำงานแบบเฉพาะเจาะจงได้"
+            },
+            "Q2": {
+              "Comments": {
+                "Text1": "คำถามดี",
+                "Text2": "เป็นพื้นฐานที่มั่นคง",
+                "Text3": "เป็นคำถามที่ครอบคลุม"
+              },
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-SPK-Q2-Question.mp3",
+              "Text": "Repeat: ขั้นตอนของการพัฒนาโปรแกรมประกอบด้วย การวิเคราะห์, การออกแบบ, การเขียนโค้ด และการทดสอบ."
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "ชุดคำสั่งที่ช่วยให้คอมพิวเตอร์ทำงานที่เฉพาะเจาะจง"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "การใช้ระบบในการจัดเก็บ, ดึงข้อมูล และส่งข้อมูล"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "กระบวนการระบุและขจัดข้อผิดพลาดจากโปรแกรมคอมพิวเตอร์"
+                },
+                "Comments": {
+                    "Text1": "มันพอใช้ได้",
+                    "Text2": "ตอบโจทย์ความต้องการพื้นฐาน",
+                    "Text3": "มันไม่เลวเลย!"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "โปรแกรมคอมพิวเตอร์คืออะไร?"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "การวิเคราะห์"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "การทดสอบ"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "การเขียนโค้ด"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การออกแบบ"
+                },
+                "Comments": {
+                    "Text1": "ดีสำหรับผู้เริ่มต้น",
+                    "Text2": "คำถามที่ดีสำหรับการเริ่มต้นการเรียนรู้",
+                    "Text3": "ถามได้ดี"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "ขั้นตอนการกำหนดความต้องการของโปรแกรมคืออะไร?"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การออกแบบ"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "การเขียนโค้ด"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "การทดสอบ"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "การวิเคราะห์"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "ขั้นตอนในการพัฒนาแผนการตรรกะที่ละเอียดคืออะไร"
+                },
+                "Comments": {
+                    "Text1": "ระดับความยากดี",
+                    "Text2": "คำถามยอดเยี่ยม!",
+                    "Text3": "คำถามที่ดี"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "การเขียนโค้ด"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การออกแบบ"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "การวิเคราะห์"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "การทดสอบ"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "ขั้นตอนการเขียนคำสั่งโปรแกรมคืออะไร?"
+                },
+                "Comments": {
+                    "Text1": "มีผลกระทบสูง",
+                    "Text2": "ส่งเสริมการคิดสร้างสรรค์",
+                    "Text3": "เครื่องมือการเรียนรู้ที่ดี"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "การทดสอบ"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "การวิเคราะห์"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การออกแบบ"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "การเขียนโค้ด"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-1-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "ขั้นตอนที่ทำการตรวจสอบข้อผิดพลาดคืออะไร?"
+                },
+                "Comments": {
+                    "Text1": "ออกแบบมาอย่างมืออาชีพ",
+                    "Text2": "คำถามที่มีประโยชน์มาก",
+                    "Text3": "คำถามใช้ได้"
+                }
+              }
+            }
+          }
+        },
+        "พื้นฐานของภาษาโปรแกรม": {
+          "Conversation": {
+            "Q1": "Name: พื้นฐานของภาษาโปรแกรม - Part 1 Topics: 3. ภาษาโปรแกรมทั่วไปมีอะไรบ้าง? (ตัวอย่างเช่น Python, Java, C++, JavaScript และการใช้งานของแต่ละภาษา) 4. Integrated Development Environment (IDE) คืออะไร? (คำจำกัดความ, ตัวอย่างเช่น Visual Studio Code, PyCharm และคุณสมบัติของแต่ละตัว)",
+            "Q2": "Name: พื้นฐานของภาษาโปรแกรม - Part 2 Topics: 5. ตัวแปรและชนิดข้อมูลคืออะไร? (คำอธิบายเกี่ยวกับตัวแปร, ชนิดข้อมูลต่างๆ เช่น จำนวนเต็ม, ข้อความ และการใช้งานของแต่ละชนิด) 6. โครงสร้างควบคุมคืออะไร? (คำอธิบายเกี่ยวกับคำสั่ง if, ลูปต่างๆ เช่น for และ while และความสำคัญของมันในการเขียนโปรแกรม)",
+            "Comments": {
+              "Text1": "พื้นฐานที่มั่นคง",
+              "Text2": "ง่ายต่อการติดตาม",
+              "Text3": "ไม่ค่อยดึงดูดใจ"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "แอสเซมบลี"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "การดีบัก"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "อินเตอร์พรีเตอร์"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "คอมไพเลอร์"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "ภาษาการเขียนโปรแกรมระดับต่ำที่สามารถสื่อสารโดยตรงกับฮาร์ดแวร์ของคอมพิวเตอร์"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "ค้นหาข้อผิดพลาดในโปรแกรมคอมพิวเตอร์โดยการรันหรือการติดตามโปรแกรม"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "โปรแกรมคอมพิวเตอร์ที่วิเคราะห์และดำเนินการโปรแกรมที่เขียนด้วยภาษาการเขียนโปรแกรมระดับสูง"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "โปรแกรมคอมพิวเตอร์ที่แปลรหัสต้นฉบับที่เขียนด้วยภาษาการเขียนโปรแกรมระดับสูงเป็นรหัสเครื่อง"
+                },
+                "Comments": {
+                  "Text1": "เหมาะสำหรับผู้เริ่มเรียน",
+                  "Text2": "มีการจัดระเบียบดี",
+                  "Text3": "คำถามที่ดึงดูดความสนใจอย่างมาก"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Integrated Development Environment (IDE)"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "ตัวแปลภาษา"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "ซอฟต์แวร์ฝังตัว"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "ภาษาโปรแกรม"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "ระดับความท้าทายที่สมบูรณ์แบบ",
+                  "Text2": "การออกแบบคำถามที่น่าประทับใจ",
+                  "Text3": "คำถามที่มั่นคง"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "Python (ไพธอน)"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "เทอร์มินัล"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "แอสเซมบลี"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "Machine Code (รหัสเครื่อง)"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "คำถามที่สร้างสรรค์ได้อย่างสมบูรณ์แบบ",
+                  "Text2": "คำถามที่โดดเด่น",
+                  "Text3": "เหมาะสมสำหรับการฝึกฝน"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-SPK-Q1-Question.mp3",
+              "Text": "Repeat: Machine code หรือ รหัสเครื่องคือคำสั่งในรูปแบบไบนารีที่คอมพิวเตอร์เข้าใจ",
+              "Comments": {
+                "Text1": "ส่งเสริมการเรียนรู้อย่างสม่ำเสมอ",
+                "Text2": "ปรับแต่งได้ดีสำหรับผู้เรียน",
+                "Text3": "คำถามที่มีแรงจูงใจสูง"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-SPK-Q2-Question.mp3",
+              "Text": "Repeat: ไบนารีคือระบบตัวเลขที่ใช้แค่ 2 หลัก คือ 1 และ 0 มันเป็นฐานของระบบคอมพิวเตอร์และการทำงานทั้งหมด",
+              "Comments": {
+                "Text1": "คำถามที่ยอดเยี่ยม!",
+                "Text2": "คำถามที่น่าทึ่ง!",
+                "Text3": "มีความเข้าใจลึกซึ้งมาก"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "คำสั่งไบนารีที่คอมพิวเตอร์เข้าใจ"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "ภาษาการเขียนโปรแกรมที่ไม่ขึ้นกับฮาร์ดแวร์ของคอมพิวเตอร์"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "โปรแกรมคอมพิวเตอร์ที่ค้นหาข้อผิดพลาดโดยการรันหรือการติดตามโปรแกรม"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "รหัสเครื่อง หรือ Machine Code คืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "คำถามที่ถ่ายทอดได้อย่างยอดเยี่ยม",
+                  "Text2": "คำถามที่น่าทึ่ง!",
+                  "Text3": "คำถามที่ชัดเจน"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "โปรแกรมเครื่องมือที่แปลโปรแกรมเป็นไบนารีก่อนที่คอมพิวเตอร์จะสามารถใช้งานได้"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "โปรแกรมแก้ไขที่ช่วยให้เขียนและแก้ไขโปรแกรมได้"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "หน้าต่างที่แสดงรหัสต้นฉบับโดยใช้สีและการจัดรูปแบบต่างๆ"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-VOCAB-Type1-Q2-Question.mp3",
+                  "Text": "ตัวแปล (Translator) คืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "คำถามที่ดี",
+                  "Text2": "ถามได้ดี",
+                  "Text3": "คำถามที่มั่นคง"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "Machine Code (รหัสเครื่อง)"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Python"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "ระบบปฏิบัติการ"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "ภาษาการเขียนโปรแกรมระดับสูง"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "คอมพิวเตอร์สามารถเข้าใจภาษาประเภทไหน?"
+                },
+                "Comments": {
+                  "Text1": "คำถามที่ชัดเจน",
+                  "Text2": "ถ่ายทอดได้ดี",
+                  "Text3": "จัดกรอบคำถามได้ดี"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "Scratch (สแครบ)"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "C++"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "Python"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "แอสเซมบลี"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "อะไรไม่ใช่ภาษาการเขียนโปรแกรม?"
+                },
+                "Comments": {
+                  "Text1": "คำถามที่คิดได้ดี",
+                  "Text2": "ชัดเจนและกระชับ",
+                  "Text3": "ไม่เลว"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "โปรแกรมแก้ไขโค้ด"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer2.png",
+                  "Text": "อินเตอร์พรีเตอร์"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "แอสเซมเบลอร์"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-CS-2-VOCAB-Type2-Q3-Answer4.png",
+                  "Text": "คอมไพเลอร์"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-CS-2-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "อะไรไม่ใช่ประเภทของ translator (ตัวแปล)?"
+                },
+                "Comments": {
+                  "Text1": "โดยรวมก็โอเค",
+                  "Text2": "น่าพอใจ",
+                  "Text3": "คำถามค่อนข้างชัดเจน"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GEO": {
+        "พื้นฐานของภูมิศาสตร์มนุษย์": {
+          "Conversation": {
+            "Q1": "Name: พื้นฐานของภูมิศาสตร์มนุษย์ Topics: 1. ภูมิศาสตร์มนุษย์คืออะไร?   - อธิบายภูมิศาสตร์มนุษย์    - อธิบายว่าภูมิศาสตร์มนุษย์เน้นที่ความสัมพันธ์ระหว่างมนุษย์และสิ่งแวดล้อมอย่างไร    - ระบุพื้นที่ศึกษาหลัก: ประชากร, วัฒนธรรม, เศรษฐกิจ, และการพัฒนาเมือง  2. การกระจายประชากรมีผลต่อภูมิศาสตร์มนุษย์อย่างไร?    - กำหนดการกระจายประชากรและความหนาแน่นของประชากร    - อภิปรายถึงปัจจัยต่างๆ เช่น ทรัพยากร, สภาพภูมิอากาศ, และการเมือง ที่มีอิทธิพลต่อสถานที่ที่ผู้คนอาศัย    - ยกตัวอย่างพื้นที่ที่มีประชากรหนาแน่นและบางเบา และเหตุผลที่ทำให้แตกต่าง",
+            "Q2": "Name: พื้นฐานของภูมิศาสตร์มนุษย์ Topics: 1. บทบาทของวัฒนธรรมในภูมิศาสตร์มนุษย์คืออะไร?   - กำหนดวัฒนธรรมในบริบทของภูมิศาสตร์    - อธิบายว่าวัฒนธรรม, ภาษา, และศาสนามีอิทธิพลต่อภูมิทัศน์มนุษย์อย่างไร    - ยกตัวอย่างภูมิภาคทางวัฒนธรรม เช่น ลาตินอเมริกาหรือตะวันออกกลาง  2. การทำให้เมืองเจริญส่งผลต่อภูมิศาสตร์มนุษย์อย่างไร?    - กำหนดการทำให้เมืองเจริญและปัจจัยขับเคลื่อนหลัก    - อภิปรายถึงผลกระทบของการทำให้เมืองเจริญต่อความหนาแน่นของประชากรและการใช้ที่ดิน    - ยกตัวอย่าง เช่น เมกาซิตี้อย่างโตเกียวหรือการเติบโตของเมืองที่รวดเร็วในแอฟริกา",
+            "Comments": {
+              "Text1": "โดยรวมก็โอเค",
+              "Text2": "น่าพอใจ",
+              "Text3": "คำถามค่อนข้างชัดเจน"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "การอพยพ"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "การแพร่กระจายทางวัฒนธรรม"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "การกระจายประชากร"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "การขยายตัวของเมือง"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "การเคลื่อนย้ายของผู้คนจากที่หนึ่งไปยังอีกที่หนึ่ง"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "การแพร่กระจายของลักษณะทางวัฒนธรรมจากวัฒนธรรมหนึ่งไปยังอีกวัฒนธรรมหนึ่ง"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "ความแปรผันของประชากรที่แตกต่างกันไปตามประเทศ, ทวีป, หรือทั่วโลก"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "การแพร่กระจายของการพัฒนาเมืองในที่ดินใกล้เมือง"
+                },
+                "Comments": {
+                  "Text1": "ค่อนข้างชัดเจน",
+                  "Text2": "คำถามที่ถ่ายทอดได้ดี",
+                  "Text3": "คำถามที่ใช้คำได้ดี"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "มาตรฐานชีวิต"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "การขยายตัวของเมือง"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "วัฒนธรรม"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "คุณภาพชีวิต"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "คำถามคุณภาพเยี่ยม",
+                  "Text2": "คำถามที่น่าประทับใจ",
+                  "Text3": "กรอบคำถามที่ยอดเยี่ยม"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "ตระกูลภาษา"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "ประชาธิปไตย"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "การแพร่กระจายทางวัฒนธรรม"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "กลุ่มชาติพันธุ์"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "คำถามคุณภาพสูง",
+                  "Text2": "คำถามที่น่าประทับใจ",
+                  "Text3": "ยอดเยี่ยมจริงๆ"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-SPK-Q1-Question.mp3",
+              "Text": "Repeat: ภูมิศาสตร์มนุษย์คือการศึกษาความสัมพันธ์ระหว่างคน, สถานที่ และสิ่งแวดล้อม",
+              "Comments": {
+                "Text1": "ถามได้ดี",
+                "Text2": "คำถามที่ชัดเจน",
+                "Text3": "คิดอย่างรอบคอบ"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-SPK-Q2-Question.mp3",
+              "Text": "Repeat: การเพิ่มขึ้นทางธรรมชาติคือความแตกต่างระหว่างจำนวนการเกิดและการตาย ซึ่งโดยทั่วไปคำนวณในช่วงระยะเวลาหนึ่งปี",
+              "Comments": {
+                "Text1": "ชัดเจนและกระชับ",
+                "Text2": "มีมุมมองที่มั่นคง",
+                "Text3": "มีความลึกที่มั่นคง"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "การศึกษาความสัมพันธ์ระหว่างคน, สถานที่ และสิ่งแวดล้"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "การศึกษากระบวนการที่กำหนดรูปผิวของโลกและสัตว์และพืชที่อาศัยอยู่ในนั้น"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "การศึกษาการกระจายของสายพันธุ์และระบบนิเวศในพื้นที่ทางภูมิศาสตร์และผ่านเวลาเชิงภูมิศาสตร์"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "ภูมิศาสตร์มนุษย์คืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "ชัดเจนดี",
+                  "Text2": "กรอบคำถามดี",
+                  "Text3": "ถ่ายทอดได้ดี"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "กลุ่มชาติพันธุ์"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "ตระกูลภาษา"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "เศรษฐกิจแบบดั้งเดิม"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การแพร่กระจายทางวัฒนธรรม"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "กลุ่มคนที่มีบรรพบุรุษ, ภาษา, ศาสนา, ขนบธรรมเนียมหรือสถานที่เกิดร่วมกันคืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "ชัดเจนและละเอียด",
+                  "Text2": "คิดได้ดี",
+                  "Text3": "คำถามดี"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "ความหนาแน่นของประชากร"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "การกระจายประชากร"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "มาตรฐานชีวิต"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer4.png",
+                  "Text": "การเพิ่มขึ้นทางธรรมชาติ"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "จำนวนเฉลี่ยของคนที่อาศัยอยู่ในพื้นที่หนึ่งตารางไมล์ของที่ดินคืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "คิดอย่างรอบคอบ",
+                  "Text2": "ละเอียดดี",
+                  "Text3": "แสดงออกได้ดี"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "วัฒนธรรม"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "กลุ่มชาติพันธุ์"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "ประชาธิปไตย"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "มาตรฐานชีวิตg"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "วิถีชีวิตของกลุ่มคนที่มีลักษณะทางวัฒนธรรมที่คล้ายคลึงกันคืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "ถ่ายทอดได้ดี",
+                  "Text2": "ชัดเจนและเข้าใจลึก",
+                  "Text3": "คำถามดี"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "เศรษฐกิจแบบดั้งเดิม"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "การแพร่กระจายทางวัฒนธรรม"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "กลุ่มชาติพันธุ์"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-2-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "ตระกูลภาษา"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-2-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "อะไรคือลักษณะของระบบที่พึ่งพาประเพณี, ประวัติศาสตร์ และความเชื่อที่สืบทอดมาช้านาน?"
+                },
+                "Comments": {
+                  "Text1": "คำถามดี",
+                  "Text2": "ถ่ายทอดได้ดี",
+                  "Text3": "มีมุมมองที่ดี"
+                }
+              }
+            }
+          }
+        },
+        "พื้นฐานของภูมิศาสตร์โลก": {
+          "Conversation": {
+            "Q1": "Name: พื้นฐานภูมิศาสตร์โลก Topics: 1. อะไรคือคุณลักษณะทางกายภาพหลักของโลก?    - ระบุคุณลักษณะสำคัญ: ทวีป, มหาสมุทร, เทือกเขา, และทะเลทราย    - อธิบายว่าคุณลักษณะเหล่านี้มีอิทธิพลต่อสภาพอากาศและกิจกรรมมนุษย์อย่างไร    - ยกตัวอย่าง เช่น เทือกเขาหิมาลัยมีผลต่อรูปแบบสภาพอากาศในเอเชียใต้  2. โซนสภาพอากาศมีผลต่อชีวิตมนุษย์อย่างไร?    - นิยามโซนสภาพอากาศและการจัดประเภทของมัน (เขตร้อน, ปานกลาง, ขั้วโลก ฯลฯ)    - อธิบายว่าโซนสภาพอากาศมีผลต่อการเกษตร, วิถีชีวิต, และการตั้งถิ่นฐานอย่างไร   - ยกตัวอย่าง: สภาพอากาศเขตร้อนสนับสนุนป่าฝนและทะเลทรายเกิดขึ้นในเขตแห้งแล้ง",
+            "Q2": "Name: พื้นฐานภูมิศาสตร์โลก Topics: 1. อะไรคือภูมิภาคทางภูมิศาสตร์หลักของโลก?    - นิยามแนวคิดของภูมิภาคทางภูมิศาสตร์    - ระบุตัวอย่าง: อเมริกาเหนือ, อาฟริกาตอนใต้ของทะเลทราย, เอเชียตะวันออก    - อธิบายว่าภูมิศาสตร์มีผลต่ออัตลักษณ์ทางวัฒนธรรมและเศรษฐกิจของภูมิภาคเหล่านี้อย่างไร  2. ทรัพยากรธรรมชาติมีผลต่อภูมิศาสตร์อย่างไร?    - นิยามทรัพยากรธรรมชาติ (ทรัพยากรที่สามารถทดแทนได้กับที่ไม่สามารถทดแทนได้)    - อธิบายว่าทรัพยากรอย่างน้ำ, น้ำมัน, หรือแร่ธาตุมีผลต่อการตั้งถิ่นฐานและเศรษฐกิจอย่างไร    - ยกตัวอย่าง: ผลกระทบของน้ำมันในตะวันออกกลางหรือน้ำขาดแคลนในแอฟริกาตอนเหนือ",
+            "Comments": {
+              "Text1": "ข้อคิดเห็นดี",
+              "Text2": "คำถามคิดได้ดี",
+              "Text3": "ลึกซึ้งดี"
+            }
+          },
+          "Listening": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "Link": 1,
+                  "Text": "เส้นศูนย์สูตร"
+                },
+                "Answer2": {
+                  "Link": 2,
+                  "Text": "เมริเดียนหลัก"
+                },
+                "Answer3": {
+                  "Link": 3,
+                  "Text": "ละติจูด"
+                },
+                "Answer4": {
+                  "Link": 4,
+                  "Text": "ลองจิจูด"
+                },
+                "Question1": {
+                  "Link": 1,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type1-Q1-Question1.mp3",
+                  "Text": "เส้นจินตภาพที่แบ่งโลกออกเป็นซีกโลกเหนือและซีกโลกใต้คืออะไร?"
+                },
+                "Question2": {
+                  "Link": 2,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type1-Q1-Question2.mp3",
+                  "Text": "เส้นจินตภาพที่แบ่งโลกออกเป็นซีกโลกตะวันออกและตะวันตกคืออะไร?"
+                },
+                "Question3": {
+                  "Link": 3,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type1-Q1-Question3.mp3",
+                  "Text": "การวัดตำแหน่งทางทิศเหนือหรือละติจูดคืออะไร?"
+                },
+                "Question4": {
+                  "Link": 4,
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type1-Q1-Question4.mp3",
+                  "Text": "การวัดตำแหน่งทางทิศตะวันออกหรือตะวันตกจากเมริเดียนหลักคืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "ข้อคิดเห็นชัดเจน",
+                  "Text2": "คิดได้ดี",
+                  "Text3": "รายละเอียดดี"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "มหาสมุทรแปซิฟิก"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "มหาสมุทรอินเดีย"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "มหาสมุทรแอตแลนติก"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "มหาสมุทรอาร์กติก"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type2-Q1-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "สำนวนดี",
+                  "Text2": "กรอบคำถามดี",
+                  "Text3": "คิดได้ดี"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "ชื้น"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "แห้ง"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "หนาว"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Text": "แห้งแล้ง"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-LIS-Type2-Q2-Question.mp3"
+                },
+                "Comments": {
+                  "Text1": "ความแม่นยำดี",
+                  "Text2": "ความชัดเจนดี",
+                  "Text3": "แสดงออกดี"
+                }
+              }
+            }
+          },
+          "Speaking": {
+            "Q1": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-SPK-Q1-Question.mp3",
+              "Text": "Repeat: ภูมิศาสตร์คือการศึกษาผิวโลก การตรวจสอบสถานที่และความสัมพันธ์ระหว่างผู้คนกับสภาพแวดล้อมของพวกเขา",
+              "Comments": {
+                "Text1": "ความแม่นยำที่ดี",
+                "Text2": "วางกรอบได้ดี",
+                "Text3": "คิดมาอย่างดี"
+              }
+            },
+            "Q2": {
+              "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-SPK-Q2-Question.mp3",
+              "Text": "Repeat: โลกถูกแบ่งออกเป็น 7 ภูมิภาคทางภูมิศาสตร์ที่เรียกว่า ทวีป ทวีปคือพื้นที่ขนาดใหญ่ที่รวมประเทศหลายๆ ประเทศไว้ภายใน",
+              "Comments": {
+                "Text1": "ข้อมูลเชิงลึกที่ดี",
+                "Text2": "รายละเอียดดี",
+                "Text3": "วางคำถามได้ดี"
+              }
+            }
+          },
+          "Vocabulary": {
+            "Type1": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Text": "การศึกษาผิวโลก การตรวจสอบสถานที่และความสัมพันธ์ระหว่างผู้คนกับสภาพแวดล้อมของพวกเขา"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Text": "การศึกษาชีวิตและสิ่งมีชีวิต"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Text": "การศึกษาวัสดุ โครงสร้าง ส่วนประกอบ และกระบวนการที่เกิดขึ้นบนโลก"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-VOCAB-Type1-Q1-Question.mp3",
+                  "Text": "ภูมิศาสตร์คืออะไร?"
+                },
+                "Comments": {
+                  "Text1": "การออกเสียงที่ดี",
+                  "Text2": "ชัดเจนและกระชับ",
+                  "Text3": "คำถามที่ดี"
+                }
+              }
+            },
+            "Type2": {
+              "Q1": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer1.png",
+                  "Text": "เอเชีย"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer2.png",
+                  "Text": "แอฟริกา"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer3.png",
+                  "Text": "ยุโรป"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q1-Answer4.png",
+                  "Text": "อเมริกาเหนือ"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-VOCAB-Type2-Q1-Question.mp3",
+                  "Text": "ทวีปใดที่มีพื้นที่ที่ใหญ่ที่สุด?"
+                },
+                "Comments": {
+                  "Text1": "ลึกซึ้งดี",
+                  "Text2": "ได้รับการแสดงออกอย่างดี",
+                  "Text3": "แม่นยำดี"
+                }
+              },
+              "Q2": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer1.png",
+                  "Text": "พิกัด"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer2.png",
+                  "Text": "แอตลาส"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer3.png",
+                  "Text": "เส้นเมอริเดียนหลัก"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q2-Answer4.png",
+                  "Text": "ตารางภูมิศาสตร์"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-VOCAB-Type2-Q2-Question.mp3",
+                  "Text": "จุดที่เส้นละติจูดและลองจิจูดตัดกันเรียกว่าอะไร?"
+                },
+                "Comments": {
+                  "Text1": "คิดมาอย่างดี",
+                  "Text2": "รายละเอียดดี",
+                  "Text3": "คำถามชัดเจน"
+                }
+              },
+              "Q3": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer1.png",
+                  "Text": "รัสเซีย"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer2.png",
+                  "Text": "จีน"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer3.png",
+                  "Text": "สวีเดน"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q3-Answer4.png",
+                  "Text": "สหรัฐอเมริกา"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-VOCAB-Type2-Q3-Question.mp3",
+                  "Text": "ประเทศที่ใหญ่ที่สุดในโลกตามพื้นที่ทางภูมิศาสตร์คือประเทศใด?"
+                },
+                "Comments": {
+                  "Text1": "ชัดเจนและให้ข้อมูลเชิงลึก",
+                  "Text2": "วางกรอบได้ดี",
+                  "Text3": "คำถามที่มีข้อมูลเชิงลึก"
+                }
+              },
+              "Q4": {
+                "Answer1": {
+                  "CorrectAnswer": true,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer1.png",
+                  "Text": "ทะเลทรายซาฮาร่า"
+                },
+                "Answer2": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer2.png",
+                  "Text": "ทะเลทรายโกบี"
+                },
+                "Answer3": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer3.png",
+                  "Text": "ทะเลทรายคาลาฮารี"
+                },
+                "Answer4": {
+                  "CorrectAnswer": false,
+                  "Pic": "gs://fieldwise-26b6e.firebasestorage.app/English/ENG-GEO-1-VOCAB-Type2-Q4-Answer4.png",
+                  "Text": "ทะเลทรายอาตากามา"
+                },
+                "Question": {
+                  "Sound": "gs://fieldwise-26b6e.firebasestorage.app/Thai/THA-GEO-1-VOCAB-Type2-Q4-Question.mp3",
+                  "Text": "ทะเลทรายที่มีเนินทรายสูงที่สุดอยู่ที่ไหน?"
+                },
+                "Comments": {
+                  "Text1": "วางคำถามได้ดี",
+                  "Text2": "ชัดเจนและแม่นยำ",
+                  "Text3": "คำถามที่ยอดเยี่ยม"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Leaderboard": {
+    "User1": {
+      "Name": "Thee",
+      "Profile": 2,
+      "Streak": 10
+    },
+    "User10": {
+      "Name": "Micheal",
+      "Profile": 1,
+      "Streak": 9
+    },
+    "User2": {
+      "Name": "Tony",
+      "Profile": 1,
+      "Streak": 9
+    },
+    "User3": {
+      "Name": "Thee",
+      "Profile": 1,
+      "Streak": 4
+    },
+    "User4": {
+      "Name": "Betsy",
+      "Profile": 2,
+      "Streak": 1
+    },
+    "User5": {
+      "Name": "Ice",
+      "Profile": 2,
+      "Streak": 7
+    },
+    "User6": {
+      "Name": "Giovianni",
+      "Profile": 1,
+      "Streak": 9
+    },
+    "User7": {
+      "Name": "Alexandra",
+      "Profile": 1,
+      "Streak": 3
+    },
+    "User8": {
+      "Name": "Amy",
+      "Profile": 1,
+      "Streak": 3
+    },
+    "User9": {
+      "Name": "Cindy",
+      "Profile": 2,
+      "Streak": 1
+    }
+  }
+}

@@ -1,25 +1,31 @@
-# FieldWise | Language Learning Application
-<p>FieldWise is an Android language learning mobile application developed in Kotlin, designed to simplify and enhance the process of learning new languages. FieldWise offers the functionality to learn  technical and field-specific terminology, enabling learners to acquire language skills directly applicable to their professional or academic pursuits.</p>
+# **FieldWise | Language Learning Application**
+
+**FieldWise** is an **Android language learning application**, developed in **Kotlin**, designed to enhance the process of acquiring **technical and field-specific terminology**. With FieldWise, learners gain language skills tailored to their professional or academic pursuits.
 <br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/0cac93273c14ffd0f4227fedbe4325c4a2c50809/app/src/main/ic_launcher-playstore.png" width="300"/></p>
-<p align="center"><i><b>Figure 1</b> App Icon </i></p><br>
+<p align="center"><i><b>Figure 1:</b> App Icon </i></p><br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/SplashScreen%20of%20FieldWise.png" width="300"/></p>
-<p align="center"><i><b>Figure 2</b> Splash Screen of FieldWise</i></p>
+<p align="center"><i><b>Figure 2:</b> Splash Screen of FieldWise</i></p>
 <br>
 
-# Information
-<p>FieldWise is not like other language apps. It’s different because it focuses on something special—helping people learn the kind of language they need for their specific jobs or studies. Apps like Duolingo, Babbel, or Rosetta Stone only teach the basics, but they don’t work for people who need professional or technical language.</p>
-<p>Why FieldWise is Special?</p>
-<ul>
-  <li>Learning for Specific Fields: FieldWise gives lessons with the exact words and phrases people need in jobs like engineering, business, or academic research.</li>
-<li>Learning Together: You can make or join groups with others who have the same goals as you. It makes learning more fun, and you’ll stay motivated because you’re not alone.</li>
-Different Ways to Learn: People learn in different ways. FieldWise uses many teaching styles to make it easier for everyone to understand.</li>
-<li>AI That Helps You Improve: The app’s smart AI checks your answers instantly and gives you tips to get better.</li></ul>
-<p>Most apps are not good at teaching:</p>
-<ul>
-<li>Technical Words: You won’t find lessons for industry or professional language in most apps.</li>
-<li>Practice for Real-Life Situations: They don’t give you simulations, like how to present in meetings or negotiate in a professional way.</li>
-</ul></p>
+# **Information**
+**FieldWise** is not like other language apps. It’s different because it focuses on something special—helping people learn the kind of language they need for their **specific jobs** or **studies**. Apps like Duolingo, Babbel, or Rosetta Stone only teach the basics, but they don’t work for people who need **professional** or **technical language**.
+
+## **Why Choose FieldWise?**
+
+### **Unique Features**
+1. **Tailored Learning**  
+   - Industry-specific lessons to improve real-world communication skills.  
+2. **Community Learning**  
+   - Collaborate with peers for enhanced motivation and engagement.  
+3. **Comprehensive Learning Styles**  
+   - Exercises for all skill areas: speaking, listening, vocabulary, and conversations.  
+4. **AI Feedback**  
+   - Instant feedback and tips to improve accuracy and fluency.  
+
+### **What’s Missing in Other Apps?**
+- Lack of **technical vocabulary** for specialized professions.
+- Minimal focus on **real-world simulations** like professional presentations or negotiations.
 
 # User Story | Smartphone Demonstration
 <table>
@@ -66,20 +72,25 @@ Different Ways to Learn: People learn in different ways. FieldWise uses many tea
   </tbody>
 </table>
 
-# FieldWise’s Context  & Data
-<p>The context diagram below shows the data flow and technical details of the app</p>
-<p align="center"><img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Context%20Diagram.png" width="500"/></p>
-<p align="center"><i><b>Figure 3</b> FieldWise Context Diagram</i></p>
-<br>
-<p>FieldWise main modules are:</p>
-<ul>
-<li>Profile Creation Module - Tracks user progress and stores data in the cloud database.</li>
-<li>Course Management Module - User selects language and specialized courses. Each course consists of a set of lessons including different types of exercises displayed in the chosen language. Each lesson is a set of exercises of various types, and each one has a correct answer associated.</li>
-<li>Exercise Module - Includes speaking, listening, vocabulary, and conversation.</li>
-<li>Profile and Leaderboard Module - Shows individual profile and shows global streak leaderboard.</li>
-<li>Social Interaction Module -  Users can join in discussions for each exercise.</li>
-<li>AI for Conversation - Uses AI for conversation exercise and also giving feedback.</li>
-</ul>
-<p>The architectural diagram below shows the data flow and technical details of the app</p>
-<p align="center"><img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Architectural%20Diagram.png" width="1000"/></p>
-<p align="center"><i><b>Figure 4</b> FieldWise Architectural Diagram</i></p>
+## **Technical Details**
+### **Modules**
+1. **Profile Creation Module**: Tracks user progress and stores it in the cloud.  
+2. **Course Management Module**: Users select languages and specialized courses.  
+3. **Exercise Module**: Includes exercises for speaking, listening, vocabulary, and conversations.  
+4. **Leaderboard Module**: Tracks global streak rankings.  
+5. **Social Interaction Module**: Discussion forums for exercises.  
+6. **AI for Feedback**: Real-time corrections and conversational AI support.  
+
+### **FieldWise Architecture**
+<p align="center">
+  <img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Architectural%20Diagram.png" width="1000" alt="Architectural Diagram"/>
+</p>
+<p align="center"><i><b>Figure 3:</b> Architectural Diagram</i></p>
+
+### **Backend**
+1. Fieldwise **AI Backend** implements the AI conversations, audio transcription and text-to-speech features:</br>
+[FieldWise AI Backend Repository](https://github.com/immagiov4/FieldWise_Backend)
+2. Firebase's Realtime Database and Storage are used in the app for the database of users and exercises and storage of media files respectively.<br>
+[FieldWise Firebase Media Resources](https://chula-my.sharepoint.com/:f:/g/personal/6538088321_student_chula_ac_th/Es2QzwREkllFqVph5ogcYUQBLH36FmkkBMcU6pCat6cm0w?e=1UABcN) <br>
+[FieldWise Firebase Reatime Database Default File](https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Defaut%20Database%20(For%20Firebase%20Realtime%20Database).json) <br>
+<I>Note: The google-services.json file is not included in this repository for security reasons. Each user must provide their own configuration file.</i>

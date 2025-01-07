@@ -12,3 +12,6 @@ data class UserProfile(
     val notificationsEnabled: Boolean,
     val streak: Int = 0
 )
+
+
+
