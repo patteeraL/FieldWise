@@ -102,6 +102,9 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.5.2")
 
+    // Data Store
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
 
     // Testing
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")

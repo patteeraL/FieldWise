@@ -62,58 +62,61 @@ object Routes {
 }
 
 @Composable
-fun NavigationWrapper() {
+fun NavigationWrapper(isFirstTime: Boolean) {
     val navController = rememberNavController()
+    var isFirstTime = isFirstTime
+
     NavHost(
         navController = navController,
-        startDestination = Routes.Splash
+        startDestination = if (isFirstTime == true) Routes.Splash else Routes.Home
     ) {
         // Begin in SplashScreen
-        composable(Routes.Splash) {
-            SplashScreen { 
-                navController.navigate(Routes.Loading) // Navigate to UserNameScreen
+        if(isFirstTime == true) {
+            composable(Routes.Splash) {
+                SplashScreen {
+                    navController.navigate(Routes.Loading) // Navigate to UserNameScreen
+                }
             }
-        }
 
-        composable(Routes.Loading) {
-            LoadingScreen{
-                navController.navigate(Routes.UserName)
+            composable(Routes.Loading) {
+                LoadingScreen {
+                    navController.navigate(Routes.UserName)
+                }
             }
-        }
 
-        // UserNameScreen
-        composable(Routes.UserName) {
-            UsernameScreen{
-                navController.navigate(Routes.DailyGoal)
+            // UserNameScreen
+            composable(Routes.UserName) {
+                UsernameScreen {
+                    navController.navigate(Routes.DailyGoal)
+                }
             }
-        }
 
-        composable(Routes.DailyGoal) {
-            SetDailyGoalScreen(
-                NavigateToNotification = { navController.navigate(Routes.Notify) },
-                NavigateToUserName = { navController.navigate(Routes.UserName)}
+            composable(Routes.DailyGoal) {
+                SetDailyGoalScreen(
+                    NavigateToNotification = { navController.navigate(Routes.Notify) },
+                    NavigateToUserName = { navController.navigate(Routes.UserName) }
 
-            )
-        }
-
-        composable(Routes.Notify) { //add more when new buttom to go back
-            EnableNotifyScreen(
-                NavigateToCourse = {navController.navigate(Routes.Course)},
-                NavigateToGoal =  { navController.navigate(Routes.DailyGoal)}
                 )
-        }
+            }
 
-        composable(Routes.Course) {
-            CourseManageScreen(
-                NavigateToComplete = { navController.navigate(Routes.Complete)},
-                NavigateToNotification = {navController.navigate(Routes.Notify)}
-            )
-        }
+            composable(Routes.Notify) { //add more when new buttom to go back
+                EnableNotifyScreen(
+                    NavigateToCourse = { navController.navigate(Routes.Course) },
+                    NavigateToGoal = { navController.navigate(Routes.DailyGoal) }
+                )
+            }
 
-        composable(Routes.Complete) {
-            CompleteScreen{ navController.navigate(Routes.Home)}
-        }
+            composable(Routes.Course) {
+                CourseManageScreen(
+                    NavigateToComplete = { navController.navigate(Routes.Complete) },
+                    NavigateToNotification = { navController.navigate(Routes.Notify) }
+                )
+            }
 
+            composable(Routes.Complete) {
+                CompleteScreen { navController.navigate(Routes.Home) }
+            }
+        }
         composable(Routes.Home) {
             HomeScreen(
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},

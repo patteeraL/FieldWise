@@ -10,7 +10,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import com.example.fieldwise.NavigationWrapper
+import com.example.fieldwise.navigation.NavigationWrapper
 import org.junit.Rule
 import org.junit.Test
 
