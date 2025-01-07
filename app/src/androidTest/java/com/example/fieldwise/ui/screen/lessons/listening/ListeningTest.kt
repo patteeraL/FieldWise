@@ -24,16 +24,6 @@ class ListeningTest {
         composeTestRule.setContent {
             NavigationWrapper(isFirstTime = false)
         }
-        // Wait until the HomeScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "HomeScreen is not displayed yet")
-                false
-            }
-        }
         // Navigate to Listening Screen
         composeTestRule.onNodeWithText("Lesson 2").performClick()
         composeTestRule.onNodeWithText("Resume").performClick()

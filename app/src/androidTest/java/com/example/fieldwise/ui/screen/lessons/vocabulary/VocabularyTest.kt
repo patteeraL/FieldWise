@@ -24,16 +24,6 @@ class VocabularyTest {
             NavigationWrapper(isFirstTime = false)
         }
 
-        // Wait until the HomeScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("VocabularyTest", "HomeScreen is not displayed yet")
-                false
-            }
-        }
         // Navigate to Vocabulary Screen
         composeTestRule.onNodeWithText("Lesson 2").performClick()
         composeTestRule.onNodeWithText("Resume").performClick()

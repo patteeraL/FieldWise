@@ -87,7 +87,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
             .padding(20.dp, 50.dp, 20.dp, 0.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().testTag("HomeScreen"),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(20.dp))
