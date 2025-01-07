@@ -1,12 +1,16 @@
 # FieldWise | Language Learning Application
 <br>
+<p>...</p>
+<br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/0cac93273c14ffd0f4227fedbe4325c4a2c50809/app/src/main/ic_launcher-playstore.png" width="300"/></p>
 <p align="center"><i><b>Figure 1</b> App Icon </i></p><br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/SplashScreen%20of%20FieldWise.png" width="300"/></p>
 <p align="center"><i><b>Figure 2</b> Splash Screen of FieldWise</i></p>
 <br>
 
-# User Story Demonstration | Smartphone
+# Information
+
+# User Story | Smartphone Demonstration
 <table>
   <thead>
     <tr>
@@ -19,7 +23,7 @@
     <tr>
       <td><b>Profile Creation</b></td>
       <td colspan="2" align="center">
-        <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20profile_creation%20.gif" width="300" alt="Profile Creation Preview"/>
+        <img src="https://github.com/olala10/FieldWise/blob/4455654f3342cd71cb3d3a7dc67e9440ba5aa757/resourse/User%20story%20of%20profile_creation.gif" width="300" alt="Profile Creation Preview"/>
       </td>
       <td colspan="3" align="center">
         <img src="https://github.com/olala10/FieldWise/blob/dc9f3d07fb535c54187390d93b1e541926fdce5a/resourse/User%20story%20of%20profile%20creation%20diagram.png" width="1200" alt="Profile Creation Diagram"/>
