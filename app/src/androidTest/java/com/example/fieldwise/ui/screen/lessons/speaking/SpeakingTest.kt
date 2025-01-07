@@ -30,7 +30,7 @@ class SpeakingTest {
         composeTestRule.onNodeWithText("Resume").assertIsDisplayed().performClick()
         composeTestRule.onNodeWithText("Speaking").assertIsDisplayed().performClick()
 
-        // Wait for the permission dialog to disappear and the main screen to stabilize
+
         composeTestRule.waitForIdle()
 
         // Use UiAutomator to handle the permission dialog
