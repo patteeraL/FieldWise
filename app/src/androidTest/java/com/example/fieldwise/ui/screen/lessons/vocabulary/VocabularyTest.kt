@@ -18,7 +18,7 @@ class VocabularyTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun testVocab() {
+    fun testVocabulary() {
         // Set up the Compose content using NavigationWrapper's structure
         composeTestRule.setContent {
             NavigationWrapper()
@@ -57,7 +57,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("SetDailyGoalScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "SetDailyGoalScreen is not displayed yet")
+                Log.d("VocabularyTest", "SetDailyGoalScreen is not displayed yet")
                 false
             }
         }
@@ -72,7 +72,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("EnableNotifyScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "EnableNotifyScreen is not displayed yet")
+                Log.d("VocabularyTest", "EnableNotifyScreen is not displayed yet")
                 false
             }
         }
@@ -87,7 +87,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("CourseManageScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CourseManageScreen is not displayed yet")
+                Log.d("VocabularyTest", "CourseManageScreen is not displayed yet")
                 false
             }
         }
@@ -103,7 +103,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("CompleteScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CompleteScreen is not displayed yet")
+                Log.d("VocabularyTest", "CompleteScreen is not displayed yet")
                 false
             }
         }
@@ -115,7 +115,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "HomeScreen is not displayed yet")
+                Log.d("VocabularyTest", "HomeScreen is not displayed yet")
                 false
             }
         }
@@ -261,7 +261,7 @@ class VocabularyTest {
                 composeTestRule.onNodeWithTag("CompleteExerciseScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CompleteExerciseScreen is not displayed yet")
+                Log.d("VocabularyTest", "CompleteExerciseScreen is not displayed yet")
                 false
             }
         }

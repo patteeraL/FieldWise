@@ -15,6 +15,7 @@ class ConversationScreenTest {
    @get:Rule
    val composeTestRule = createComposeRule()
 
+   // Test only Conversation Screen
    @Test
    fun testInitialUiState() {
       composeTestRule.setContent {

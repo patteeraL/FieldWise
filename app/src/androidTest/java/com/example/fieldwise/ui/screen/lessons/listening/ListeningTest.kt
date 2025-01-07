@@ -16,7 +16,8 @@ import org.junit.Test
 class ListeningTest {
     @get:Rule
     val composeTestRule = createComposeRule()
-    
+
+
     @Test
     fun testListening() {
         // Set up the Compose content using NavigationWrapper's structure
@@ -39,7 +40,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("LoadingScreen").assertDoesNotExist()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "LoadingScreen is still displayed")
+                Log.d("ListeningTest", "LoadingScreen is still displayed")
                 false
             }
         }
@@ -57,7 +58,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("SetDailyGoalScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "SetDailyGoalScreen is not displayed yet")
+                Log.d("ListeningTest", "SetDailyGoalScreen is not displayed yet")
                 false
             }
         }
@@ -72,7 +73,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("EnableNotifyScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "EnableNotifyScreen is not displayed yet")
+                Log.d("ListeningTest", "EnableNotifyScreen is not displayed yet")
                 false
             }
         }
@@ -87,7 +88,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("CourseManageScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CourseManageScreen is not displayed yet")
+                Log.d("ListeningTest", "CourseManageScreen is not displayed yet")
                 false
             }
         }
@@ -103,7 +104,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("CompleteScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CompleteScreen is not displayed yet")
+                Log.d("ListeningTest", "CompleteScreen is not displayed yet")
                 false
             }
         }
@@ -115,7 +116,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("HomeScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "HomeScreen is not displayed yet")
+                Log.d("ListeningTest", "HomeScreen is not displayed yet")
                 false
             }
         }
@@ -279,7 +280,7 @@ class ListeningTest {
                 composeTestRule.onNodeWithTag("CompleteExerciseScreen").assertIsDisplayed()
                 true
             } catch (_: AssertionError) {
-                Log.d("ExerciseContentTest", "CompleteExerciseScreen is not displayed yet")
+                Log.d("ListeningTest", "CompleteExerciseScreen is not displayed yet")
                 false
             }
         }
