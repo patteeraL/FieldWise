@@ -61,8 +61,7 @@ var globalUsername: String = ""
 
 @Composable
 fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
-    val context = LocalContext.current //
-
+    val context = LocalContext.current
     var username by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }

@@ -25,13 +25,19 @@ import com.example.fieldwise.core.DatabaseProvider
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import androidx.compose.ui.platform.LocalContext
-import com.example.fieldwise.data.UserProfile
-import com.example.fieldwise.ui.screen.profile_creation.globalUsername
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.compose.material.Text
-
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
+
+var Lesson1 = ""
+var Lesson2 = ""
+var LessonNo = ""
+var CourseABB = ""
 
 @Composable
 fun getCourseList(): List<CourseFormat> {
@@ -64,7 +70,16 @@ fun getCourseList(): List<CourseFormat> {
 @Composable
 fun getFilteredCourseList(selectedLanguage: String, selectedCourse: String): List<CourseFormat> {
     val allCourses = getCourseList()
-    return allCourses.filter { it.language == selectedLanguage && it.subject == selectedCourse }
+    var selectedCourseInput = ""
+    if (selectedCourse == "Computer Science"){
+        selectedCourseInput = "CS"
+        CourseABB = "CS"
+    }
+    if (selectedCourse == "Geography"){
+        selectedCourseInput = "GEO"
+        CourseABB = "GEO"
+    }
+    return allCourses.filter { it.language == selectedLanguage && it.subject == selectedCourseInput }
 }
 
 // Get list of data by "val LISTOFDATA = getUserData()"
@@ -79,7 +94,44 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToProfile: () -> Unit,
                NavigateToLessons: () -> Unit,
                NavigateToQuiz: () -> Unit) {
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
 
+    // Declare mutable state for language and course
+    var LocalLanguage = ""
+    var LocalCourse = ""
+
+    // Check and load preferred language if globalLanguage is null or empty
+    if (globalLanguage == "") {
+        LaunchedEffect(Unit) {
+            // Load language from the repository
+            LocalLanguage = userRepository.getSavedLanguage() ?: ""
+            globalLanguage = LocalLanguage
+        }
+    }
+    else{
+        LocalLanguage = globalLanguage
+        }
+
+    // Check and load selected course if globalCourse is null or empty
+    if (globalCourse == "") {
+        LaunchedEffect(Unit) {
+            // Load course from the repository
+            LocalCourse = userRepository.getSavedCourse() ?: ""
+            globalCourse = LocalCourse
+        }
+    }
+    else{
+        LocalCourse = globalCourse
+        }
+
+    var courseList = getFilteredCourseList(globalLanguage, globalCourse)
+    var Lesson1 = "Loading..."
+    var Lesson2 = "Loading..."
+    if (courseList.isNotEmpty()) {
+        Lesson1 = courseList[0].course
+        Lesson2 = courseList[1].course
+    }
     Box(
         modifier = modifier
             .background(color = Color(0xFF073748))
@@ -105,11 +157,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { LessonCard(title = "Lesson 1", description = "Consumer and Producer Behavior",cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Row { LessonCard(title = "Lesson 1", description = Lesson1,cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { LessonCard(title = "Lesson 2", description = "Consumer and Producer Behavior1",cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
-
-
+                Row { LessonCard(title = "Lesson 2", description = Lesson2,cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
             }
         }
         Row(

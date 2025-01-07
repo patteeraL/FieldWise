@@ -1,6 +1,7 @@
 package com.example.fieldwise.ui.screen.profile_creation
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
@@ -35,9 +38,17 @@ import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.PleaseSelectPopUp
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+var globalCourse = ""
+var globalLanguage = ""
 
 @Composable
 fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit, NavigateToNotification: () -> Unit) {
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer,
@@ -114,7 +125,18 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
             MainButton(button = "CONTINUE",
                 onClick = { if (selectedOption1.isEmpty() or selectedOption2.isEmpty()) {
                     showDialog = true
-                } else {NavigateToComplete() }
+                } else {
+                    globalCourse = selectedOption1
+                    globalLanguage = selectedOption2
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            // Save globalUsername locally
+                            userRepository.saveGlobal(globalUsername, globalLanguage, globalCourse)
+                        } catch (e: Exception) {
+                            println("Error updating profile: ${e.message}")
+                        }
+                    }
+                        NavigateToComplete() }
                           },
                 mainButtonType = MainButtonType.BLUE, isEnable = true)
         }

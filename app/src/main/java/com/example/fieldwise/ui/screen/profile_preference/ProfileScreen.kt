@@ -69,9 +69,16 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
     val userProfile = remember { mutableStateOf<UserProfile?>(null) }
 
     LaunchedEffect(Unit) {
-        val user = userRepository.getUserProfile(globalUsername)
-        if (user != null) {
-            userProfile.value = user
+        val savedUser = userRepository.getUserProfile(globalUsername)
+            ?: userRepository.getSavedGlobalUsername()?.let {
+                userRepository.getUserProfile(it)
+            }
+
+        savedUser?.let {
+            userProfile.value = it
+        } ?: run {
+            // Handle no user profile found case
+            userProfile.value = null // Or a default UserProfile
         }
     }
 

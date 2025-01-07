@@ -1,5 +1,6 @@
 package com.example.fieldwise.ui.screen.lessons
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -28,11 +29,13 @@ import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
+import com.example.fieldwise.ui.widget.Lesson
 import com.example.fieldwise.ui.widget.TestNotavailablePopUp
 
 @Composable
 fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit, OpenTest: () -> Unit) {
-   var showDialog by remember { mutableStateOf(false) }
+   Log.d("Lesson","$Lesson")
+    var showDialog by remember { mutableStateOf(false) }
     val complete = false
 
     Box(
