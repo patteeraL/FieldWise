@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -389,7 +390,7 @@ fun ConversationScreen1(
                     },
                     shape = CircleShape,
                     modifier = modifier
-                        .size(60.dp),
+                        .size(60.dp).testTag("SendButton"),
                     colors = ButtonDefaults.buttonColors(containerColor =  Color(0xFF00CCFF), disabledContainerColor =  Color(0xFFCACACA) )
                 ) {
                     Image(
