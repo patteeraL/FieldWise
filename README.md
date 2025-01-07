@@ -86,3 +86,11 @@
   <img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Architectural%20Diagram.png" width="1000" alt="Architectural Diagram"/>
 </p>
 <p align="center"><i><b>Figure 3:</b> Architectural Diagram</i></p>
+
+### **Backend**
+1. Fieldwise **AI Backend** implements the AI conversations, audio transcription and text-to-speech features:</br>
+[FieldWise AI Backend Repository](https://github.com/immagiov4/FieldWise_Backend)
+2. Firebase's Realtime Database and Storage are used in the app for the database of users and exercises and storage of media files respectively.<br>
+[FieldWise Firebase Media Resources](https://chula-my.sharepoint.com/:f:/g/personal/6538088321_student_chula_ac_th/Es2QzwREkllFqVph5ogcYUQBLH36FmkkBMcU6pCat6cm0w?e=1UABcN) <br>
+[FieldWise Firebase Reatime Database Default File](https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Defaut%20Database%20(For%20Firebase%20Realtime%20Database).json) <br>
+<I>Note: The google-services.json file is not included in this repository for security reasons. Each user must provide their own configuration file.</i>
