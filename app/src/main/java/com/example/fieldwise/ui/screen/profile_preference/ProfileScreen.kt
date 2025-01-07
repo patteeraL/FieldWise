@@ -32,7 +32,11 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 
 data class FriendboardItem(val name: String, val profileImage: Int, val streak: Int)
 
@@ -57,6 +61,19 @@ val FriendboardData = listOf(
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, NavigateToSettings: () -> Unit, NavigateToLeader: () -> Unit, NavigateToAddFriend: () -> Unit) {
+
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
+
+    // Taking userdata from localdatabase
+    val userProfile = remember { mutableStateOf<UserProfile?>(null) }
+
+    LaunchedEffect(Unit) {
+        val user = userRepository.getUserProfile(globalUsername)
+        if (user != null) {
+            userProfile.value = user
+        }
+    }
 
     //animation profile image
     var profAn =  remember { Animatable(0f) }
@@ -127,12 +144,20 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
+                        userProfile.value?.let { profile ->
                         Text(
-                            text = "Name1",
+                            text = profile.username,
                             fontFamily = SeravekFontFamily,
                             fontWeight = FontWeight.Bold,
                             fontSize = 40.sp
-                        )
+                        ) } ?: run {
+                            Text(
+                                text = "Loading user data...",
+                                color = Color.Gray,
+                                fontFamily = SeravekFontFamily,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 40.sp)
+                        }
                         Spacer(modifier = Modifier.height(20.dp))
                         Row {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
