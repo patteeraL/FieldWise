@@ -48,7 +48,7 @@ class ConversationScreenTest {
 
       // Type and send a message
       composeTestRule.onNode(hasSetTextAction()).performTextInput("Hello AI")
-      composeTestRule.onNode(hasContentDescription("Send message")).performClick()
+      composeTestRule.onNodeWithTag("SendButton").performClick()
 
       // Verify message appears in chat
       composeTestRule.onNodeWithText("Hello AI").assertExists()

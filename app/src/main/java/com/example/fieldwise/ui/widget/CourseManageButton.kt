@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,7 +61,7 @@ fun CourseManageButton(
                 .graphicsLayer {
                     scaleX = buttonAn.value
                     scaleY = buttonAn.value
-                },
+                }.testTag("CourseManageButton"),
             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
             contentPadding = PaddingValues(0.dp)
         ) {
@@ -167,7 +168,7 @@ fun CourseManageDropdown(
 fun AddLanguageButton(description: String, NavigateToAddLanguage: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { NavigateToAddLanguage() }
+        modifier = Modifier.clickable { NavigateToAddLanguage() }.testTag("AddLanguage")
     ) {
         Image(painter = painterResource(id = R.drawable.add), contentDescription = description, modifier = Modifier.size(60.dp))
         Text("Add", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFFC5C5C5))
@@ -178,7 +179,7 @@ fun AddLanguageButton(description: String, NavigateToAddLanguage: () -> Unit) {
 fun AddCourseButton(description: String, NavigateToAddCourse: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { NavigateToAddCourse() }
+        modifier = Modifier.clickable { NavigateToAddCourse() }.testTag("AddField")
     ) {
         Image(painter = painterResource(id = R.drawable.add), contentDescription = description, modifier = Modifier.size(60.dp))
         Text("Add", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFFC5C5C5))

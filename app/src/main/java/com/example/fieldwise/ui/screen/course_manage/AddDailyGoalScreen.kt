@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +53,7 @@ fun AddDailyGoalScreen(
         var showDialog by remember { mutableStateOf(false) }
 
         Column(modifier = modifier.fillMaxSize()
-            .padding(start = 20.dp, end = 20.dp)) {
+            .padding(start = 20.dp, end = 20.dp).testTag("AddDailyGoalScreen")) {
             Spacer(modifier = Modifier.height(70.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically // Align items in the center vertically

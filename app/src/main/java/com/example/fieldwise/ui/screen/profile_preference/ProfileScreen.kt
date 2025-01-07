@@ -1,8 +1,6 @@
 package com.example.fieldwise.ui.screen.profile_preference
 
 import StreakItem
-import android.view.animation.OvershootInterpolator
-import androidx.compose.animation.Animatable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -32,8 +31,6 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
 
@@ -74,7 +71,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
     Box(
         modifier = modifier
             .background(color = Color(0xFF66DBFF))
-            .fillMaxSize(),
+            .fillMaxSize().testTag("ProfileScreen"),
         contentAlignment = Alignment.TopCenter
     ) {
         Box(
@@ -88,7 +85,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                 onClick = { NavigateToSettings() },
                 modifier = modifier
                     .size(40.dp)
-                    .testTag("SettingScreen"),
+                    .testTag("SettingButton"),
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.gear_setting),
@@ -109,8 +106,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                         contentDescription = "Profile",
                         modifier = modifier
                             .size(200.dp)
-                            .graphicsLayer(rotationY = profAn.value)
-                            .testTag("ProfileScreen"),
+                            .graphicsLayer(rotationY = profAn.value),
                     )
                     LeaderBoardButton(onClick = { NavigateToLeader() })
                 }
