@@ -56,7 +56,7 @@ Different Ways to Learn: People learn in different ways. FieldWise uses many tea
           <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20lessons%20(Speaking).gif" width="300" alt="Speaking Exercise Preview"/><br/>
           <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20lessons%20(Listening).gif" width="300" alt="Listening Exercise Preview"/><br/>
           <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20lessons%20(Vocab).gif" width="300" alt="Vocabulary Exercise Preview"/><br/>
-          <img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/User%20story%20of%20lessons%20(Conversation).gif" width="300" alt="Conversation Exercise Preview"/>
+          <img src="https://github.com/olala10/FieldWise/blob/edbc7dfab8cb0421410ddc038fd9c163fd065ca9/resourse/User%20story%20of%20lessons%20(Conversation).gif" width="300" alt="Conversation Exercise Preview"/>
         </p>
       </td>
       <td colspan="3" align="center">
