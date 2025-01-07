@@ -156,7 +156,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                                 color = Color.Gray,
                                 fontFamily = SeravekFontFamily,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 40.sp)
+                                fontSize = 20.sp)
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Row {
