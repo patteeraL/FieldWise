@@ -3,9 +3,9 @@
 **FieldWise** is an **Android language learning application**, developed in **Kotlin**, designed to enhance the process of acquiring **technical and field-specific terminology**. With FieldWise, learners gain language skills tailored to their professional or academic pursuits.
 <br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/0cac93273c14ffd0f4227fedbe4325c4a2c50809/app/src/main/ic_launcher-playstore.png" width="300"/></p>
-<p align="center"><i><b>Figure 1</b> App Icon </i></p><br>
+<p align="center"><i><b>Figure 1:</b> App Icon </i></p><br>
 <p align="center"><img src="https://github.com/olala10/FieldWise/blob/b4da3890986c1cbbaada11684b43f4d335485c41/resourse/SplashScreen%20of%20FieldWise.png" width="300"/></p>
-<p align="center"><i><b>Figure 2</b> Splash Screen of FieldWise</i></p>
+<p align="center"><i><b>Figure 2:</b> Splash Screen of FieldWise</i></p>
 <br>
 
 # **Information**
@@ -73,13 +73,6 @@
 </table>
 
 ## **Technical Details**
-
-### **FieldWise Context Diagram**
-<p align="center">
-  <img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Context%20Diagram.png" width="500" alt="FieldWise Context Diagram"/>
-</p>
-<p align="center"><i><b>Figure 3:</b> Context Diagram</i></p>
-
 ### **Modules**
 1. **Profile Creation Module**: Tracks user progress and stores it in the cloud.  
 2. **Course Management Module**: Users select languages and specialized courses.  
@@ -92,4 +85,4 @@
 <p align="center">
   <img src="https://github.com/olala10/FieldWise/blob/main/resourse/FieldWise%20Architectural%20Diagram.png" width="1000" alt="Architectural Diagram"/>
 </p>
-<p align="center"><i><b>Figure 4:</b> Architectural Diagram</i></p>
+<p align="center"><i><b>Figure 3:</b> Architectural Diagram</i></p>
