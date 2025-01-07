@@ -88,10 +88,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
 
     LaunchedEffect(Unit) {
         val user = userRepository.getUserProfile(globalUsername)
-        if (user == null) {
-            // Navigate to profile creation screen if the user is new
-            NavigateToProfile()
-        } else {
+        if (user != null) {
             userProfile.value = user
         }
     }
