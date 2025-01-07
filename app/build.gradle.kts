@@ -104,13 +104,13 @@ dependencies {
 
 
     // Testing
-    testImplementation("io.mockk:mockk:1.13.14")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("io.ktor:ktor-client-mock:2.0.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.slf4j:slf4j-simple:2.0.9")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
 
     // Android Testing
     androidTestImplementation(libs.androidx.espresso.core)
@@ -123,6 +123,7 @@ dependencies {
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
 
 
 }

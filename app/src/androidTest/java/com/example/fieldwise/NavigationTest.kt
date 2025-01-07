@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.example.fieldwise.navigation.NavigationWrapper
+import com.example.fieldwise.NavigationWrapper
 import org.junit.Rule
 import org.junit.Test
 
@@ -20,7 +20,7 @@ class NavigationTest {
     fun testSplashToProfile() { //Navigation Test SplashScreen to ProfileScreen
         // Set up the compose using NavigationWrapper's structure
         composeTestRule.setContent {
-            NavigationWrapper()
+            NavigationWrapper(isFirstTime = true)
         }
 
         //Check if the SplashScreen is displayed initially
@@ -181,7 +181,7 @@ class NavigationTest {
     fun testSplashToLeaderboard() { //Navigation Test SplashScreen to ProfileScreen
         // Set up the compose using NavigationWrapper's structure
         composeTestRule.setContent {
-            NavigationWrapper()
+            NavigationWrapper(isFirstTime = true)
         }
 
         //Check if the SplashScreen is displayed initially
@@ -295,7 +295,7 @@ class NavigationTest {
     fun testSplashToCourseManage() { //Navigation Test SplashScreen to ProfileScreen
         // Set up the compose using NavigationWrapper's structure
         composeTestRule.setContent {
-            NavigationWrapper()
+            NavigationWrapper(isFirstTime = true)
         }
 
         //Check if the SplashScreen is displayed initially

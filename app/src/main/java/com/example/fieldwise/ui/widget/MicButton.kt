@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +43,7 @@ fun MicButton(modifier: Modifier = Modifier,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isRecording) Color(0xFFFF6060) else Color(0xFF58CC02),
                 ),
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().testTag("MicButton"),
                 shape = RoundedCornerShape(15.dp)
             ) {
             }

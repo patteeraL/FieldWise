@@ -9,7 +9,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextInput
-import com.example.fieldwise.navigation.NavigationWrapper
+import com.example.fieldwise.NavigationWrapper
 import org.junit.Rule
 import org.junit.Test
 
@@ -22,94 +22,8 @@ class ListeningTest {
     fun testListening() {
         // Set up the Compose content using NavigationWrapper's structure
         composeTestRule.setContent {
-            NavigationWrapper()
+            NavigationWrapper(isFirstTime = false)
         }
-
-        // Check if the SplashScreen is displayed initially
-        composeTestRule.onNodeWithTag("SplashScreen").assertIsDisplayed()
-
-        // Click to go to loading screen
-        composeTestRule.onNodeWithText("GET STARTED").performClick()
-
-        // Check if the LoadingScreen is displayed
-        composeTestRule.onNodeWithTag("LoadingScreen").assertIsDisplayed()
-
-        // Wait until the LoadingScreen disappears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("LoadingScreen").assertDoesNotExist()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "LoadingScreen is still displayed")
-                false
-            }
-        }
-
-        // Check if the UsernameScreen is displayed
-        composeTestRule.onNodeWithTag("UsernameScreen").assertIsDisplayed()
-
-        // Enter text and proceed
-        composeTestRule.onNodeWithTag("OutlinedTextField").performTextInput("FieldWiseADMIN")
-        composeTestRule.onNodeWithText("CONTINUE").performClick()
-
-        // Wait until the SetDailyGoalScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("SetDailyGoalScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "SetDailyGoalScreen is not displayed yet")
-                false
-            }
-        }
-
-        // Select Daily Goal
-        composeTestRule.onNodeWithText("5 min / day").performClick()
-        composeTestRule.onNodeWithText("CONTINUE").performClick()
-
-        // Wait until the EnableNotifyScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("EnableNotifyScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "EnableNotifyScreen is not displayed yet")
-                false
-            }
-        }
-
-        // Allow notify
-        composeTestRule.onNodeWithTag("AllowButton").performClick()
-        composeTestRule.onNodeWithText("CONTINUE").performClick()
-
-        // Wait until the CourseManageScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("CourseManageScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "CourseManageScreen is not displayed yet")
-                false
-            }
-        }
-
-        // Select Course
-        composeTestRule.onNodeWithText("Computer Science").performClick()
-        composeTestRule.onNodeWithText("English").performClick()
-        composeTestRule.onNodeWithText("CONTINUE").performClick()
-
-        // Wait until the CompleteScreen appears
-        composeTestRule.waitUntil(timeoutMillis = 5000) {
-            try {
-                composeTestRule.onNodeWithTag("CompleteScreen").assertIsDisplayed()
-                true
-            } catch (_: AssertionError) {
-                Log.d("ListeningTest", "CompleteScreen is not displayed yet")
-                false
-            }
-        }
-        composeTestRule.onNodeWithTag("ConfirmButton").performClick()
-
         // Wait until the HomeScreen appears
         composeTestRule.waitUntil(timeoutMillis = 5000) {
             try {
@@ -121,7 +35,7 @@ class ListeningTest {
             }
         }
         // Navigate to Listening Screen
-        composeTestRule.onNodeWithText("Lesson 1").performClick()
+        composeTestRule.onNodeWithText("Lesson 2").performClick()
         composeTestRule.onNodeWithText("Resume").performClick()
         composeTestRule.onNodeWithText("Listening").performClick()
 

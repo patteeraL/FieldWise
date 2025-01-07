@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -239,7 +240,7 @@ fun SpeakingScreen1(
                 .fillMaxSize()
                 .background(Color(0xFF073748))
                 .padding(horizontal = 20.dp)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()).testTag("SpeakingScreen")
         ) {
             Spacer(modifier = Modifier.height(70.dp))
 
@@ -368,6 +369,7 @@ fun BodyContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
+                    modifier = Modifier.testTag("QuestionText"),
                     text = questionText,
                     fontFamily = SeravekFontFamily,
                     fontWeight = FontWeight.Medium,
