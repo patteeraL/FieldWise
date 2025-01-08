@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,55 +21,101 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
 fun CourseManageButton(
     modifier: Modifier = Modifier,
     NavigateToAddCourse: () -> Unit,
-    NavigateToAddLanguage: () -> Unit) {
+    NavigateToAddLanguage: () -> Unit,
+    NavigateToLoadingScreen2: () -> Unit,
+) {
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
     var expanded by remember { mutableStateOf(false) }
-    var selectedLang by remember { mutableStateOf(R.drawable.eng_rectangle) }
-    var selectedField by remember { mutableStateOf(R.drawable.map) }
+    val coroutineScope = rememberCoroutineScope()
 
     val langFields = remember {
         mapOf(
             R.drawable.eng_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer"),
-            R.drawable.thai_rectangle to listOf(R.drawable.computer to "Computer")
+            R.drawable.thai_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer")
         )
     }
-    //animation when click
+
+    // Load global language and course on first composition
+    LaunchedEffect(Unit) {
+        if (globalLanguage.isEmpty()) {
+            globalLanguage = userRepository.getSavedLanguage() ?: ""
+        }
+        if (globalCourse.isEmpty()) {
+            globalCourse = userRepository.getSavedCourse() ?: ""
+        }
+    }
+
+    var selectedLang by remember {
+        mutableStateOf(
+            if (globalLanguage == "Thai") R.drawable.thai_rectangle else R.drawable.eng_rectangle
+        )
+    }
+
+    var selectedField by remember {
+        mutableStateOf(
+            if (globalCourse == "Geography") R.drawable.map else R.drawable.computer
+        )
+    }
+
+    // Animation for button click
     val buttonAn = remember { Animatable(1f) }
-    val corountineScope = rememberCoroutineScope()
+
+    fun saveGlobalStateAndNavigate() {
+        coroutineScope.launch {
+            try {
+                userRepository.saveGlobal(globalUsername, globalLanguage, globalCourse)
+                NavigateToLoadingScreen2()
+            } catch (e: Exception) {
+                println("Error updating profile: ${e.message}")
+            }
+        }
+    }
 
     Box(modifier = modifier) {
         Button(
             onClick = {
-                corountineScope.launch {
-                    buttonAn.animateTo(
-                        targetValue = 0.8f,
-                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
-                    )
-                    buttonAn.animateTo(
-                        targetValue = 1f,
-                        animationSpec = tween(durationMillis = 150, easing = FastOutSlowInEasing)
-                    )
+                coroutineScope.launch {
+                    buttonAn.animateTo(0.8f, animationSpec = tween(150, easing = FastOutSlowInEasing))
+                    buttonAn.animateTo(1f, animationSpec = tween(150, easing = FastOutSlowInEasing))
                 }
-                expanded = true },
+                expanded = true
+            },
             modifier = Modifier
                 .defaultMinSize(minWidth = 95.dp, minHeight = 33.dp)
                 .graphicsLayer {
                     scaleX = buttonAn.value
                     scaleY = buttonAn.value
-                }.testTag("CourseManageButton"),
+                }
+                .testTag("CourseManageButton"),
             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
             contentPadding = PaddingValues(0.dp)
         ) {
-            Image(painter = painterResource(id = selectedLang), contentDescription = "Language", modifier = Modifier.size(30.dp))
+            Image(
+                painter = painterResource(id = selectedLang),
+                contentDescription = "Language",
+                modifier = Modifier.size(30.dp)
+            )
             Spacer(modifier = Modifier.width(10.dp))
-            Image(painter = painterResource(id = selectedField), contentDescription = "Field", modifier = Modifier.size(30.dp))
+            Image(
+                painter = painterResource(id = selectedField),
+                contentDescription = "Field",
+                modifier = Modifier.size(30.dp)
+            )
         }
 
         if (expanded) {
@@ -81,9 +129,18 @@ fun CourseManageButton(
                     onLangSelected = { lang ->
                         selectedLang = lang
                         selectedField = langFields[lang]?.firstOrNull()?.first ?: selectedField
+                        globalLanguage = if (selectedLang == R.drawable.eng_rectangle) "English" else "Thai"
+                        saveGlobalStateAndNavigate()
                     },
-                    onFieldSelected = { field -> selectedField = field },
-                    langs = listOf(R.drawable.eng_rectangle to "English", R.drawable.thai_rectangle to "Thai"),
+                    onFieldSelected = { field ->
+                        selectedField = field
+                        globalCourse = if (selectedField == R.drawable.computer) "Computer Science" else "Geography"
+                        saveGlobalStateAndNavigate()
+                    },
+                    langs = listOf(
+                        R.drawable.eng_rectangle to "English",
+                        R.drawable.thai_rectangle to "Thai"
+                    ),
                     fields = langFields[selectedLang] ?: emptyList(),
                     selectedLang = selectedLang,
                     selectedField = selectedField,
@@ -94,6 +151,7 @@ fun CourseManageButton(
         }
     }
 }
+
 
 @Composable
 fun CourseManageDropdown(
@@ -195,7 +253,8 @@ fun CourseManageButtonPreview() {
             CourseManageButton(
                 modifier = Modifier.align(Alignment.TopStart),
                 NavigateToAddCourse = {},
-                NavigateToAddLanguage = {}
+                NavigateToAddLanguage = {},
+                NavigateToLoadingScreen2 = {}
             )
         }
     }

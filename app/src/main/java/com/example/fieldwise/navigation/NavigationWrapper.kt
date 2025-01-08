@@ -11,6 +11,7 @@ import com.example.fieldwise.ui.screen.course_manage.AddDailyGoalScreen
 import com.example.fieldwise.ui.screen.course_manage.AddFieldScreen
 import com.example.fieldwise.ui.screen.course_manage.AddLanguageScreen
 import com.example.fieldwise.ui.screen.home_page.HomeScreen
+import com.example.fieldwise.ui.screen.home_page.LoadingScreen2
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
 import com.example.fieldwise.ui.screen.lessons.ExerciseCompleteScreen
 import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
@@ -37,6 +38,7 @@ object Routes {
     const val Splash = "splash"
     const val UserName = "username"
     const val Loading = "loading"
+    const val Loading2 = "loading2"
     const val DailyGoal = "daily goal"
     const val Notify = "notify"
     const val Course = "course"
@@ -122,6 +124,7 @@ fun NavigationWrapper(isFirstTime: Boolean) {
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},
                 NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}, //go the same screen but it depends on the button you have clicked
                 NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")}, //here i define the value of "type"
+                NavigateToLoadingScreen2 = {navController.navigate(Routes.Loading2)},
                 NavigateToProfile = {navController.navigate(Routes.ProfileScreen)},
                 NavigateToLessons = {navController.navigate(Routes.SelectExercise)},
                 NavigateToQuiz = {navController.navigate("${Routes.ListeningScreen1}/quiz")}
@@ -140,6 +143,11 @@ fun NavigationWrapper(isFirstTime: Boolean) {
             )
         }
 
+        composable(Routes.Loading2) {
+            LoadingScreen2 {
+                navController.navigate(Routes.Home)
+            }
+        }
 
         composable("${Routes.AddDailyGoal}/{type}"){ backStackEntry ->
             val type = backStackEntry.arguments?.getString("type")
@@ -160,7 +168,8 @@ fun NavigationWrapper(isFirstTime: Boolean) {
         composable(Routes.CourseManage) {
             CourseManageButton(
                 NavigateToAddCourse = {navController.navigate("${Routes.AddDailyGoal}/course")},
-                NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")}
+                NavigateToAddLanguage = {navController.navigate("${Routes.AddDailyGoal}/language")},
+                NavigateToLoadingScreen2 = {navController.navigate(Routes.Loading2)}
             )
         }
 

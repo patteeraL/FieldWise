@@ -28,6 +28,9 @@ object  CompleteScreen
 object  HomeScreen
 
 @Serializable
+object  LoadingScreen2
+
+@Serializable
 object  LeaderBoardScreen
 
 @Serializable

@@ -46,8 +46,6 @@ import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
 import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LinearProgress
-import com.example.fieldwise.ui.widget.MainButton
-import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.MicButton
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
@@ -445,33 +443,7 @@ fun BottomControls(
     isEnable: Boolean,
     NextExercise: () -> Unit
 ) {
-    Spacer(modifier = Modifier.height(20.dp))
 
-    MainButton(
-        button = "CONTINUE",
-        onClick = {
-            if (isEnable) {
-                val database = Firebase.database
-                val courseListRef = database.reference.child("Exercises")
-                val commentPath = courseListRef.child(SpeakingLanguage).child(SpeakingCourse).child(SpeakingLesson).child("Speaking").child(SpeakingQuestion).child("Comments")
-                val addedCommentsNo = newCommentsDataSpeaking.size - discussionComments.size
-                commentNumberSpeaking = discussionComments.size
-                for (i in 0 until addedCommentsNo) {
-                    commentNumberSpeaking++
-                    val newComment = newCommentsDataSpeaking[discussionComments.size + i]
-                    val newCommentKey = "Text$commentNumberSpeaking"
-
-                    commentPath.child(newCommentKey).setValue(newComment)
-                }
-                NextExercise()
-            }
-                  },
-        mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
-        isEnable = isEnable
-    )
-
-    Spacer(modifier = Modifier.height(50.dp))
-    HorizontalDivider(thickness = 2.dp, color = Color.White)
 }
 
 // -------------------------------------------------
