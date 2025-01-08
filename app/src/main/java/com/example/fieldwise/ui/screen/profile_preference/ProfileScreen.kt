@@ -1,6 +1,7 @@
 package com.example.fieldwise.ui.screen.profile_preference
 
 import StreakItem
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -36,10 +37,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.ui.screen.home_page.userRank
+import com.example.fieldwise.ui.screen.home_page.userStreak
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 
 data class FriendboardItem(val name: String, val profileImage: Int, val streak: Int)
-
+data class LeaderboardProfile(val name: String, val streak: Int)
 // Test Display
 val FriendboardData = listOf(
     FriendboardItem("Name1", R.drawable.profile, 10),
@@ -73,7 +76,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
             ?: userRepository.getSavedGlobalUsername()?.let {
                 userRepository.getUserProfile(it)
             }
-
+        globalUsername = savedUser?.username ?: ""
         savedUser?.let {
             userProfile.value = it
         } ?: run {
@@ -176,7 +179,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                                 )
                                 Spacer(Modifier.height(10.dp))
                                 Text(
-                                    text = "10",
+                                    text = "$userRank",
                                     fontFamily = SeravekFontFamily,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 40.sp
@@ -200,7 +203,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                                 Spacer(Modifier.height(10.dp))
                                 Row {
                                     Text(
-                                        text = "0",
+                                        text = "$userStreak",
                                         fontFamily = SeravekFontFamily,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 40.sp

@@ -30,14 +30,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.material.Text
 import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
+import com.example.fieldwise.ui.screen.profile_preference.LeaderboardProfile
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
 
-var Lesson1 = ""
-var Lesson2 = ""
-var LessonNo = ""
 var CourseABB = ""
+var userRank = 0
+var userStreak = 0
 
 @Composable
 fun getCourseList(): List<CourseFormat> {
@@ -97,14 +101,49 @@ fun HomeScreen(modifier: Modifier = Modifier,
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
 
-    // Declare mutable state for language and course
+    if (globalUsername == "") {
+        LaunchedEffect(Unit) {
+            // Load course from the repository
+            globalUsername = userRepository.getSavedGlobalUsername() ?: ""
+        }
+    }
+
+    var LeaderCounter = 0
+    val leaderboardData = mutableListOf<LeaderboardProfile>()
+    val database = Firebase.database
+    val leaderboardRef = database.reference.child("Leaderboard")
+
+    leaderboardRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            leaderboardData.clear()
+            LeaderCounter = 0
+            if (dataSnapshot.exists()) {
+                dataSnapshot.children.forEach { userSnapshot ->
+                    val name = userSnapshot.child("Name").getValue(String::class.java) ?: ""
+                    val streak = userSnapshot.child("Streak").getValue(Long::class.java) ?: 0L
+                    leaderboardData.add(LeaderboardProfile(name, streak.toInt()))
+                }
+                leaderboardData.sortByDescending { it.streak }
+                for (person in leaderboardData) {
+                    LeaderCounter++
+                    if (person.name == globalUsername) {
+                        userRank = LeaderCounter
+                        userStreak = person.streak
+                        break
+                    }
+                }
+            }
+        }
+        override fun onCancelled(databaseError: DatabaseError) {
+            Log.e("FirebaseError", "Error: ${databaseError.message}")
+        }
+    })
+
     var LocalLanguage = ""
     var LocalCourse = ""
 
-    // Check and load preferred language if globalLanguage is null or empty
     if (globalLanguage == "") {
         LaunchedEffect(Unit) {
-            // Load language from the repository
             LocalLanguage = userRepository.getSavedLanguage() ?: ""
             globalLanguage = LocalLanguage
         }
@@ -113,10 +152,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
         LocalLanguage = globalLanguage
         }
 
-    // Check and load selected course if globalCourse is null or empty
     if (globalCourse == "") {
         LaunchedEffect(Unit) {
-            // Load course from the repository
             LocalCourse = userRepository.getSavedCourse() ?: ""
             globalCourse = LocalCourse
         }
@@ -152,7 +189,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                     NavigateToAddLanguage = NavigateToAddLanguage
                 )
                 Spacer(modifier = Modifier.weight(1f)) // Add spacer to push items to the right
-                StreakItem(modifier = Modifier.size(40.dp), steak = 5)
+                StreakItem(modifier = Modifier.size(40.dp), steak = userStreak)
                 ProfileIconButton(onClick = { NavigateToProfile() })
             }
             Spacer(modifier = Modifier.height(30.dp))
