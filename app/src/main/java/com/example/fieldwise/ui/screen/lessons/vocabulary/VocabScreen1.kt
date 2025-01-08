@@ -36,12 +36,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.Card
 import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.CloseButton
+import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -181,9 +184,9 @@ fun VocabScreen1(
         else -> 0f
     }
     //FOR EACH VOCAB EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
-    val language = "English"
-    val course = "CS"
-    val lesson = "Basics of Program Development"
+    val language = globalLanguage
+    val course = CourseABB
+    val lesson = LessonNAME
     val question1 = "Q1"
     val vocabData = getDataVocab1(language, course, lesson, question1)
 

@@ -53,10 +53,13 @@ import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.Message
+import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
+import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -173,9 +176,9 @@ fun ConversationScreen1(
         else -> 0f
     }
     //Variables to change for each exercise
-    val convoLanguage = "English"
-    val convoCourse = "CS"
-    val convoLesson = "Basics of Program Development"
+    val convoLanguage = globalLanguage
+    val convoCourse = CourseABB
+    val convoLesson = LessonNAME
     val convoQuestion = "Q1"
 
     var userInput by remember { mutableStateOf("") }
@@ -194,7 +197,21 @@ fun ConversationScreen1(
     }
 
     LaunchedEffect(Unit) {
-        history.add(Message(role = "assistant", content = "Hi, are you ready for today's lesson?" ))
+        if (globalLanguage == "Thai") {
+            history.add(
+                Message(
+                    role = "assistant",
+                    content = "สวัสดีค่ะ/ครับ คุณพร้อมสำหรับบทเรียนวันนี้หรือยัง?"
+                )
+            )
+        } else {
+            history.add(
+                Message(
+                    role = "assistant",
+                    content = "Hi, are you ready for today's lesson?"
+                )
+            )
+        }
     }
 
     fun sendMessage(message: String) {
@@ -206,7 +223,7 @@ fun ConversationScreen1(
         isGeneratingReply = true
 
         val request = ConverseRequest(
-            language = "English",
+            language = globalLanguage,
             script = script,
             history = history.dropLast(1) // Remove loading message
         )

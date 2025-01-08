@@ -39,9 +39,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import com.example.fieldwise.model.ProcessingResult
+import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
+import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -76,10 +79,10 @@ var commentNumberSpeaking = 0
 var newCommentsDataSpeaking: List<String> = emptyList()
 
 // Data from Firebase
-const val SpeakingLanguage = "English"
-const val SpeakingCourse = "CS"
-const val SpeakingLesson = "Basics of Program Development"
-const val SpeakingQuestion = "Q1"
+val SpeakingLanguage = globalLanguage
+val SpeakingCourse = CourseABB
+val SpeakingLesson = LessonNAME
+val SpeakingQuestion = "Q1"
 
 fun isTranscriptionEqualsToQuestion(transcription: String, question: String): Boolean {
     val cleanedTranscription = transcription

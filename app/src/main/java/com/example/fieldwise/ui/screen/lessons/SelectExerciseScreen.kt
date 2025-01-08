@@ -29,12 +29,12 @@ import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.HomeButton
 import com.example.fieldwise.ui.widget.LeaderBoardButton
-import com.example.fieldwise.ui.widget.Lesson
+import com.example.fieldwise.ui.widget.LessonNAME
+import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.TestNotavailablePopUp
 
 @Composable
 fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit, OpenTest: () -> Unit) {
-   Log.d("Lesson","$Lesson")
     var showDialog by remember { mutableStateOf(false) }
     val complete = false
 
@@ -50,8 +50,8 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
         ) {
             Card(
                 modifier = Modifier.height(65.dp),
-                title = "Lesson 1",
-                description = "Consumer and Producer Behavior",
+                title = LessonNO,
+                description = LessonNAME,
                 cardType = CardType.GREEN,
                 cardShape = CardShape.SELECT_LESSON,
                 progress = null,

@@ -46,10 +46,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
+import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -174,9 +177,9 @@ fun ListeningScreen2(
         else -> 0f
     }
     //FOR EACH LISTENING2 EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
-    val language = "English"
-    val course = "CS"
-    val lesson = "Basics of Program Development"
+    val language = globalLanguage
+    val course = CourseABB
+    val lesson = LessonNAME
     val question1 = "Q1"
     val listenData = getDataListen2(language, course, lesson, question1)
     val audioUri1: Uri?

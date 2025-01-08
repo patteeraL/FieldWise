@@ -50,6 +50,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.widget.LessonNAME
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -163,10 +166,11 @@ fun ListeningScreen1(
         else -> 0f
     }
     //FOR EACH LISTENING1 EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
-    val language = "English"
-    val course = "CS"
-    val lesson = "Basics of Program Development"
+    val language = globalLanguage
+    val course = CourseABB
+    val lesson = LessonNAME
     val question1 = "Q1"
+    Log.d("TESTLISTEN","$language, $course, $lesson, $question1")
     val listenData = getDataListen1(language, course, lesson, question1)
 
     val audioUri: Uri?

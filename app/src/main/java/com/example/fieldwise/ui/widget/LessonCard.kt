@@ -28,7 +28,8 @@ import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 
-var Lesson = ""
+var LessonNO = ""
+var LessonNAME = ""
 
 @Composable
 fun LessonCard(modifier: Modifier = Modifier, title: String, description: String, cardType: CardType, progress: Float, complete: Boolean, NavigateToLessons: () -> Unit, NavigateToQuiz: () -> Unit) {
@@ -101,7 +102,8 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         progress = null,
                                         complete = null,
                                         onClick = {
-                                            Lesson = title
+                                            LessonNO = title
+                                            LessonNAME = description
                                             NavigateToLessons() },
                                         imageResId = R.drawable.playicon,
                                         imageUri = null
