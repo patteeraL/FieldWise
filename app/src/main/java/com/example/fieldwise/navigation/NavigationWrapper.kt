@@ -14,6 +14,7 @@ import com.example.fieldwise.ui.screen.home_page.HomeScreen
 import com.example.fieldwise.ui.screen.home_page.LoadingScreen2
 import com.example.fieldwise.ui.screen.leaderboard.LeaderBoardScreen
 import com.example.fieldwise.ui.screen.lessons.ExerciseCompleteScreen
+import com.example.fieldwise.ui.screen.home_page.LoadingScreen3
 import com.example.fieldwise.ui.screen.lessons.SelectExerciseScreen
 import com.example.fieldwise.ui.screen.lessons.conversation.ConversationScreen1
 import com.example.fieldwise.ui.screen.lessons.listening.ListeningScreen1
@@ -39,6 +40,7 @@ object Routes {
     const val UserName = "username"
     const val Loading = "loading"
     const val Loading2 = "loading2"
+    const val Loading3 = "loading3"
     const val DailyGoal = "daily goal"
     const val Notify = "notify"
     const val Course = "course"
@@ -70,7 +72,7 @@ fun NavigationWrapper(isFirstTime: Boolean) {
 
     NavHost(
         navController = navController,
-        startDestination = if (isFirstTime == true) Routes.Splash else Routes.Home
+        startDestination = if (isFirstTime == true) Routes.Splash else Routes.Loading3
     ) {
         // Begin in SplashScreen
         if(isFirstTime == true) {
@@ -119,6 +121,13 @@ fun NavigationWrapper(isFirstTime: Boolean) {
                 CompleteScreen { navController.navigate(Routes.Home) }
             }
         }
+
+        composable(Routes.Loading3) {
+            LoadingScreen3 {
+                navController.navigate(Routes.Home)
+            }
+        }
+
         composable(Routes.Home) {
             HomeScreen(
                 NavigateToLeader = {navController.navigate("${Routes.LeaderBoard}/home")},

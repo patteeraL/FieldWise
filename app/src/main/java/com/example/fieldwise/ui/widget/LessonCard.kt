@@ -88,7 +88,10 @@ fun LessonCard(modifier: Modifier = Modifier, title: String, description: String
                                         cardShape = CardShape.QUIZ_RESUME,
                                         progress = null,
                                         complete = null,
-                                        onClick = { NavigateToQuiz() },
+                                        onClick = {
+                                            LessonNO = title
+                                            LessonNAME = description
+                                            NavigateToQuiz() },
                                         imageResId = R.drawable.quizicon,
                                         imageUri = null
                                     )

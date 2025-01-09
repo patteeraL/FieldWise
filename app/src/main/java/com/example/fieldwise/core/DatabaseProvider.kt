@@ -3,8 +3,8 @@ package com.example.fieldwise.core
 import android.content.Context
 import androidx.room.Room
 import com.example.fieldwise.data.AppDatabase
+import com.example.fieldwise.data.UserProgress
 import com.example.fieldwise.data.UserRepository
-
 
 object DatabaseProvider {
     private var database: AppDatabase? = null
@@ -26,4 +26,8 @@ object DatabaseProvider {
         return UserRepository(database.userProfileDao())
     }
 
+    fun provideUserProgressRepository(context: Context): UserProgressRepository {
+        val database = provideDatabase(context)
+        return UserProgressRepository(database.userProgressDao())
+    }
 }

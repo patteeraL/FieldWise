@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -51,15 +52,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.Message
 import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
 import com.example.fieldwise.ui.widget.LessonNAME
+import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -67,6 +72,9 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.viewmodel.AiViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -157,7 +165,7 @@ fun WriteCommentConvo(language: String, course: String, lesson: String, newComme
     }
 }
 
-@SuppressLint("SuspiciousIndentation")
+@SuppressLint("SuspiciousIndentation", "CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationScreen1(
@@ -180,6 +188,9 @@ fun ConversationScreen1(
     val convoCourse = CourseABB
     val convoLesson = LessonNAME
     val convoQuestion = "Q1"
+
+    val context = LocalContext.current
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
 
     var userInput by remember { mutableStateOf("") }
     val history = remember { mutableStateListOf<Message>() }
@@ -444,6 +455,63 @@ fun ConversationScreen1(
             WriteCommentConvo(convoLanguage, convoCourse, convoLesson, newComment, commentNumberConvo)
         }
         continueStatus = false
+        CoroutineScope(Dispatchers.IO).launch {
+            val progress = userProgressRepository.getUserProgress(
+                globalUsername,
+                globalCourse,
+                globalLanguage
+            )
+            var localVocabprogress1 = 0.0f
+            var localSpeakingProgress1 = 0.0f
+            var localListenProgress1 = 0.0f
+            var localConvoProgress1 = 0.0f
+            var localVocabprogress2 = 0.0f
+            var localSpeakingProgress2 = 0.0f
+            var localListenProgress2 = 0.0f
+            var localConvoProgress2 = 0.0f
+            if (progress != null) {
+                localVocabprogress1 = progress.vocabProgress1
+                localSpeakingProgress1 = progress.speakingProgress1
+                localListenProgress1 = progress.listeningProgress1
+                localConvoProgress1 = progress.convoProgress1
+                localVocabprogress2 = progress.vocabProgress2
+                localSpeakingProgress2 = progress.speakingProgress2
+                localListenProgress2 = progress.listeningProgress2
+                localConvoProgress2 = progress.convoProgress2
+            }
+            if (LessonNO == "Lesson 1"){
+                if (localConvoProgress1 < 1f) {
+                    localConvoProgress1 = localConvoProgress1 + 1f}
+                userProgressRepository.saveUserProgress(
+                    username = globalUsername,
+                    course = globalCourse,
+                    language = globalLanguage,
+                    vocabProgress1 = localVocabprogress1,
+                    listeningProgress1 = localListenProgress1,
+                    speakingProgress1 = localSpeakingProgress1,
+                    convoProgress1 = localConvoProgress1,
+                    vocabProgress2 = localVocabprogress2,
+                    listeningProgress2 = localListenProgress2,
+                    speakingProgress2 = localSpeakingProgress2,
+                    convoProgress2 = localConvoProgress2)
+            }
+            else{
+                if (localConvoProgress2 < 1f) {
+                    localConvoProgress2 = localConvoProgress2 + 1f}
+                userProgressRepository.saveUserProgress(
+                    username = globalUsername,
+                    course = globalCourse,
+                    language = globalLanguage,
+                    vocabProgress1 = localVocabprogress1,
+                    listeningProgress1 = localListenProgress1,
+                    speakingProgress1 = localSpeakingProgress1,
+                    convoProgress1 = localConvoProgress1,
+                    vocabProgress2 = localVocabprogress2,
+                    listeningProgress2 = localListenProgress2,
+                    speakingProgress2 = localSpeakingProgress2,
+                    convoProgress2 = localConvoProgress2)
+            }
+        }
         NextExercise()
     }
 }

@@ -30,6 +30,8 @@ firebaseStorage = "21.0.1"
 junitJupiter = "5.8.1"
 testng = "6.9.6"
 uiTestJunit4Android = "1.7.6"
+androidx_room = "2.5.2"
+gson = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -71,6 +73,10 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 testng = { group = "org.testng", name = "testng", version.ref = "testng" }
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "androidx_room" }
+androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "androidx_room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "androidx_room" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

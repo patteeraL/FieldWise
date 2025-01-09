@@ -89,6 +89,9 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
     implementation("io.ktor:ktor-client-logging:2.0.0")
 
+    //gson
+    implementation("com.google.code.gson:gson:2.8.9")
+
     // Serialization
     implementation(libs.kotlinx.serialization.json)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
@@ -99,7 +102,7 @@ dependencies {
     //Room
 
     implementation("androidx.room:room-runtime:2.5.2")
-    ksp("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
 
     // Data Store
@@ -127,6 +130,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
+
+    implementation("com.google.code.gson:gson:2.8.9")
 
 
 }

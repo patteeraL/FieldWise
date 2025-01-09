@@ -38,14 +38,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.model.ProcessingResult
 import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
 import com.example.fieldwise.ui.widget.LessonNAME
+import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.LinearProgress
+import com.example.fieldwise.ui.widget.MainButton
+import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.MicButton
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
@@ -54,6 +60,9 @@ import com.example.fieldwise.viewmodel.AiViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 // -------------------------------------------------
@@ -443,7 +452,91 @@ fun BottomControls(
     isEnable: Boolean,
     NextExercise: () -> Unit
 ) {
+    Spacer(modifier = Modifier.height(20.dp))
+    val context = LocalContext.current
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
+    MainButton(
+        button = "CONTINUE",
+        onClick = {
+            if (isEnable) {
+                val database = Firebase.database
+                val courseListRef = database.reference.child("Exercises")
+                val commentPath = courseListRef.child(SpeakingLanguage).child(SpeakingCourse).child(SpeakingLesson).child("Speaking").child(SpeakingQuestion).child("Comments")
+                val addedCommentsNo = newCommentsDataSpeaking.size - discussionComments.size
+                commentNumberSpeaking = discussionComments.size
+                for (i in 0 until addedCommentsNo) {
+                    commentNumberSpeaking++
+                    val newComment = newCommentsDataSpeaking[discussionComments.size + i]
+                    val newCommentKey = "Text$commentNumberSpeaking"
 
+                    commentPath.child(newCommentKey).setValue(newComment)
+                }
+                CoroutineScope(Dispatchers.IO).launch {
+                    val progress = userProgressRepository.getUserProgress(
+                        globalUsername,
+                        globalCourse,
+                        globalLanguage
+                    )
+                    var localVocabprogress1 = 0.0f
+                    var localSpeakingProgress1 = 0.0f
+                    var localListenProgress1 = 0.0f
+                    var localConvoProgress1 = 0.0f
+                    var localVocabprogress2 = 0.0f
+                    var localSpeakingProgress2 = 0.0f
+                    var localListenProgress2 = 0.0f
+                    var localConvoProgress2 = 0.0f
+                    if (progress != null) {
+                        localVocabprogress1 = progress.vocabProgress1
+                        localSpeakingProgress1 = progress.speakingProgress1
+                        localListenProgress1 = progress.listeningProgress1
+                        localConvoProgress1 = progress.convoProgress1
+                        localVocabprogress2 = progress.vocabProgress2
+                        localSpeakingProgress2 = progress.speakingProgress2
+                        localListenProgress2 = progress.listeningProgress2
+                        localConvoProgress2 = progress.convoProgress2
+                    }
+                    if (LessonNO == "Lesson 1"){
+                        if (localConvoProgress1 < 1f) {
+                            localConvoProgress1 = localConvoProgress1 + 1f}
+                        userProgressRepository.saveUserProgress(
+                            username = globalUsername,
+                            course = globalCourse,
+                            language = globalLanguage,
+                            vocabProgress1 = localVocabprogress1,
+                            listeningProgress1 = localListenProgress1,
+                            speakingProgress1 = localSpeakingProgress1,
+                            convoProgress1 = localConvoProgress1,
+                            vocabProgress2 = localVocabprogress2,
+                            listeningProgress2 = localListenProgress2,
+                            speakingProgress2 = localSpeakingProgress2,
+                            convoProgress2 = localConvoProgress2)
+                    }
+                    else{
+                        if (localConvoProgress2 < 1f) {
+                            localConvoProgress2 = localConvoProgress2 + 1f}
+                        userProgressRepository.saveUserProgress(
+                            username = globalUsername,
+                            course = globalCourse,
+                            language = globalLanguage,
+                            vocabProgress1 = localVocabprogress1,
+                            listeningProgress1 = localListenProgress1,
+                            speakingProgress1 = localSpeakingProgress1,
+                            convoProgress1 = localConvoProgress1,
+                            vocabProgress2 = localVocabprogress2,
+                            listeningProgress2 = localListenProgress2,
+                            speakingProgress2 = localSpeakingProgress2,
+                            convoProgress2 = localConvoProgress2)
+                    }
+                }
+                NextExercise()
+            }
+        },
+        mainButtonType = if (isEnable) MainButtonType.BLUE else MainButtonType.GREY,
+        isEnable = isEnable
+    )
+
+    Spacer(modifier = Modifier.height(50.dp))
+    HorizontalDivider(thickness = 2.dp, color = Color.White)
 }
 
 // -------------------------------------------------

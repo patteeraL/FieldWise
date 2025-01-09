@@ -49,6 +49,7 @@ var globalLanguage = ""
 fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit, NavigateToNotification: () -> Unit) {
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer,
@@ -136,6 +137,20 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
                             println("Error updating profile: ${e.message}")
                         }
                     }
+                    CoroutineScope(Dispatchers.IO).launch {
+                        userProgressRepository.saveUserProgress(
+                            username = globalUsername,
+                            course = globalCourse,
+                            language = globalLanguage,
+                            vocabProgress1 = 0.0f,
+                            listeningProgress1 = 0.0f,
+                            speakingProgress1 = 0.0f,
+                            convoProgress1 = 0.0f,
+                            vocabProgress2 = 0.0f,
+                            listeningProgress2 = 0.0f,
+                            speakingProgress2 = 0.0f,
+                            convoProgress2 = 0.0f
+                        )}
                         NavigateToComplete() }
                           },
                 mainButtonType = MainButtonType.BLUE, isEnable = true)

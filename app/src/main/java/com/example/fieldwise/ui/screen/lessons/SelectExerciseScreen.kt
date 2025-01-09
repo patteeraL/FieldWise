@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
+import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.Card
@@ -33,10 +39,51 @@ import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.TestNotavailablePopUp
 
+var username = ""
+var course = ""
+var language = ""
+
 @Composable
 fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit, OpenTest: () -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
-    val complete = false
+
+    var testUnlocked = false
+
+    val context = LocalContext.current
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
+    var vocabProgress by remember { mutableStateOf(0.0f) }
+    var listenProgress by remember { mutableStateOf(0.0f) }
+    var speakingProgress by remember { mutableStateOf(0.0f) }
+    var convoProgress by remember { mutableStateOf(0.0f) }
+
+
+    LaunchedEffect(Unit) {
+        val progress = userProgressRepository.getUserProgress(globalUsername, globalCourse, globalLanguage)
+        Log.d("CHECKKKK","$progress")
+        if (progress != null) {
+            if (LessonNO == "Lesson 1"){
+                vocabProgress = progress.vocabProgress1
+                listenProgress = progress.listeningProgress1
+                speakingProgress = progress.speakingProgress1
+                convoProgress = progress.convoProgress1
+                val totalValueL1 = progress.vocabProgress1 + progress.listeningProgress1 + progress.speakingProgress1 + progress.convoProgress1
+                if (totalValueL1 >= 4){
+                    testUnlocked = true
+                }
+            }
+            else{
+                vocabProgress = progress.vocabProgress2
+                listenProgress = progress.listeningProgress2
+                speakingProgress = progress.speakingProgress2
+                convoProgress = progress.convoProgress2
+                val totalValueL2 = progress.vocabProgress2 + progress.listeningProgress2 + progress.speakingProgress2 + progress.convoProgress2
+                if (totalValueL2 >= 4){
+                    testUnlocked = true
+                }
+            }
+        }
+
+    }
 
     Box(
         modifier = modifier
@@ -68,7 +115,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                         description = null,
                         cardType = CardType.ORANGE,
                         cardShape = CardShape.SELECT_EXERCISE,
-                        progress = 0.5f,
+                        progress = speakingProgress,
                         complete = false,
                         onClick = { NavigateToSpeaking() },
                         imageResId = R.drawable.speaking,
@@ -81,7 +128,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     description = null,
                     cardType = CardType.GREEN,
                     cardShape = CardShape.SELECT_EXERCISE,
-                    progress = 0.5f,
+                    progress = listenProgress,
                     complete = false,
                     onClick = { NavigateToListening() },
                     imageResId = R.drawable.listening,
@@ -95,7 +142,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     description = null,
                     cardType = CardType.PURPLE,
                     cardShape = CardShape.SELECT_EXERCISE,
-                    progress = 0.5f,
+                    progress = vocabProgress,
                     complete = false,
                     onClick = { NavigateToVocabulary() },
                     imageResId = R.drawable.vocabulary,
@@ -107,7 +154,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     description = null,
                     cardType = CardType.BLUE,
                     cardShape = CardShape.SELECT_EXERCISE,
-                    progress = 0.5f,
+                    progress = convoProgress,
                     complete = false,
                     onClick = { NavigateToConversation() },
                     imageResId = R.drawable.conversation,
@@ -121,9 +168,9 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                     .height(98.dp),
                 title = "Final Test",
                 description = "The test will unlock automatically after each session is completed.",
-                complete = complete, //true if the test is done
+                complete = testUnlocked, //true if the test is done
                 onClick = {
-                    if (complete) {
+                    if (testUnlocked) {
                         OpenTest()
                     } else {
                         showDialog = true
@@ -147,7 +194,9 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
                 .padding(bottom = 50.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            HomeButton(onClick = { NavigateToHome() })
+            HomeButton(onClick = {
+                //saveUserProgress()
+                NavigateToHome() })
             LeaderBoardButton(onClick = { NavigateToLeader() })
         }
     }

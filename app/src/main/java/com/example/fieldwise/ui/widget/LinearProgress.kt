@@ -16,11 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -32,9 +29,9 @@ enum class ProgressType { LIGHT, DARK }
 
 @Composable
 fun LinearProgress(modifier: Modifier = Modifier, target: Float?, progressType: ProgressType) {
-    var progress: Float by remember { mutableStateOf(0f) }
+    val targetValue = target ?: 0f
     val size by animateFloatAsState(
-        targetValue = progress,
+        targetValue = targetValue,
         tween(
             durationMillis = 1000,
             delayMillis = 200,
@@ -52,22 +49,21 @@ fun LinearProgress(modifier: Modifier = Modifier, target: Float?, progressType: 
                 .fillMaxWidth(size),
             horizontalArrangement = Arrangement.End
         ) {
-
         }
-        //Progress Bar
+        // Progress Bar
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(17.dp)
         ) {
-            //Background of progress Bar
+            // Background of progress Bar
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(9.dp))
                     .background(linearbarcolor)
             )
-            //Progress
+            // Progress
             Box(
                 modifier = Modifier
                     .fillMaxWidth(size)
@@ -77,9 +73,6 @@ fun LinearProgress(modifier: Modifier = Modifier, target: Float?, progressType: 
                     .animateContentSize()
             )
         }
-    }
-    LaunchedEffect(key1 = true) {
-        progress = target ?: 0f
     }
 }
 

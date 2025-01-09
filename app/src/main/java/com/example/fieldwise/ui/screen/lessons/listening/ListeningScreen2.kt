@@ -46,13 +46,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.screen.home_page.CourseABB
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.CloseButton
 import com.example.fieldwise.ui.widget.LessonNAME
+import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -60,6 +64,9 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.random.Random
 
@@ -161,7 +168,7 @@ fun listen2MP3Storage(location: String, fileName: String): Uri? {
     return fileUri.value
 }
 
-@SuppressLint("SuspiciousIndentation")
+@SuppressLint("SuspiciousIndentation", "CoroutineCreationDuringComposition")
 @Composable
 fun ListeningScreen2(
     modifier: Modifier = Modifier,
@@ -187,6 +194,9 @@ fun ListeningScreen2(
     val audioUri3: Uri?
     val audioUri4: Uri?
 
+    val context = LocalContext.current
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
+
     val answerNumber = listOf(0, 1, 2, 3)
     val answerDisplay = listOf(
         mutableListOf<Listen2ItemAnswer>(),
@@ -208,7 +218,7 @@ fun ListeningScreen2(
         for ((i, num) in answerOrder.withIndex()) {
             answerDisplay[num].add(answer[i])
         }
-        val context = LocalContext.current
+
         var buttonColor01 by remember { mutableStateOf(Color(0xFFFFFFFF)) }
         var buttonColor02 by remember { mutableStateOf(Color(0xFFFFFFFF)) }
         var buttonColor03 by remember { mutableStateOf(Color(0xFFFFFFFF)) }
@@ -987,6 +997,63 @@ fun ListeningScreen2(
                 WriteCommentListen2(language, course, lesson, question1, newComment, commentNumberListen2)
             }
             continueStatus = false
+            CoroutineScope(Dispatchers.IO).launch {
+                val progress = userProgressRepository.getUserProgress(
+                    globalUsername,
+                    globalCourse,
+                    globalLanguage
+                )
+                var localVocabprogress1 = 0.0f
+                var localSpeakingProgress1 = 0.0f
+                var localListenProgress1 = 0.0f
+                var localConvoProgress1 = 0.0f
+                var localVocabprogress2 = 0.0f
+                var localSpeakingProgress2 = 0.0f
+                var localListenProgress2 = 0.0f
+                var localConvoProgress2 = 0.0f
+                if (progress != null) {
+                    localVocabprogress1 = progress.vocabProgress1
+                    localSpeakingProgress1 = progress.speakingProgress1
+                    localListenProgress1 = progress.listeningProgress1
+                    localConvoProgress1 = progress.convoProgress1
+                    localVocabprogress2 = progress.vocabProgress2
+                    localSpeakingProgress2 = progress.speakingProgress2
+                    localListenProgress2 = progress.listeningProgress2
+                    localConvoProgress2 = progress.convoProgress2
+                }
+                if (LessonNO == "Lesson 1"){
+                    if (localListenProgress1 < 1f) {
+                        localListenProgress1 = localListenProgress1 + 0.5f}
+                    userProgressRepository.saveUserProgress(
+                        username = globalUsername,
+                        course = globalCourse,
+                        language = globalLanguage,
+                        vocabProgress1 = localVocabprogress1,
+                        listeningProgress1 = localListenProgress1,
+                        speakingProgress1 = localSpeakingProgress1,
+                        convoProgress1 = localConvoProgress1,
+                        vocabProgress2 = localVocabprogress2,
+                        listeningProgress2 = localListenProgress2,
+                        speakingProgress2 = localSpeakingProgress2,
+                        convoProgress2 = localConvoProgress2)
+                }
+                else{
+                    if (localListenProgress2 < 1f) {
+                        localListenProgress2 = localListenProgress2 + 0.5f}
+                    userProgressRepository.saveUserProgress(
+                        username = globalUsername,
+                        course = globalCourse,
+                        language = globalLanguage,
+                        vocabProgress1 = localVocabprogress1,
+                        listeningProgress1 = localListenProgress1,
+                        speakingProgress1 = localSpeakingProgress1,
+                        convoProgress1 = localConvoProgress1,
+                        vocabProgress2 = localVocabprogress2,
+                        listeningProgress2 = localListenProgress2,
+                        speakingProgress2 = localSpeakingProgress2,
+                        convoProgress2 = localConvoProgress2)
+                }
+            }
             NextExercise()
         }
     }

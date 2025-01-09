@@ -209,8 +209,10 @@ fun Card(
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                     Box(modifier = Modifier.width(100.dp)) {
-                        LinearProgress(target = progress, progressType = ProgressType.DARK)
+                        LinearProgress(target = actualProgress, progressType = ProgressType.DARK)
                     }
+                    Log.d("actualProgress1","$actualProgress")
+                    Log.d("actualProgress1","${(actualProgress * 100).toInt()}%")
                     Text(
                         text = "${(actualProgress * 100).toInt()}%",
                         color = Color(0xFFFFD333),

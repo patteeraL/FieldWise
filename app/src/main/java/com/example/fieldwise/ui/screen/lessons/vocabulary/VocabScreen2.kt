@@ -1,6 +1,7 @@
 package com.example.fieldwise.ui.screen.lessons.vocabulary
 
 import Discussion
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
@@ -36,9 +37,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.screen.home_page.CourseABB
 import com.example.fieldwise.ui.screen.lessons.listening.commentNumberListen2
+import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import com.example.fieldwise.ui.widget.Card
@@ -46,6 +50,7 @@ import com.example.fieldwise.ui.widget.CardShape
 import com.example.fieldwise.ui.widget.CardType
 import com.example.fieldwise.ui.widget.CloseButton
 import com.example.fieldwise.ui.widget.LessonNAME
+import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
@@ -54,6 +59,9 @@ import com.example.fieldwise.ui.widget.TextToSpeechButton
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.random.Random
 
@@ -151,6 +159,7 @@ fun vocab2MP3Storage(location: String, fileName: String): Uri? {
     return fileUri.value
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun VocabScreen2(
     modifier: Modifier = Modifier,
@@ -171,6 +180,9 @@ fun VocabScreen2(
     val lesson = LessonNAME
     val question1 = "Q1"
     val vocabData = getDataVocab2(language, course, lesson, question1)
+
+    val context = LocalContext.current
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
 
     val questionText: String
     val audioUri: Uri?
@@ -193,7 +205,6 @@ fun VocabScreen2(
             answerDisplay[num].add(answer[i])
         }
 
-        val context = LocalContext.current
         var cardType1 by remember { mutableStateOf(CardType.WHITE) }
         var cardType2 by remember { mutableStateOf(CardType.WHITE) }
         var cardType3 by remember { mutableStateOf(CardType.WHITE) }
@@ -390,6 +401,63 @@ fun VocabScreen2(
                 WriteCommentVocab2(language, course, lesson, question1, newComment, commentNumberVocab2)
             }
             continueStatus = false
+            CoroutineScope(Dispatchers.IO).launch {
+                val progress = userProgressRepository.getUserProgress(
+                    globalUsername,
+                    globalCourse,
+                    globalLanguage
+                )
+                var localVocabprogress1 = 0.0f
+                var localSpeakingProgress1 = 0.0f
+                var localListenProgress1 = 0.0f
+                var localConvoProgress1 = 0.0f
+                var localVocabprogress2 = 0.0f
+                var localSpeakingProgress2 = 0.0f
+                var localListenProgress2 = 0.0f
+                var localConvoProgress2 = 0.0f
+                if (progress != null) {
+                    localVocabprogress1 = progress.vocabProgress1
+                    localSpeakingProgress1 = progress.speakingProgress1
+                    localListenProgress1 = progress.listeningProgress1
+                    localConvoProgress1 = progress.convoProgress1
+                    localVocabprogress2 = progress.vocabProgress2
+                    localSpeakingProgress2 = progress.speakingProgress2
+                    localListenProgress2 = progress.listeningProgress2
+                    localConvoProgress2 = progress.convoProgress2
+                }
+                if (LessonNO == "Lesson 1"){
+                    if (localVocabprogress1 < 1f) {
+                        localVocabprogress1 = localVocabprogress1 + 0.5f}
+                    userProgressRepository.saveUserProgress(
+                        username = globalUsername,
+                        course = globalCourse,
+                        language = globalLanguage,
+                        vocabProgress1 = localVocabprogress1,
+                        listeningProgress1 = localListenProgress1,
+                        speakingProgress1 = localSpeakingProgress1,
+                        convoProgress1 = localConvoProgress1,
+                        vocabProgress2 = localVocabprogress2,
+                        listeningProgress2 = localListenProgress2,
+                        speakingProgress2 = localSpeakingProgress2,
+                        convoProgress2 = localConvoProgress2)
+                }
+                else{
+                    if (localVocabprogress2 < 1f) {
+                        localVocabprogress2 = localVocabprogress2 + 0.5f}
+                    userProgressRepository.saveUserProgress(
+                        username = globalUsername,
+                        course = globalCourse,
+                        language = globalLanguage,
+                        vocabProgress1 = localVocabprogress1,
+                        listeningProgress1 = localListenProgress1,
+                        speakingProgress1 = localSpeakingProgress1,
+                        convoProgress1 = localConvoProgress1,
+                        vocabProgress2 = localVocabprogress2,
+                        listeningProgress2 = localListenProgress2,
+                        speakingProgress2 = localSpeakingProgress2,
+                        convoProgress2 = localConvoProgress2)
+                }
+            }
             NextExercise()
         }
     }

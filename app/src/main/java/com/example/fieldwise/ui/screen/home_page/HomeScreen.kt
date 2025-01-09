@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.UserProgress
 import com.example.fieldwise.ui.screen.profile_creation.globalCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
@@ -105,15 +106,32 @@ fun HomeScreen(modifier: Modifier = Modifier,
     var localLanguage by remember { mutableStateOf(globalLanguage) }
     var localCourse by remember { mutableStateOf(globalCourse) }
 
-    // Effect to update global values when local state changes
+    var localProgress1 by remember { mutableStateOf(0.0f) }
+    var localProgress2 by remember { mutableStateOf(0.0f) }
+
+    var localProgressStatus = false
+    var progress: UserProgress? = UserProgress(
+            username = "",
+            course = "",
+            language = "",
+            vocabProgress1 = 0.0f,
+            listeningProgress1 = 0.0f,
+            speakingProgress1 = 0.0f,
+            convoProgress1 = 0.0f,
+            vocabProgress2 = 0.0f,
+            listeningProgress2 = 0.0f,
+            speakingProgress2 = 0.0f,
+            convoProgress2 = 0.0f
+            )
+
     LaunchedEffect(localUsername) { globalUsername = localUsername }
     LaunchedEffect(localLanguage) { globalLanguage = localLanguage }
     LaunchedEffect(localCourse) { globalCourse = localCourse }
 
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
 
-    // On screen loading, retrieve saved values
     LaunchedEffect(globalUsername) {
         if (globalUsername.isEmpty()) {
             localUsername = userRepository.getSavedGlobalUsername() ?: ""
@@ -133,6 +151,33 @@ fun HomeScreen(modifier: Modifier = Modifier,
             localCourse = userRepository.getSavedCourse() ?: ""
             globalCourse = localCourse
         }
+    }
+
+    LaunchedEffect(Unit) {
+        progress = userProgressRepository.getUserProgress(globalUsername, globalCourse, globalLanguage)
+        if (progress != null) {
+            localProgress1 = progress!!.convoProgress1 + progress!!.vocabProgress1 + progress!!.listeningProgress1 + progress!!.speakingProgress1
+            localProgress1 = localProgress1/4
+            localProgress2 = progress!!.convoProgress2 + progress!!.vocabProgress2 + progress!!.listeningProgress2 + progress!!.speakingProgress2
+            localProgress2 = localProgress2/4
+            Log.d("CheckingGETTT","$progress")
+        } else{
+            Log.d("CHECKADDINGNEW","CHECKADDINGNEW")
+            userProgressRepository.saveUserProgress(
+                username = globalUsername,
+                course = globalCourse,
+                language = globalLanguage,
+                vocabProgress1 = 0.0f,
+                listeningProgress1 = 0.0f,
+                speakingProgress1 = 0.0f,
+                convoProgress1 = 0.0f,
+                vocabProgress2 = 0.0f,
+                listeningProgress2 = 0.0f,
+                speakingProgress2 = 0.0f,
+                convoProgress2 = 0.0f
+            )
+        }
+
     }
 
     var LeaderCounter = 0
@@ -199,9 +244,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { LessonCard(title = "Lesson 1", description = Lesson1,cardType = CardType.BLUE, progress = 1f, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Row { LessonCard(title = "Lesson 1", description = Lesson1,cardType = CardType.BLUE, progress = localProgress1, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { LessonCard(title = "Lesson 2", description = Lesson2,cardType = CardType.PURPLE, progress = 1f, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Row { LessonCard(title = "Lesson 2", description = Lesson2,cardType = CardType.PURPLE, progress = localProgress2, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
             }
         }
         Row(
