@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.data.UserProgress
+import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
@@ -105,6 +106,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
     var localUsername by remember { mutableStateOf(globalUsername) }
     var localLanguage by remember { mutableStateOf(preferredLanguage) }
     var localCourse by remember { mutableStateOf(selectedCourse) }
+    var localDailyGoal by remember { mutableStateOf(dailyGoal) }
 
     var localProgress1 by remember { mutableStateOf(0.0f) }
     var localProgress2 by remember { mutableStateOf(0.0f) }
@@ -127,6 +129,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
     LaunchedEffect(localUsername) { globalUsername = localUsername }
     LaunchedEffect(localLanguage) { preferredLanguage = localLanguage }
     LaunchedEffect(localCourse) { selectedCourse = localCourse }
+    LaunchedEffect(localDailyGoal) { dailyGoal = localDailyGoal }
 
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
@@ -152,6 +155,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
             selectedCourse = localCourse
         }
     }
+
 
     LaunchedEffect(Unit) {
         progress = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)

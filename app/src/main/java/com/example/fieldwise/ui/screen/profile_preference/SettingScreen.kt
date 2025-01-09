@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
@@ -53,18 +54,6 @@ import com.example.fieldwise.ui.widget.SaveChangesPopUp
 @Composable
 fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit, Restart: () -> Unit)  {
 
-    val context = LocalContext.current
-    val userRepository = DatabaseProvider.provideUserRepository(context)
-
-    // Taking userdata from localdatabase
-    val userProfile = remember { mutableStateOf<UserProfile?>(null) }
-
-    LaunchedEffect(Unit) {
-        val user = userRepository.getUserProfile(globalUsername)
-        user?.let {
-            userProfile.value = it
-        }
-    }
 
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -108,17 +97,18 @@ fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit, 
 
 @Composable
 fun DropDownDemo(Restart: () -> Unit) {
+
+    val itemPosition = remember { mutableStateOf(-1) }
+    val placeholder = dailyGoal
+
     var showDialog by remember { mutableStateOf(false) }
     var dialogType by remember { mutableStateOf("") }
     val isDropDownExpanded = remember {
         mutableStateOf(false)
     }
 
-    val itemPosition = remember {
-        mutableStateOf(0)
-    }
 
-    val dailygoals = listOf("5 min / day (Light)", "10 min / day (Moderate)", "15 min / day (Serious)", "20 min / day (Intense)")
+    val dailygoals = listOf("5 min / day", "10 min / day", "15 min / day", "20 min / day")
 
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -150,7 +140,7 @@ fun DropDownDemo(Restart: () -> Unit) {
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(
-                        text = dailygoals[itemPosition.value],
+                        text = if (itemPosition.value == -1) placeholder else dailygoals[itemPosition.value],
                         fontSize = 18.sp,
                         fontFamily = InterFontFamily
                     )
@@ -169,12 +159,13 @@ fun DropDownDemo(Restart: () -> Unit) {
                 dailygoals.forEachIndexed { index, dailygoal ->
                     DropdownMenuItem(
                         text = {
-                        Text(text = dailygoal)
-                    },
+                            Text(text = dailygoal)
+                        },
                         onClick = {
                             isDropDownExpanded.value = false
                             itemPosition.value = index
-                        })
+                        }
+                    )
                 }
             }
 
@@ -183,19 +174,23 @@ fun DropDownDemo(Restart: () -> Unit) {
         MainButton(button = "SAVE CHANGES", onClick = {
             dialogType = "SAVE_CHANGES"
             showDialog = true
-        }, mainButtonType = MainButtonType.BLUE, isEnable = true)
 
+        }, mainButtonType = MainButtonType.BLUE, isEnable = true)
+        val selectedOption = if (itemPosition.value == -1) placeholder else dailygoals[itemPosition.value]
+        LaunchedEffect(selectedOption) { dailyGoal = selectedOption }
         Spacer(modifier = Modifier.height(25.dp))
 
         MainButton(button = "DELETE COURSE",
             onClick = {dialogType = "DELETE_COURSE"
             showDialog = true }, mainButtonType = MainButtonType.RED, isEnable = true)
+        // Doing Delete Course
 
         Spacer(modifier = Modifier.height(25.dp))
 
         MainButton(button = "DELETE ACCOUNT",
             onClick = {dialogType = "DELETE_ACCOUNT"
                 showDialog = true }, mainButtonType = MainButtonType.NOCOLOR, isEnable = true)
+        // Doing Delete Account
 
         if (showDialog) {
             when (dialogType) { "DELETE_COURSE" -> {
