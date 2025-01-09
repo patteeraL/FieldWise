@@ -18,7 +18,7 @@ object DatabaseProvider {
                 AppDatabase::class.java,
                 "app_database"
             )
-                //.addMigrations(MIGRATION_1_2)
+
                 .build()
             database = instance
             instance

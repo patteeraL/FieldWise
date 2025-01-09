@@ -39,9 +39,6 @@ var dailyGoal = ""
 
 @Composable
 fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: () -> Unit, NavigateToUserName: () -> Unit) {
-    val context = LocalContext.current
-    val userRepository = DatabaseProvider.provideUserRepository(context)
-    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
 
     val options = listOf("5 min / day", "10 min / day", "15 min / day", "20 min / day")
     val descriptions = listOf("Light", "Moderate", "Serious", "Intense")

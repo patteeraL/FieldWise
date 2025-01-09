@@ -40,7 +40,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.data.UserProfile
-import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
@@ -120,8 +119,6 @@ fun DropDownDemo(Restart: () -> Unit) {
     }
 
     val dailygoals = listOf("5 min / day (Light)", "10 min / day (Moderate)", "15 min / day (Serious)", "20 min / day (Intense)")
-    val dailygoal_placeholder = dailyGoal
-
 
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -153,7 +150,7 @@ fun DropDownDemo(Restart: () -> Unit) {
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(
-                        text = dailygoal_placeholder,
+                        text = dailygoals[itemPosition.value],
                         fontSize = 18.sp,
                         fontFamily = InterFontFamily
                     )

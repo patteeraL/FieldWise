@@ -14,11 +14,3 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userProgressDao(): UserProgressDao
 }
 
-//val MIGRATION_1_2 = object : Migration(1, 2) {
-//    override fun migrate(database: SupportSQLiteDatabase) {
-//        // Add columns for courses and languages as JSON strings
-//        database.execSQL("ALTER TABLE user_profile ADD COLUMN courses TEXT NOT NULL DEFAULT '[]'")
-//        database.execSQL("ALTER TABLE user_profile ADD COLUMN languages TEXT NOT NULL DEFAULT '[]'")
-//    }
-//}
-
