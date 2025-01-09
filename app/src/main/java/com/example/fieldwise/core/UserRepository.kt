@@ -1,19 +1,55 @@
 package com.example.fieldwise.data
 
-import android.util.Log
+import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.String
 
 class UserRepository(private val userProfileDao: UserProfileDao) {
 
-    // Save or update the entire user profile
-    suspend fun saveUserProfile(userProfile: UserProfile) = withContext(Dispatchers.IO) {
+    suspend fun saveUserProfile(
+        username: String,
+        courses: List<String>,
+        languages: List<String>,
+        selectedCourse: String,
+        preferredLanguage: String,
+        dailyGoal: String,
+        notificationsEnabled: Boolean
+        ) {
+        val userProfile = UserProfile(
+            username = username,
+            courses = courses,  // List<String> will be converted to JSON
+            languages = languages,  // List<String> will be converted to JSON
+            selectedCourse = selectedCourse,
+            preferredLanguage = preferredLanguage,
+            dailyGoal = dailyGoal,
+            notificationsEnabled = notificationsEnabled
+        )
+
+        // Insert or update in the database
         userProfileDao.insertUserProfile(userProfile)
-    }
+        }
+
 
     // Get user profile by username
     suspend fun getUserProfile(username: String): UserProfile? = withContext(Dispatchers.IO) {
         userProfileDao.getUserProfile(username)
+    }
+
+    suspend fun updateUserProfile(userProfile: UserProfile) {
+        userProfileDao.updateUserProfile(userProfile)
+    }
+
+    suspend fun getUserLanguages(username: String): List<String>? = withContext(Dispatchers.IO) {
+        val userProfile = userProfileDao.getUserProfile(username)
+        // If the profile exists, return the languages, otherwise return null
+        userProfile?.languages
+    }
+
+    suspend fun getUserFields(username: String): List<String>? = withContext(Dispatchers.IO) {
+        val userProfile = userProfileDao.getUserProfile(username)
+        // If the profile exists, return the languages, otherwise return null
+        userProfile?.courses
     }
 
     // Save or update the globalUsername
@@ -23,9 +59,11 @@ class UserRepository(private val userProfileDao: UserProfileDao) {
             userProfileDao.insertUserProfile(
                 UserProfile(
                     username = globalUsername,
+                    courses = mutableListOf(), // Use a MutableList to add courses
+                    languages = mutableListOf(),
                     selectedCourse = globalCourse,
                     preferredLanguage = globalLanguage,
-                    dailyGoal = 0,
+                    dailyGoal = dailyGoal,
                     notificationsEnabled = false
                 )
             )
@@ -57,4 +95,9 @@ class UserRepository(private val userProfileDao: UserProfileDao) {
             allProfiles.lastOrNull()?.selectedCourse // Retrieve the last saved username
         } else null
     }
+
+
+
+
+
 }

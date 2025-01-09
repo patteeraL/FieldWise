@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.data.UserProgress
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.screen.profile_preference.LeaderboardProfile
 import com.example.fieldwise.ui.theme.FieldWiseTheme
@@ -103,8 +103,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToQuiz: () -> Unit) {
     // Initialize local states for global variables
     var localUsername by remember { mutableStateOf(globalUsername) }
-    var localLanguage by remember { mutableStateOf(globalLanguage) }
-    var localCourse by remember { mutableStateOf(globalCourse) }
+    var localLanguage by remember { mutableStateOf(preferredLanguage) }
+    var localCourse by remember { mutableStateOf(selectedCourse) }
 
     var localProgress1 by remember { mutableStateOf(0.0f) }
     var localProgress2 by remember { mutableStateOf(0.0f) }
@@ -125,8 +125,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
             )
 
     LaunchedEffect(localUsername) { globalUsername = localUsername }
-    LaunchedEffect(localLanguage) { globalLanguage = localLanguage }
-    LaunchedEffect(localCourse) { globalCourse = localCourse }
+    LaunchedEffect(localLanguage) { preferredLanguage = localLanguage }
+    LaunchedEffect(localCourse) { selectedCourse = localCourse }
 
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
@@ -139,22 +139,22 @@ fun HomeScreen(modifier: Modifier = Modifier,
         }
     }
 
-    LaunchedEffect(globalLanguage) {
-        if (globalLanguage.isEmpty()) {
+    LaunchedEffect(preferredLanguage) {
+        if (preferredLanguage.isEmpty()) {
             localLanguage = userRepository.getSavedLanguage() ?: ""
-            globalLanguage = localLanguage
+            preferredLanguage = localLanguage
         }
     }
 
-    LaunchedEffect(globalCourse) {
-        if (globalCourse.isEmpty()) {
+    LaunchedEffect(selectedCourse) {
+        if (selectedCourse.isEmpty()) {
             localCourse = userRepository.getSavedCourse() ?: ""
-            globalCourse = localCourse
+            selectedCourse = localCourse
         }
     }
 
     LaunchedEffect(Unit) {
-        progress = userProgressRepository.getUserProgress(globalUsername, globalCourse, globalLanguage)
+        progress = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)
         if (progress != null) {
             localProgress1 = progress!!.convoProgress1 + progress!!.vocabProgress1 + progress!!.listeningProgress1 + progress!!.speakingProgress1
             localProgress1 = localProgress1/4
@@ -165,8 +165,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
             Log.d("CHECKADDINGNEW","CHECKADDINGNEW")
             userProgressRepository.saveUserProgress(
                 username = globalUsername,
-                course = globalCourse,
-                language = globalLanguage,
+                course = selectedCourse,
+                language = preferredLanguage,
                 vocabProgress1 = 0.0f,
                 listeningProgress1 = 0.0f,
                 speakingProgress1 = 0.0f,
@@ -211,12 +211,12 @@ fun HomeScreen(modifier: Modifier = Modifier,
         }
     })
 
-    var courseList = getFilteredCourseList(globalLanguage, globalCourse)
+    var lessonList = getFilteredCourseList(preferredLanguage, selectedCourse)
     var Lesson1 = "Loading..."
     var Lesson2 = "Loading..."
-    if (courseList.isNotEmpty()) {
-        Lesson1 = courseList[0].course
-        Lesson2 = courseList[1].course
+    if (lessonList.isNotEmpty()) {
+        Lesson1 = lessonList[0].course
+        Lesson2 = lessonList[1].course
     }
     Box(
         modifier = modifier

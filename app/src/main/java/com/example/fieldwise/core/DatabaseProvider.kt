@@ -3,10 +3,12 @@ package com.example.fieldwise.core
 import android.content.Context
 import androidx.room.Room
 import com.example.fieldwise.data.AppDatabase
+//import com.example.fieldwise.data.MIGRATION_1_2
 import com.example.fieldwise.data.UserProgress
 import com.example.fieldwise.data.UserRepository
 
 object DatabaseProvider {
+    @Volatile
     private var database: AppDatabase? = null
 
     fun provideDatabase(context: Context): AppDatabase {
@@ -15,7 +17,9 @@ object DatabaseProvider {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "app_database"
-            ).build()
+            )
+                //.addMigrations(MIGRATION_1_2)
+                .build()
             database = instance
             instance
         }

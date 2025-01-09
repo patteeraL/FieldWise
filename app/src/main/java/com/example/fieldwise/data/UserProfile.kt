@@ -7,11 +7,12 @@ import androidx.room.PrimaryKey
 data class UserProfile(
     @PrimaryKey val username: String,
     val selectedCourse: String,
+    val courses: List<String> = emptyList(),
     val preferredLanguage: String,
-    val dailyGoal: Int,
+    val languages: List<String> = emptyList(),
     val notificationsEnabled: Boolean,
-    val streak: Int = 0
+    val streak: Int = 0,
+    val dailyGoal: String
 )
-
 
 

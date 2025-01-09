@@ -53,8 +53,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.screen.home_page.CourseABB
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LessonNO
@@ -175,7 +175,7 @@ fun ListeningScreen1(
         else -> 0f
     }
     //FOR EACH LISTENING1 EXERCISE, UPDATE THE PARAMETERS OF LANGUAGE, COURSE, LESSON AND QUESTION TO DISPLAY THE CORRECT EXERCISE
-    val language = globalLanguage
+    val language = preferredLanguage
     val course = CourseABB
     val lesson = LessonNAME
     val question1 = "Q1"
@@ -473,8 +473,8 @@ fun ListeningScreen1(
             CoroutineScope(Dispatchers.IO).launch {
                 val progress = userProgressRepository.getUserProgress(
                     globalUsername,
-                    globalCourse,
-                    globalLanguage
+                    selectedCourse,
+                    preferredLanguage
                 )
                 var localVocabprogress1 = 0.0f
                 var localSpeakingProgress1 = 0.0f
@@ -499,8 +499,8 @@ fun ListeningScreen1(
                         localListenProgress1 = localListenProgress1 + 0.5f}
                     userProgressRepository.saveUserProgress(
                         username = globalUsername,
-                        course = globalCourse,
-                        language = globalLanguage,
+                        course = selectedCourse,
+                        language = preferredLanguage,
                         vocabProgress1 = localVocabprogress1,
                         listeningProgress1 = localListenProgress1,
                         speakingProgress1 = localSpeakingProgress1,
@@ -515,8 +515,8 @@ fun ListeningScreen1(
                         localListenProgress2 = localListenProgress2 + 0.5f}
                     userProgressRepository.saveUserProgress(
                         username = globalUsername,
-                        course = globalCourse,
-                        language = globalLanguage,
+                        course = selectedCourse,
+                        language = preferredLanguage,
                         vocabProgress1 = localVocabprogress1,
                         listeningProgress1 = localListenProgress1,
                         speakingProgress1 = localSpeakingProgress1,

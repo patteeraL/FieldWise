@@ -17,12 +17,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
@@ -33,8 +35,14 @@ import com.example.fieldwise.ui.widget.PleaseSelectPopUp
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
 
+var dailyGoal = ""
+
 @Composable
 fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: () -> Unit, NavigateToUserName: () -> Unit) {
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
+
     val options = listOf("5 min / day", "10 min / day", "15 min / day", "20 min / day")
     val descriptions = listOf("Light", "Moderate", "Serious", "Intense")
 
@@ -90,7 +98,9 @@ fun SetDailyGoalScreen(modifier: Modifier = Modifier, NavigateToNotification: ()
                     if (selectedOption.isEmpty()) {
                         showDialog = true
 
-                    } else {NavigateToNotification() }},
+                    } else {
+                        dailyGoal = selectedOption
+                        NavigateToNotification() }},
                 mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }

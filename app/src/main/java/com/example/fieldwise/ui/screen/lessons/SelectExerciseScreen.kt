@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
 import com.example.fieldwise.core.DatabaseProvider
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
@@ -58,7 +58,7 @@ fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> 
 
 
     LaunchedEffect(Unit) {
-        val progress = userProgressRepository.getUserProgress(globalUsername, globalCourse, globalLanguage)
+        val progress = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)
         Log.d("CHECKKKK","$progress")
         if (progress != null) {
             if (LessonNO == "Lesson 1"){

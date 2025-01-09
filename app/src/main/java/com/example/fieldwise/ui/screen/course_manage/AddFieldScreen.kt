@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
+import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
@@ -35,8 +37,12 @@ import com.example.fieldwise.ui.widget.PleaseSelectPopUp
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.SetUpButton
 
+
 @Composable
 fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Unit, NavigateToComplete: () -> Unit) {
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer, // Replace with your actual vector drawable resource
@@ -92,7 +98,9 @@ fun AddFieldScreen(modifier: Modifier = Modifier, NavigateToDailyGoal: () -> Uni
             MainButton(button = "CONTINUE",
                 onClick = { if (selectedOption.isEmpty()) {
                     showDialog = true
-                } else { NavigateToComplete() }
+                } else {
+
+                    NavigateToComplete() }
                           },
                 mainButtonType = MainButtonType.BLUE, isEnable = true)
         }

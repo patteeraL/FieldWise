@@ -41,8 +41,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.model.ProcessingResult
 import com.example.fieldwise.ui.screen.home_page.CourseABB
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
@@ -86,7 +86,7 @@ var commentNumberSpeaking = 0
 var newCommentsDataSpeaking: List<String> = emptyList()
 
 // Data from Firebase
-val SpeakingLanguage = globalLanguage
+val SpeakingLanguage = preferredLanguage
 val SpeakingCourse = CourseABB
 val SpeakingLesson = LessonNAME
 val SpeakingQuestion = "Q1"
@@ -474,8 +474,8 @@ fun BottomControls(
                 CoroutineScope(Dispatchers.IO).launch {
                     val progress = userProgressRepository.getUserProgress(
                         globalUsername,
-                        globalCourse,
-                        globalLanguage
+                        selectedCourse,
+                        preferredLanguage
                     )
                     var localVocabprogress1 = 0.0f
                     var localSpeakingProgress1 = 0.0f
@@ -500,8 +500,8 @@ fun BottomControls(
                             localConvoProgress1 = localConvoProgress1 + 1f}
                         userProgressRepository.saveUserProgress(
                             username = globalUsername,
-                            course = globalCourse,
-                            language = globalLanguage,
+                            course = selectedCourse,
+                            language = preferredLanguage,
                             vocabProgress1 = localVocabprogress1,
                             listeningProgress1 = localListenProgress1,
                             speakingProgress1 = localSpeakingProgress1,
@@ -516,8 +516,8 @@ fun BottomControls(
                             localConvoProgress2 = localConvoProgress2 + 1f}
                         userProgressRepository.saveUserProgress(
                             username = globalUsername,
-                            course = globalCourse,
-                            language = globalLanguage,
+                            course = selectedCourse,
+                            language = preferredLanguage,
                             vocabProgress1 = localVocabprogress1,
                             listeningProgress1 = localListenProgress1,
                             speakingProgress1 = localSpeakingProgress1,

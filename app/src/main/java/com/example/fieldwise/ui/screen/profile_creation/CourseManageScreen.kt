@@ -1,7 +1,6 @@
 package com.example.fieldwise.ui.screen.profile_creation
 
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
 import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.UserProfile
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
@@ -42,8 +42,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-var globalCourse = ""
-var globalLanguage = ""
+var selectedCourse = ""
+var preferredLanguage = ""
 
 @Composable
 fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> Unit, NavigateToNotification: () -> Unit) {
@@ -124,24 +124,49 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
             SetUpButton(langOptions, descriptions = null, iconResIds = langIconResIds, onSelectionChange = {selectedOption2 = it})
             Spacer(modifier = Modifier.height(30.dp))
             MainButton(button = "CONTINUE",
-                onClick = { if (selectedOption1.isEmpty() or selectedOption2.isEmpty()) {
-                    showDialog = true
-                } else {
-                    globalCourse = selectedOption1
-                    globalLanguage = selectedOption2
-                    CoroutineScope(Dispatchers.IO).launch {
-                        try {
-                            // Save globalUsername locally
-                            userRepository.saveGlobal(globalUsername, globalLanguage, globalCourse)
-                        } catch (e: Exception) {
-                            println("Error updating profile: ${e.message}")
+                onClick = {
+                    if (selectedOption1.isEmpty() || selectedOption2.isEmpty()) {
+                        showDialog = true
+                    } else {
+                        selectedCourse = selectedOption1
+                        preferredLanguage = selectedOption2
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val userProfile = userRepository.getUserProfile(globalUsername) ?: UserProfile(
+                                    username = globalUsername,
+                                    selectedCourse = selectedCourse,
+                                    preferredLanguage = preferredLanguage,
+                                    notificationsEnabled = true,
+                                    dailyGoal = dailyGoal
+                                )
+
+                                val updatedCourses = userProfile.courses.toMutableList().apply {
+                                    if (!contains(selectedCourse)) add(selectedCourse)
+                                }
+
+                                val updatedLanguages = userProfile.languages.toMutableList().apply {
+                                    if (!contains(preferredLanguage)) add(preferredLanguage)
+                                }
+
+                                userRepository.updateUserProfile(
+                                    userProfile.copy(
+                                        selectedCourse = selectedCourse,
+                                        preferredLanguage = preferredLanguage,
+                                        courses = updatedCourses,
+                                        languages = updatedLanguages
+                                    )
+                                )
+
+                            } catch (e: Exception) {
+                                println("Error updating profile: ${e.message}")
+                            }
                         }
-                    }
                     CoroutineScope(Dispatchers.IO).launch {
                         userProgressRepository.saveUserProgress(
                             username = globalUsername,
-                            course = globalCourse,
-                            language = globalLanguage,
+                            course = selectedCourse,
+                            language = preferredLanguage,
                             vocabProgress1 = 0.0f,
                             listeningProgress1 = 0.0f,
                             speakingProgress1 = 0.0f,

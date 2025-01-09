@@ -56,8 +56,8 @@ import com.example.fieldwise.core.DatabaseProvider
 import com.example.fieldwise.model.ConverseRequest
 import com.example.fieldwise.model.Message
 import com.example.fieldwise.ui.screen.home_page.CourseABB
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
@@ -184,7 +184,7 @@ fun ConversationScreen1(
         else -> 0f
     }
     //Variables to change for each exercise
-    val convoLanguage = globalLanguage
+    val convoLanguage = preferredLanguage
     val convoCourse = CourseABB
     val convoLesson = LessonNAME
     val convoQuestion = "Q1"
@@ -208,7 +208,7 @@ fun ConversationScreen1(
     }
 
     LaunchedEffect(Unit) {
-        if (globalLanguage == "Thai") {
+        if (preferredLanguage == "Thai") {
             history.add(
                 Message(
                     role = "assistant",
@@ -234,7 +234,7 @@ fun ConversationScreen1(
         isGeneratingReply = true
 
         val request = ConverseRequest(
-            language = globalLanguage,
+            language = preferredLanguage,
             script = script,
             history = history.dropLast(1) // Remove loading message
         )
@@ -458,8 +458,8 @@ fun ConversationScreen1(
         CoroutineScope(Dispatchers.IO).launch {
             val progress = userProgressRepository.getUserProgress(
                 globalUsername,
-                globalCourse,
-                globalLanguage
+                selectedCourse,
+                preferredLanguage
             )
             var localVocabprogress1 = 0.0f
             var localSpeakingProgress1 = 0.0f
@@ -484,8 +484,8 @@ fun ConversationScreen1(
                     localConvoProgress1 = localConvoProgress1 + 1f}
                 userProgressRepository.saveUserProgress(
                     username = globalUsername,
-                    course = globalCourse,
-                    language = globalLanguage,
+                    course = selectedCourse,
+                    language = preferredLanguage,
                     vocabProgress1 = localVocabprogress1,
                     listeningProgress1 = localListenProgress1,
                     speakingProgress1 = localSpeakingProgress1,
@@ -500,8 +500,8 @@ fun ConversationScreen1(
                     localConvoProgress2 = localConvoProgress2 + 1f}
                 userProgressRepository.saveUserProgress(
                     username = globalUsername,
-                    course = globalCourse,
-                    language = globalLanguage,
+                    course = selectedCourse,
+                    language = preferredLanguage,
                     vocabProgress1 = localVocabprogress1,
                     listeningProgress1 = localListenProgress1,
                     speakingProgress1 = localSpeakingProgress1,

@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
 import com.example.fieldwise.core.DatabaseProvider
-import com.example.fieldwise.ui.screen.profile_creation.globalCourse
-import com.example.fieldwise.ui.screen.profile_creation.globalLanguage
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
@@ -43,33 +43,42 @@ fun CourseManageButton(
     var expanded by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    val langFields = remember {
-        mapOf(
-            R.drawable.eng_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer"),
-            R.drawable.thai_rectangle to listOf(R.drawable.map to "Geography", R.drawable.computer to "Computer")
-        )
-    }
 
     // Load global language and course on first composition
     LaunchedEffect(Unit) {
-        if (globalLanguage.isEmpty()) {
-            globalLanguage = userRepository.getSavedLanguage() ?: ""
+        if (preferredLanguage.isEmpty()) {
+            preferredLanguage = userRepository.getSavedLanguage() ?: ""
         }
-        if (globalCourse.isEmpty()) {
-            globalCourse = userRepository.getSavedCourse() ?: ""
+        if (selectedCourse.isEmpty()) {
+            selectedCourse = userRepository.getSavedCourse() ?: ""
         }
     }
 
     var selectedLang by remember {
         mutableStateOf(
-            if (globalLanguage == "Thai") R.drawable.thai_rectangle else R.drawable.eng_rectangle
+            if (preferredLanguage == "Thai") R.drawable.thai_rectangle else R.drawable.eng_rectangle
         )
     }
 
     var selectedField by remember {
         mutableStateOf(
-            if (globalCourse == "Geography") R.drawable.map else R.drawable.computer
+            if (selectedCourse == "Geography") R.drawable.map else R.drawable.computer
         )
+    }
+
+    // States for user languages and fields
+    var userLanguages by remember { mutableStateOf<List<String>>(emptyList()) }
+    var userFields by remember { mutableStateOf<List<String>>(emptyList()) }
+
+    // Load languages and fields
+    LaunchedEffect(globalUsername) {
+        // Fetch user languages and fields asynchronously
+        try {
+            userLanguages = userRepository.getUserLanguages(globalUsername) ?: emptyList()
+            userFields = userRepository.getUserFields(globalUsername) ?: emptyList()
+        } catch (e: Exception) {
+            println("Error fetching user languages/fields: ${e.message}")
+        }
     }
 
     // Animation for button click
@@ -78,13 +87,14 @@ fun CourseManageButton(
     fun saveGlobalStateAndNavigate() {
         coroutineScope.launch {
             try {
-                userRepository.saveGlobal(globalUsername, globalLanguage, globalCourse)
+                userRepository.saveGlobal(globalUsername, preferredLanguage, selectedCourse)
                 NavigateToLoadingScreen2()
             } catch (e: Exception) {
                 println("Error updating profile: ${e.message}")
             }
         }
     }
+
 
     Box(modifier = modifier) {
         Button(
@@ -124,24 +134,60 @@ fun CourseManageButton(
                 offset = IntOffset(0, 160),
                 onDismissRequest = { expanded = false }
             ) {
+                val context = LocalContext.current
+                val userRepository = DatabaseProvider.provideUserRepository(context)
                 CourseManageDropdown(
                     onDismissRequest = { expanded = false },
                     onLangSelected = { lang ->
                         selectedLang = lang
-                        selectedField = langFields[lang]?.firstOrNull()?.first ?: selectedField
-                        globalLanguage = if (selectedLang == R.drawable.eng_rectangle) "English" else "Thai"
+                        preferredLanguage = if (selectedLang == R.drawable.eng_rectangle) "English" else "Thai"
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val userProfile = userRepository.getUserProfile(globalUsername)
+                                if (userProfile != null) {
+                                    val updatedLanguages = userProfile.languages.toMutableList().apply {
+                                        if (!contains(preferredLanguage)) add(preferredLanguage)
+                                    }
+                                    userRepository.updateUserProfile(
+                                        userProfile.copy(
+                                            preferredLanguage = preferredLanguage,
+                                            languages = updatedLanguages
+                                        )
+                                    )
+                                }
+                            } catch (e: Exception) {
+                                println("Error updating preferred language: ${e.message}")
+                            }
+                        }
                         saveGlobalStateAndNavigate()
                     },
                     onFieldSelected = { field ->
                         selectedField = field
-                        globalCourse = if (selectedField == R.drawable.computer) "Computer Science" else "Geography"
+                        selectedCourse = if (selectedField == R.drawable.map) "Geography" else "Computer Science"
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val userProfile = userRepository.getUserProfile(globalUsername)
+                                if (userProfile != null) {
+                                    val updatedCourses = userProfile.courses.toMutableList().apply {
+                                        if (!contains(selectedCourse)) add(selectedCourse)
+                                    }
+                                    userRepository.updateUserProfile(
+                                        userProfile.copy(
+                                            selectedCourse = selectedCourse,
+                                            courses = updatedCourses
+                                        )
+                                    )
+                                }
+                            } catch (e: Exception) {
+                                println("Error updating selected course: ${e.message}")
+                            }
+                        }
                         saveGlobalStateAndNavigate()
                     },
-                    langs = listOf(
-                        R.drawable.eng_rectangle to "English",
-                        R.drawable.thai_rectangle to "Thai"
-                    ),
-                    fields = langFields[selectedLang] ?: emptyList(),
+                    langs = userLanguages,
+                    fields = userFields,
                     selectedLang = selectedLang,
                     selectedField = selectedField,
                     NavigateToAddCourse = NavigateToAddCourse,
@@ -159,37 +205,49 @@ fun CourseManageDropdown(
     onDismissRequest: () -> Unit,
     onLangSelected: (Int) -> Unit,
     onFieldSelected: (Int) -> Unit,
-    langs: List<Pair<Int, String>>,
-    fields: List<Pair<Int, String>>,
+    langs: List<String>?,
+    fields: List<String>?,
     selectedLang: Int,
     selectedField: Int,
     NavigateToAddCourse: () -> Unit,
     NavigateToAddLanguage: () -> Unit
 ) {
-
-
     Column(
         modifier = Modifier
             .width(350.dp)
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
             .padding(18.dp)
     ) {
-        Text("Languages", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFF828282))
+        // Language Selection
+        Text(
+            text = "Languages",
+            fontSize = 15.sp,
+            fontFamily = SeravekFontFamily,
+            fontWeight = FontWeight.Medium,
+            color = Color(0xFF828282)
+        )
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            langs.forEach { lang ->
-                val isSelected = lang.first == selectedLang
+            langs?.forEachIndexed { index, lang ->
+                val resIdLang = if (lang == "Thai") R.drawable.thai_rectangle else R.drawable.eng_rectangle
+                val isSelectedLang = selectedLang == resIdLang
+                Log.d("selectedLang == resIdLang", isSelectedLang.toString())
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.clickable { onLangSelected(lang.first) }
+                    modifier = if (!isSelectedLang) Modifier.clickable { onLangSelected(resIdLang) } else Modifier
                 ) {
-                    Image(painter = painterResource(id = lang.first), contentDescription = lang.second, modifier = Modifier.size(60.dp))
+                    Image(
+                        painter = painterResource(id = resIdLang),
+                        contentDescription = lang,
+                        modifier = Modifier.size(60.dp)
+                    )
                     Text(
-                        lang.second,
+                        text = lang,
                         fontSize = 15.sp,
                         fontFamily = SeravekFontFamily,
-                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                        color = if (isSelected) Color(0xFF1AB8E8) else Color(0xFF828282)
+                        fontWeight = if (isSelectedLang) FontWeight.Bold else FontWeight.Medium,
+                        color = if (isSelectedLang) Color(0xFF1AB8E8) else Color(0xFF828282)
                     )
                 }
             }
@@ -198,29 +256,42 @@ fun CourseManageDropdown(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Fields", fontSize = 15.sp, fontFamily = SeravekFontFamily, fontWeight = FontWeight.Medium, color = Color(0xFF828282))
+        // Field Selection
+        Text(
+            text = "Fields",
+            fontSize = 15.sp,
+            fontFamily = SeravekFontFamily,
+            fontWeight = FontWeight.Medium,
+            color = Color(0xFF828282)
+        )
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            fields.forEach { field ->
-                val isSelected = field.first == selectedField
+            fields?.forEachIndexed { index, field ->
+                val resIdLField = if (field == "Geography") R.drawable.map else R.drawable.computer
+                val isSelectedField = selectedField == resIdLField
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.clickable { onFieldSelected(field.first) }
+                    modifier = if (!isSelectedField) Modifier.clickable { onLangSelected(resIdLField) } else Modifier
                 ) {
-                    Image(painter = painterResource(id = field.first), contentDescription = field.second, modifier = Modifier.size(60.dp))
+                    Image(
+                        painter = painterResource(id = resIdLField),
+                        contentDescription = field,
+                        modifier = Modifier.size(60.dp)
+                    )
                     Text(
-                        field.second,
+                        text = field,
                         fontSize = 15.sp,
                         fontFamily = SeravekFontFamily,
-                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                        color = if (isSelected) Color(0xFF1AB8E8) else Color(0xFF828282)
+                        fontWeight = if (isSelectedField) FontWeight.Bold else FontWeight.Medium,
+                        color = if (isSelectedField) Color(0xFF1AB8E8) else Color(0xFF828282)
                     )
                 }
             }
-            AddCourseButton("add fields", NavigateToAddCourse = NavigateToAddCourse)
+            AddCourseButton("Add fields", NavigateToAddCourse = NavigateToAddCourse)
         }
     }
 }
+
 
 @Composable
 fun AddLanguageButton(description: String, NavigateToAddLanguage: () -> Unit) {

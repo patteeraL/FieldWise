@@ -23,6 +23,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,12 +31,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.UserProfile
+import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
+import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.DeleteAccountPopUp
@@ -47,6 +53,19 @@ import com.example.fieldwise.ui.widget.SaveChangesPopUp
 
 @Composable
 fun SettingScreen(modifier: Modifier = Modifier, NavigateToProfile: () -> Unit, Restart: () -> Unit)  {
+
+    val context = LocalContext.current
+    val userRepository = DatabaseProvider.provideUserRepository(context)
+
+    // Taking userdata from localdatabase
+    val userProfile = remember { mutableStateOf<UserProfile?>(null) }
+
+    LaunchedEffect(Unit) {
+        val user = userRepository.getUserProfile(globalUsername)
+        user?.let {
+            userProfile.value = it
+        }
+    }
 
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -101,6 +120,8 @@ fun DropDownDemo(Restart: () -> Unit) {
     }
 
     val dailygoals = listOf("5 min / day (Light)", "10 min / day (Moderate)", "15 min / day (Serious)", "20 min / day (Intense)")
+    val dailygoal_placeholder = dailyGoal
+
 
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -132,7 +153,7 @@ fun DropDownDemo(Restart: () -> Unit) {
                 Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(
-                        text = dailygoals[itemPosition.value],
+                        text = dailygoal_placeholder,
                         fontSize = 18.sp,
                         fontFamily = InterFontFamily
                     )
