@@ -1,11 +1,12 @@
-package com.example.fieldwise.core
+package com.example.fieldwise.data.provider
 
 import android.content.Context
 import androidx.room.Room
-import com.example.fieldwise.data.AppDatabase
+import com.example.fieldwise.data.local.AppDatabase
 //import com.example.fieldwise.data.MIGRATION_1_2
-import com.example.fieldwise.data.UserProgress
-import com.example.fieldwise.data.UserRepository
+import com.example.fieldwise.data.repository.UserRepository
+import com.example.fieldwise.data.repository.LanguageCourseRepository
+import com.example.fieldwise.data.repository.UserProgressRepository
 
 object DatabaseProvider {
     @Volatile
@@ -34,4 +35,14 @@ object DatabaseProvider {
         val database = provideDatabase(context)
         return UserProgressRepository(database.userProgressDao())
     }
+
+    fun provideLanguageCourseRepository(context: Context): LanguageCourseRepository {
+        val database = provideDatabase(context)
+        return LanguageCourseRepository(
+            database.languageCourseDao(),
+            database.languageDao(),
+            database.courseDao()
+        )
+    }
+
 }

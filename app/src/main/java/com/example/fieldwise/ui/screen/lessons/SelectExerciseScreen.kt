@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
@@ -38,10 +38,6 @@ import com.example.fieldwise.ui.widget.LeaderBoardButton
 import com.example.fieldwise.ui.widget.LessonNAME
 import com.example.fieldwise.ui.widget.LessonNO
 import com.example.fieldwise.ui.widget.TestNotavailablePopUp
-
-var username = ""
-var course = ""
-var language = ""
 
 @Composable
 fun SelectExerciseScreen(modifier: Modifier = Modifier, NavigateToLeader: () -> Unit, NavigateToHome: () -> Unit, NavigateToListening: () -> Unit, NavigateToConversation: () -> Unit, NavigateToSpeaking: () -> Unit, NavigateToVocabulary: () -> Unit, OpenTest: () -> Unit) {

@@ -38,8 +38,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import com.example.fieldwise.core.DatabaseProvider
-import com.example.fieldwise.model.ProcessingResult
+import com.example.fieldwise.data.provider.DatabaseProvider
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ProcessingResult
 import com.example.fieldwise.ui.screen.home_page.CourseABB
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
@@ -56,7 +56,7 @@ import com.example.fieldwise.ui.widget.MicButton
 import com.example.fieldwise.ui.widget.ProgressType
 import com.example.fieldwise.ui.widget.TextToSpeechButton
 import com.example.fieldwise.utils.AudioManager
-import com.example.fieldwise.viewmodel.AiViewModel
+import com.example.fieldwise.ui.screen.lessons.speaking.viewmodel.AiViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage

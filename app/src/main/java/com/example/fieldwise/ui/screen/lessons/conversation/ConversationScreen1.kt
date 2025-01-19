@@ -52,9 +52,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
-import com.example.fieldwise.core.DatabaseProvider
-import com.example.fieldwise.model.ConverseRequest
-import com.example.fieldwise.model.Message
+import com.example.fieldwise.data.provider.DatabaseProvider
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ConverseRequest
+import com.example.fieldwise.ui.screen.lessons.speaking.model.Message
 import com.example.fieldwise.ui.screen.home_page.CourseABB
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
@@ -69,7 +69,7 @@ import com.example.fieldwise.ui.widget.LinearProgress
 import com.example.fieldwise.ui.widget.MainButton
 import com.example.fieldwise.ui.widget.MainButtonType
 import com.example.fieldwise.ui.widget.ProgressType
-import com.example.fieldwise.viewmodel.AiViewModel
+import com.example.fieldwise.ui.screen.lessons.speaking.viewmodel.AiViewModel
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope

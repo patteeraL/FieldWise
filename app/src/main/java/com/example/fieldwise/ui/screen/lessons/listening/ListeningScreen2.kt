@@ -46,7 +46,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.ui.screen.home_page.CourseABB
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage

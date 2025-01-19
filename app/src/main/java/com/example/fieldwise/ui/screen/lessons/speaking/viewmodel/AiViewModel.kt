@@ -1,8 +1,8 @@
-package com.example.fieldwise.viewmodel
+package com.example.fieldwise.ui.screen.lessons.speaking.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.fieldwise.model.ConverseRequest
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ConverseRequest
 import com.example.fieldwise.network.ApiService
 import kotlinx.coroutines.Dispatchers
 

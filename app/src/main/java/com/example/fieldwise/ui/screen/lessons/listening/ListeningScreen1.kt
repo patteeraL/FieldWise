@@ -51,7 +51,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.ui.screen.home_page.CourseABB
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage

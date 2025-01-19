@@ -49,9 +49,7 @@ import com.example.fieldwise.ui.widget.ProgressType
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
-import com.example.fieldwise.data.UserRepository //for localdatabase
-import com.example.fieldwise.data.UserProfile
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -143,13 +141,13 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
 
                             //saving user in local database
                             CoroutineScope(Dispatchers.IO).launch {
-                                userRepository.saveUserProfile(username = globalUsername,
-                                    courses = emptyList(),
-                                    languages = emptyList(),
-                                    selectedCourse = "",
-                                    preferredLanguage = "",
-                                    dailyGoal = "5 min / day (Light)",
-                                    notificationsEnabled = true)
+                                userRepository.saveUserProfile(
+                                    username = globalUsername,
+                                    selectedCourse = null, // No course selected by default
+                                    preferredLanguage = null, // No language selected by default
+                                    dailyGoal = "5 min / day",
+                                    notificationsEnabled = true
+                                )
                             }
 
                             NavigateToGoal()

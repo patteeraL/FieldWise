@@ -1,23 +1,19 @@
-package com.example.fieldwise.data
+package com.example.fieldwise.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "languages")
-data class Language(
-    @PrimaryKey val languageName: String
-)
-
-@Entity(tableName = "courses")
-data class Course(
-    @PrimaryKey val courseName: String
-)
 
 @Entity(
     tableName = "language_course",
-    primaryKeys = ["languageName", "courseName"],
+    primaryKeys = ["username","languageName", "courseName"],
     foreignKeys = [
+        ForeignKey(
+            entity = UserProfile::class,
+            parentColumns = ["username"],
+            childColumns = ["username"],
+            onDelete = ForeignKey.CASCADE
+        ),
         ForeignKey(
             entity = Language::class,
             parentColumns = ["languageName"],
@@ -33,7 +29,9 @@ data class Course(
     ]
 )
 data class LanguageCourse(
+    val username: String,
     val languageName: String,
     val courseName: String
 )
+
 

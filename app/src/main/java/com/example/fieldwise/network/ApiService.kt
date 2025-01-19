@@ -1,9 +1,9 @@
 package com.example.fieldwise.network
 
 import android.util.Log
-import com.example.fieldwise.model.ConverseRequest
-import com.example.fieldwise.model.ConverseResponse
-import com.example.fieldwise.model.TranscribeResponse
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ConverseRequest
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ConverseResponse
+import com.example.fieldwise.ui.screen.lessons.speaking.model.TranscribeResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.formData

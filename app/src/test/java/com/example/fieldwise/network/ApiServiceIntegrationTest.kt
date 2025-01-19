@@ -1,7 +1,7 @@
 package com.example.fieldwise.viewmodel
 
-import com.example.fieldwise.model.ConverseRequest
-import com.example.fieldwise.model.Message
+import com.example.fieldwise.ui.screen.lessons.speaking.model.ConverseRequest
+import com.example.fieldwise.ui.screen.lessons.speaking.model.Message
 import com.example.fieldwise.network.ApiService
 import com.example.fieldwise.network.KtorClient
 import kotlinx.coroutines.test.runTest

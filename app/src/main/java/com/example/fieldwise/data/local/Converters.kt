@@ -1,4 +1,4 @@
-package com.example.fieldwise.data
+package com.example.fieldwise.data.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

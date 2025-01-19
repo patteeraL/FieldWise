@@ -1,4 +1,4 @@
-package com.example.fieldwise.model
+package com.example.fieldwise.ui.screen.lessons.speaking.model
 
 import kotlinx.serialization.Serializable
 

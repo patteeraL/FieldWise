@@ -1,4 +1,4 @@
-package com.example.fieldwise.data
+package com.example.fieldwise.data.local
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey

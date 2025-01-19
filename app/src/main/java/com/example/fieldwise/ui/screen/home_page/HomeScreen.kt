@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.data.UserProgress
 import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
@@ -76,17 +76,41 @@ fun getCourseList(): List<CourseFormat> {
 @Composable
 fun getFilteredCourseList(selectedLanguage: String, selectedCourse: String): List<CourseFormat> {
     val allCourses = getCourseList()
-    var selectedCourseInput = ""
-    if (selectedCourse == "Computer Science"){
-        selectedCourseInput = "CS"
-        CourseABB = "CS"
+    var selectedCourseInput = when (selectedCourse) {
+        "Computer Science" -> "CS"
+        "Geography" -> "GEO"
+        else -> ""
     }
-    if (selectedCourse == "Geography"){
-        selectedCourseInput = "GEO"
-        CourseABB = "GEO"
-    }
+    CourseABB = selectedCourseInput
     return allCourses.filter { it.language == selectedLanguage && it.subject == selectedCourseInput }
 }
+
+// Example Firebase Database Snippet
+// {
+//     "Exercises": {
+//         "English": {
+//             "CS": {
+//                 "Basics of Program Development": {},
+//                 "Basics of Programming Language": {}
+//             },
+//             "GEO": {
+//                 "Basics of Human Geography": {},
+//                 "Basics of World Geography": {}
+//             }
+//         },
+//         "Spanish": {
+//             "CS": {
+//                 "Introducción al Desarrollo de Programas": {},
+//                 "Introducción a Lenguajes de Programación": {}
+//             },
+//             "GEO": {
+//                 "Geografía Humana Básica": {},
+//                 "Geografía Mundial Básica": {}
+//             }
+//         }
+//     }
+// }
+
 
 // Get list of data by "val LISTOFDATA = getUserData()"
 // Data will be in the format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
@@ -102,6 +126,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToProfile: () -> Unit,
                NavigateToLessons: () -> Unit,
                NavigateToQuiz: () -> Unit) {
+
     // Initialize local states for global variables
     var localUsername by remember { mutableStateOf(globalUsername) }
     var localLanguage by remember { mutableStateOf(preferredLanguage) }
@@ -113,9 +138,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
 
     var localProgressStatus = false
     var progress: UserProgress? = UserProgress(
-            username = "",
-            course = "",
-            language = "",
+            username = globalUsername,
+            course = selectedCourse,
+            language = preferredLanguage,
             vocabProgress1 = 0.0f,
             listeningProgress1 = 0.0f,
             speakingProgress1 = 0.0f,
@@ -137,22 +162,19 @@ fun HomeScreen(modifier: Modifier = Modifier,
 
     LaunchedEffect(globalUsername) {
         if (globalUsername.isEmpty()) {
-            localUsername = userRepository.getSavedGlobalUsername() ?: ""
-            globalUsername = localUsername
+            globalUsername = userRepository.getSavedGlobalUsername() ?: ""
         }
     }
 
     LaunchedEffect(preferredLanguage) {
         if (preferredLanguage.isEmpty()) {
-            localLanguage = userRepository.getSavedLanguage() ?: ""
-            preferredLanguage = localLanguage
+            preferredLanguage = userRepository.getSavedLanguage() ?: ""
         }
     }
 
     LaunchedEffect(selectedCourse) {
         if (selectedCourse.isEmpty()) {
-            localCourse = userRepository.getSavedCourse() ?: ""
-            selectedCourse = localCourse
+            selectedCourse = userRepository.getSavedCourse() ?: ""
         }
     }
 

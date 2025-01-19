@@ -1,4 +1,3 @@
-import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -21,14 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
+import com.example.fieldwise.data.LanguageCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
@@ -40,9 +38,9 @@ fun CourseManageButton(
 ) {
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
+    val LanguageCourseRepository = DatabaseProvider.provideLanguageCourseRepository(context)
     var expanded by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-
 
     // Load global language and course on first composition
     LaunchedEffect(Unit) {
@@ -67,15 +65,13 @@ fun CourseManageButton(
     }
 
     // States for user languages and fields
-    var userLanguages by remember { mutableStateOf<List<String>>(emptyList()) }
-    var userFields by remember { mutableStateOf<List<String>>(emptyList()) }
+    var userLanguagesWithCourses by remember { mutableStateOf<List<LanguageCourse>>(emptyList()) }
 
     // Load languages and fields
     LaunchedEffect(globalUsername) {
         // Fetch user languages and fields asynchronously
         try {
-            userLanguages = userRepository.getUserLanguages(globalUsername) ?: emptyList()
-            userFields = userRepository.getUserFields(globalUsername) ?: emptyList()
+            userLanguagesWithCourses = LanguageCourseRepository.getLanguagesWithCourses() // Fetch the combined data
         } catch (e: Exception) {
             println("Error fetching user languages/fields: ${e.message}")
         }
@@ -142,52 +138,16 @@ fun CourseManageButton(
                         selectedLang = lang
                         preferredLanguage = if (selectedLang == R.drawable.eng_rectangle) "English" else "Thai"
 
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                val userProfile = userRepository.getUserProfile(globalUsername)
-                                if (userProfile != null) {
-                                    val updatedLanguages = userProfile.languages.toMutableList().apply {
-                                        if (!contains(preferredLanguage)) add(preferredLanguage)
-                                    }
-                                    userRepository.updateUserProfile(
-                                        userProfile.copy(
-                                            preferredLanguage = preferredLanguage,
-                                            languages = updatedLanguages
-                                        )
-                                    )
-                                }
-                            } catch (e: Exception) {
-                                println("Error updating preferred language: ${e.message}")
-                            }
-                        }
                         saveGlobalStateAndNavigate()
                     },
                     onFieldSelected = { field ->
                         selectedField = field
                         selectedCourse = if (selectedField == R.drawable.map) "Geography" else "Computer Science"
 
-                        CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                val userProfile = userRepository.getUserProfile(globalUsername)
-                                if (userProfile != null) {
-                                    val updatedCourses = userProfile.courses.toMutableList().apply {
-                                        if (!contains(selectedCourse)) add(selectedCourse)
-                                    }
-                                    userRepository.updateUserProfile(
-                                        userProfile.copy(
-                                            selectedCourse = selectedCourse,
-                                            courses = updatedCourses
-                                        )
-                                    )
-                                }
-                            } catch (e: Exception) {
-                                println("Error updating selected course: ${e.message}")
-                            }
-                        }
                         saveGlobalStateAndNavigate()
                     },
-                    langs = userLanguages,
-                    fields = userFields,
+                    langs = userLanguagesWithCourses.map { it.languageName },
+                    fields = userLanguagesWithCourses.map { it.courseName },
                     selectedLang = selectedLang,
                     selectedField = selectedField,
                     NavigateToAddCourse = NavigateToAddCourse,
@@ -231,7 +191,6 @@ fun CourseManageDropdown(
             langs?.forEachIndexed { index, lang ->
                 val resIdLang = if (lang == "Thai") R.drawable.thai_rectangle else R.drawable.eng_rectangle
                 val isSelectedLang = selectedLang == resIdLang
-                Log.d("selectedLang == resIdLang", isSelectedLang.toString())
 
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -267,14 +226,15 @@ fun CourseManageDropdown(
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             fields?.forEachIndexed { index, field ->
-                val resIdLField = if (field == "Geography") R.drawable.map else R.drawable.computer
-                val isSelectedField = selectedField == resIdLField
+                val resIdField = if (field == "Geography") R.drawable.map else R.drawable.computer
+                val isSelectedField = selectedField == resIdField
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = if (!isSelectedField) Modifier.clickable { onLangSelected(resIdLField) } else Modifier
+                    modifier = if (!isSelectedField) Modifier.clickable { onFieldSelected(resIdField) } else Modifier
                 ) {
                     Image(
-                        painter = painterResource(id = resIdLField),
+                        painter = painterResource(id = resIdField),
                         contentDescription = field,
                         modifier = Modifier.size(60.dp)
                     )
@@ -287,7 +247,7 @@ fun CourseManageDropdown(
                     )
                 }
             }
-            AddCourseButton("Add fields", NavigateToAddCourse = NavigateToAddCourse)
+            AddCourseButton("Add field", NavigateToAddCourse = NavigateToAddCourse)
         }
     }
 }

@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.data.UserProfile
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
@@ -50,6 +50,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
     val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
+    val languageCourseRepository = DatabaseProvider.provideLanguageCourseRepository(context)
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer,
@@ -130,7 +131,6 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
                     } else {
                         selectedCourse = selectedOption1
                         preferredLanguage = selectedOption2
-
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 val userProfile = userRepository.getUserProfile(globalUsername) ?: UserProfile(
@@ -141,43 +141,34 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
                                     dailyGoal = dailyGoal
                                 )
 
-                                val updatedCourses = userProfile.courses.toMutableList().apply {
-                                    if (!contains(selectedCourse)) add(selectedCourse)
-                                }
-
-                                val updatedLanguages = userProfile.languages.toMutableList().apply {
-                                    if (!contains(preferredLanguage)) add(preferredLanguage)
-                                }
-
                                 userRepository.updateUserProfile(
                                     userProfile.copy(
                                         selectedCourse = selectedCourse,
                                         preferredLanguage = preferredLanguage,
-                                        courses = updatedCourses,
-                                        languages = updatedLanguages
                                     )
                                 )
 
+                                val existingMappings = languageCourseRepository.getLanguagesWithCourses()
+
+                                val alreadyMapped = existingMappings.any {
+                                    it.languageName == selectedOption2 &&
+                                            it.courseName == selectedOption1
+                                }
+
+                                if (!alreadyMapped) {
+                                    languageCourseRepository.insertLanguageCourse(
+                                        languageName = selectedOption2,
+                                        courseName = selectedOption1
+                                    )
+                                }
                             } catch (e: Exception) {
-                                println("Error updating profile: ${e.message}")
+                                println("Error updating LanguageCourse: ${e.message}")
                             }
                         }
-                    CoroutineScope(Dispatchers.IO).launch {
-                        userProgressRepository.saveUserProgress(
-                            username = globalUsername,
-                            course = selectedCourse,
-                            language = preferredLanguage,
-                            vocabProgress1 = 0.0f,
-                            listeningProgress1 = 0.0f,
-                            speakingProgress1 = 0.0f,
-                            convoProgress1 = 0.0f,
-                            vocabProgress2 = 0.0f,
-                            listeningProgress2 = 0.0f,
-                            speakingProgress2 = 0.0f,
-                            convoProgress2 = 0.0f
-                        )}
-                        NavigateToComplete() }
-                          },
+
+                        // Navigate after coroutine logic
+                        NavigateToComplete()
+                    }},
                 mainButtonType = MainButtonType.BLUE, isEnable = true)
         }
     }

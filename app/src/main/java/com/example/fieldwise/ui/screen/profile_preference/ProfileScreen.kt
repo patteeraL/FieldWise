@@ -1,7 +1,6 @@
 package com.example.fieldwise.ui.screen.profile_preference
 
 import StreakItem
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -35,7 +34,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
-import com.example.fieldwise.core.DatabaseProvider
+import com.example.fieldwise.data.provider.DatabaseProvider
 import com.example.fieldwise.data.UserProfile
 import com.example.fieldwise.ui.screen.home_page.userRank
 import com.example.fieldwise.ui.screen.home_page.userStreak
