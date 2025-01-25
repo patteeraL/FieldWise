@@ -6,14 +6,8 @@ import androidx.room.ForeignKey
 
 @Entity(
     tableName = "language_course",
-    primaryKeys = ["username","languageName", "courseName"],
+    primaryKeys = ["languageName", "courseName"],
     foreignKeys = [
-        ForeignKey(
-            entity = UserProfile::class,
-            parentColumns = ["username"],
-            childColumns = ["username"],
-            onDelete = ForeignKey.CASCADE
-        ),
         ForeignKey(
             entity = Language::class,
             parentColumns = ["languageName"],
@@ -29,9 +23,6 @@ import androidx.room.ForeignKey
     ]
 )
 data class LanguageCourse(
-    val username: String,
     val languageName: String,
     val courseName: String
 )
-
-

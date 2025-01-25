@@ -2,12 +2,21 @@ package com.example.fieldwise.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.OnConflictStrategy
 import androidx.room.Update
 import com.example.fieldwise.data.local.entities.UserProfile
 
 @Dao
 interface UserProfileDao {
+
+    // Get all user profile
+    @Query("""
+        SELECT * 
+        FROM user_profile
+    """)
+    fun getAllUserProfiles(): List<UserProfile>
 
     // Get The user profile from username
     @Query("""
@@ -52,6 +61,9 @@ interface UserProfileDao {
     // Update the user profile with UserProfile
     @Update
     suspend fun updateUserProfile(userProfile: UserProfile)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserProfile(userProfile: UserProfile)
 
     // Delete the user profile with UserProfile
     @Delete

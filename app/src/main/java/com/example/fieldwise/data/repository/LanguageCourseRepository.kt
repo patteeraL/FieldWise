@@ -1,5 +1,6 @@
 package com.example.fieldwise.data.repository
 
+import android.util.Log
 import com.example.fieldwise.data.local.entities.Course
 import com.example.fieldwise.data.local.dao.CourseDao
 import com.example.fieldwise.data.local.entities.Language
@@ -22,20 +23,19 @@ class LanguageCourseRepository(private val LanguageCourseDao: LanguageCourseDao,
 
     // Insert a new language-course mapping
     suspend fun insertLanguageCourse(username: String, languageName: String, courseName: String) {
-        LanguageCourseDao.insertLanguageCourse(
-            LanguageCourse(
-                username = username,
-                languageName = languageName,
-                courseName = courseName
-            )
-        )
         LanguageDao.insertLanguage(
             Language(
                 languageName = languageName
             )
         )
-       CourseDao.insertCourse(
+        CourseDao.insertCourse(
             Course(
+                courseName = courseName
+            )
+        )
+        LanguageCourseDao.insertLanguageCourse(
+            LanguageCourse(
+                languageName = languageName,
                 courseName = courseName
             )
         )
@@ -59,7 +59,6 @@ class LanguageCourseRepository(private val LanguageCourseDao: LanguageCourseDao,
 
         LanguageCourseDao.deleteLanguageCourse(
             LanguageCourse(
-                username = username,
                 languageName = languageName,
                 courseName = courseName
             )

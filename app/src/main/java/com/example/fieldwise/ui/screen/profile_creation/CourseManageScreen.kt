@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fieldwise.R
 import com.example.fieldwise.data.provider.DatabaseProvider
-import com.example.fieldwise.data.UserProfile
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.InterFontFamily
 import com.example.fieldwise.ui.widget.GoBackButton
@@ -50,7 +50,7 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
     val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
-    val languageCourseRepository = DatabaseProvider.provideLanguageCourseRepository(context)
+    val LanguageCourseRepository = DatabaseProvider.provideLanguageCourseRepository(context)
     val fieldOptions = listOf("Computer Science", "Geography")
     val fieldIconResIds = listOf(
         R.drawable.computer,
@@ -132,40 +132,29 @@ fun CourseManageScreen(modifier: Modifier = Modifier, NavigateToComplete: () -> 
                         selectedCourse = selectedOption1
                         preferredLanguage = selectedOption2
                         CoroutineScope(Dispatchers.IO).launch {
-                            try {
-                                val userProfile = userRepository.getUserProfile(globalUsername) ?: UserProfile(
-                                    username = globalUsername,
-                                    selectedCourse = selectedCourse,
-                                    preferredLanguage = preferredLanguage,
-                                    notificationsEnabled = true,
-                                    dailyGoal = dailyGoal
-                                )
-
-                                userRepository.updateUserProfile(
-                                    userProfile.copy(
-                                        selectedCourse = selectedCourse,
-                                        preferredLanguage = preferredLanguage,
-                                    )
-                                )
-
-                                val existingMappings = languageCourseRepository.getLanguagesWithCourses()
-
-                                val alreadyMapped = existingMappings.any {
-                                    it.languageName == selectedOption2 &&
-                                            it.courseName == selectedOption1
-                                }
-
-                                if (!alreadyMapped) {
-                                    languageCourseRepository.insertLanguageCourse(
-                                        languageName = selectedOption2,
-                                        courseName = selectedOption1
-                                    )
-                                }
-                            } catch (e: Exception) {
-                                println("Error updating LanguageCourse: ${e.message}")
-                            }
+                            Log.d("saving","$globalUsername,$selectedCourse,$preferredLanguage")
+                            userRepository.insertUserProfile(
+                                username = globalUsername,
+                                selectedCourse = selectedCourse,
+                                preferredLanguage = preferredLanguage,
+                                dailyGoal = dailyGoal,
+                                notificationsEnabled = false //Notification Status
+                            )
+                            LanguageCourseRepository.insertLanguageCourse(globalUsername, preferredLanguage, selectedCourse)
+                            userProgressRepository.insertUserProgress(
+                                username = globalUsername,
+                                course = selectedCourse,
+                                language = preferredLanguage,
+                                vocabProgress1 = 0f,
+                                listeningProgress1 = 0f,
+                                speakingProgress1 = 0f,
+                                convoProgress1 = 0f,
+                                vocabProgress2 = 0f,
+                                listeningProgress2 = 0f,
+                                speakingProgress2 = 0f,
+                                convoProgress2 = 0f
+                            )
                         }
-
                         // Navigate after coroutine logic
                         NavigateToComplete()
                     }},

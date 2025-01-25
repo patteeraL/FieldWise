@@ -12,6 +12,10 @@ interface UserProgressDao {
 
     // Update the user progress by the UserProgress
     @Update
-    suspend fun updateUserProgress(userProgress: UserProgress?)
+    suspend fun updateUserProgress(userProgress: UserProgress)
+
+    // Insert the user progress by the UserProgress
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserProgress(userProgress: UserProgress)
 
 }

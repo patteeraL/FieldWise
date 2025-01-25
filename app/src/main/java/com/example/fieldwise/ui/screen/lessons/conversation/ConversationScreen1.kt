@@ -461,54 +461,44 @@ fun ConversationScreen1(
                 selectedCourse,
                 preferredLanguage
             )
-            var localVocabprogress1 = 0.0f
-            var localSpeakingProgress1 = 0.0f
-            var localListenProgress1 = 0.0f
             var localConvoProgress1 = 0.0f
-            var localVocabprogress2 = 0.0f
-            var localSpeakingProgress2 = 0.0f
-            var localListenProgress2 = 0.0f
             var localConvoProgress2 = 0.0f
             if (progress != null) {
-                localVocabprogress1 = progress.vocabProgress1
-                localSpeakingProgress1 = progress.speakingProgress1
-                localListenProgress1 = progress.listeningProgress1
                 localConvoProgress1 = progress.convoProgress1
-                localVocabprogress2 = progress.vocabProgress2
-                localSpeakingProgress2 = progress.speakingProgress2
-                localListenProgress2 = progress.listeningProgress2
                 localConvoProgress2 = progress.convoProgress2
             }
             if (LessonNO == "Lesson 1"){
                 if (localConvoProgress1 < 1f) {
-                    localConvoProgress1 = localConvoProgress1 + 1f}
-                userProgressRepository.saveUserProgress(
+                    localConvoProgress1 += 1f
+                }
+                userProgressRepository.updateUserProgress(
                     username = globalUsername,
                     course = selectedCourse,
                     language = preferredLanguage,
-                    vocabProgress1 = localVocabprogress1,
-                    listeningProgress1 = localListenProgress1,
-                    speakingProgress1 = localSpeakingProgress1,
+                    vocabProgress1 = null,
+                    listeningProgress1 = null,
+                    speakingProgress1 = null,
                     convoProgress1 = localConvoProgress1,
-                    vocabProgress2 = localVocabprogress2,
-                    listeningProgress2 = localListenProgress2,
-                    speakingProgress2 = localSpeakingProgress2,
+                    vocabProgress2 = null,
+                    listeningProgress2 = null,
+                    speakingProgress2 = null,
                     convoProgress2 = localConvoProgress2)
             }
             else{
                 if (localConvoProgress2 < 1f) {
-                    localConvoProgress2 = localConvoProgress2 + 1f}
-                userProgressRepository.saveUserProgress(
+                    localConvoProgress2 += 1f
+                }
+                userProgressRepository.updateUserProgress(
                     username = globalUsername,
                     course = selectedCourse,
                     language = preferredLanguage,
-                    vocabProgress1 = localVocabprogress1,
-                    listeningProgress1 = localListenProgress1,
-                    speakingProgress1 = localSpeakingProgress1,
+                    vocabProgress1 = null,
+                    listeningProgress1 = null,
+                    speakingProgress1 = null,
                     convoProgress1 = localConvoProgress1,
-                    vocabProgress2 = localVocabprogress2,
-                    listeningProgress2 = localListenProgress2,
-                    speakingProgress2 = localSpeakingProgress2,
+                    vocabProgress2 = null,
+                    listeningProgress2 = null,
+                    speakingProgress2 = null,
                     convoProgress2 = localConvoProgress2)
             }
         }

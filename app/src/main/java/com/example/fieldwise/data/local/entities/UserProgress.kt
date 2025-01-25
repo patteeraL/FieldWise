@@ -8,12 +8,6 @@ import androidx.room.ForeignKey
     primaryKeys = ["username","languageName", "courseName"],
     foreignKeys = [
         ForeignKey(
-            entity = UserProfile::class,
-            parentColumns = ["username"],
-            childColumns = ["username"],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
             entity = Language::class,
             parentColumns = ["languageName"],
             childColumns = ["languageName"],

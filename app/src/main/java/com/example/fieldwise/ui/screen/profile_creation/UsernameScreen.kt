@@ -135,21 +135,6 @@ fun UsernameScreen(modifier: Modifier = Modifier, NavigateToGoal: () -> Unit) {
                                 "Streak" to 0
                             )
                             userListSnapshot.child(newUserKey).setValue(newUser)
-
-                            //initial values for a new user
-                            val userRepository = DatabaseProvider.provideUserRepository(context)
-
-                            //saving user in local database
-                            CoroutineScope(Dispatchers.IO).launch {
-                                userRepository.saveUserProfile(
-                                    username = globalUsername,
-                                    selectedCourse = null, // No course selected by default
-                                    preferredLanguage = null, // No language selected by default
-                                    dailyGoal = "5 min / day",
-                                    notificationsEnabled = true
-                                )
-                            }
-
                             NavigateToGoal()
                         }
                     }

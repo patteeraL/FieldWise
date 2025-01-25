@@ -34,8 +34,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import com.example.fieldwise.data.local.entities.UserProfile
 import com.example.fieldwise.data.provider.DatabaseProvider
-import com.example.fieldwise.data.UserProfile
 import com.example.fieldwise.ui.screen.home_page.userRank
 import com.example.fieldwise.ui.screen.home_page.userStreak
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
@@ -70,29 +70,29 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
     // Taking userdata from localdatabase
     val userProfile = remember { mutableStateOf<UserProfile?>(null) }
 
-    LaunchedEffect(Unit) {
-        val savedUser = userRepository.getUserProfile(globalUsername)
-            ?: userRepository.getSavedGlobalUsername()?.let {
-                userRepository.getUserProfile(it)
+        LaunchedEffect(Unit) {
+            val savedUser = userRepository.getUserProfile(globalUsername)
+                ?: userRepository.getSavedGlobalUsername()?.let {
+                    userRepository.getUserProfile(it)
+                }
+            globalUsername = savedUser?.username ?: ""
+            savedUser?.let {
+                userProfile.value = it
+            } ?: run {
+                // Handle no user profile found case
+                userProfile.value = null // Or a default UserProfile
             }
-        globalUsername = savedUser?.username ?: ""
-        savedUser?.let {
-            userProfile.value = it
-        } ?: run {
-            // Handle no user profile found case
-            userProfile.value = null // Or a default UserProfile
         }
-    }
 
     //animation profile image
-    var profAn =  remember { Animatable(0f) }
+    val profAn =  remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
         profAn.animateTo(
             targetValue = 360f,
             animationSpec = tween(durationMillis = 1000,
                 easing = LinearOutSlowInEasing
-        ))
+            ))
     }
     Box(
         modifier = modifier
@@ -154,12 +154,12 @@ fun ProfileScreen(modifier: Modifier = Modifier, NavigateToHome: () -> Unit, Nav
                     ) {
                         Spacer(modifier = Modifier.height(20.dp))
                         userProfile.value?.let { profile ->
-                        Text(
-                            text = profile.username,
-                            fontFamily = SeravekFontFamily,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 40.sp
-                        ) } ?: run {
+                            Text(
+                                text = profile.username,
+                                fontFamily = SeravekFontFamily,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 40.sp
+                            ) } ?: run {
                             Text(
                                 text = "Loading user data...",
                                 color = Color.Gray,

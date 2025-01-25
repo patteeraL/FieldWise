@@ -20,14 +20,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.fieldwise.R
+import com.example.fieldwise.data.local.entities.LanguageCourse
 import com.example.fieldwise.data.provider.DatabaseProvider
-import com.example.fieldwise.data.LanguageCourse
 import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.theme.SeravekFontFamily
 import kotlinx.coroutines.launch
+import android.util.Log
 
 @Composable
 fun CourseManageButton(
@@ -38,19 +39,10 @@ fun CourseManageButton(
 ) {
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
+    val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
     val LanguageCourseRepository = DatabaseProvider.provideLanguageCourseRepository(context)
     var expanded by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-
-    // Load global language and course on first composition
-    LaunchedEffect(Unit) {
-        if (preferredLanguage.isEmpty()) {
-            preferredLanguage = userRepository.getSavedLanguage() ?: ""
-        }
-        if (selectedCourse.isEmpty()) {
-            selectedCourse = userRepository.getSavedCourse() ?: ""
-        }
-    }
 
     var selectedLang by remember {
         mutableStateOf(
@@ -67,29 +59,52 @@ fun CourseManageButton(
     // States for user languages and fields
     var userLanguagesWithCourses by remember { mutableStateOf<List<LanguageCourse>>(emptyList()) }
 
-    // Load languages and fields
-    LaunchedEffect(globalUsername) {
-        // Fetch user languages and fields asynchronously
-        try {
-            userLanguagesWithCourses = LanguageCourseRepository.getLanguagesWithCourses() // Fetch the combined data
-        } catch (e: Exception) {
-            println("Error fetching user languages/fields: ${e.message}")
-        }
-    }
+    /*    // Load languages and fields
+        LaunchedEffect(globalUsername) {
+            // Fetch user languages and fields asynchronously
+            try {
+                userLanguagesWithCourses = LanguageCourseRepository.getLanguagesWithCourses() // Fetch the combined data
+            } catch (e: Exception) {
+                println("Error fetching user languages/fields: ${e.message}")
+            }
+        }*/
 
     // Animation for button click
     val buttonAn = remember { Animatable(1f) }
 
-    fun saveGlobalStateAndNavigate() {
-        coroutineScope.launch {
-            try {
-                userRepository.saveGlobal(globalUsername, preferredLanguage, selectedCourse)
-                NavigateToLoadingScreen2()
-            } catch (e: Exception) {
-                println("Error updating profile: ${e.message}")
+        fun saveGlobalStateAndNavigate() {
+            coroutineScope.launch {
+                try {
+                    userRepository.updateUserProfile(
+                        username = globalUsername,
+                        selectedCourse = selectedCourse,
+                        preferredLanguage = preferredLanguage,
+                        dailyGoal = null,
+                        notificationsEnabled = null
+                    )
+                    val currentProgressExist = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)
+                    if (currentProgressExist == null){
+                        LanguageCourseRepository.insertLanguageCourse(globalUsername, preferredLanguage, selectedCourse)
+                        userProgressRepository.insertUserProgress(
+                            username = globalUsername,
+                            course = selectedCourse,
+                            language = preferredLanguage,
+                            vocabProgress1 = 5000f,
+                            listeningProgress1 = 5000f,
+                            speakingProgress1 = 5000f,
+                            convoProgress1 = 5000f,
+                            vocabProgress2 = 5000f,
+                            listeningProgress2 = 5000f,
+                            speakingProgress2 = 5000f,
+                            convoProgress2 = 5000f
+                        )
+                    }
+                    NavigateToLoadingScreen2()
+                } catch (e: Exception) {
+                    println("Error updating profile: ${e.message}")
+                }
             }
         }
-    }
 
 
     Box(modifier = modifier) {
@@ -130,20 +145,16 @@ fun CourseManageButton(
                 offset = IntOffset(0, 160),
                 onDismissRequest = { expanded = false }
             ) {
-                val context = LocalContext.current
-                val userRepository = DatabaseProvider.provideUserRepository(context)
                 CourseManageDropdown(
                     onDismissRequest = { expanded = false },
                     onLangSelected = { lang ->
                         selectedLang = lang
                         preferredLanguage = if (selectedLang == R.drawable.eng_rectangle) "English" else "Thai"
-
                         saveGlobalStateAndNavigate()
                     },
                     onFieldSelected = { field ->
                         selectedField = field
                         selectedCourse = if (selectedField == R.drawable.map) "Geography" else "Computer Science"
-
                         saveGlobalStateAndNavigate()
                     },
                     langs = userLanguagesWithCourses.map { it.languageName },

@@ -5,7 +5,16 @@ import StreakItem
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,11 +29,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.fieldwise.data.provider.DatabaseProvider
-import com.example.fieldwise.data.UserProgress
 import com.example.fieldwise.ui.screen.profile_creation.dailyGoal
-import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
-import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
 import com.example.fieldwise.ui.screen.profile_creation.globalUsername
+import com.example.fieldwise.ui.screen.profile_creation.preferredLanguage
+import com.example.fieldwise.ui.screen.profile_creation.selectedCourse
 import com.example.fieldwise.ui.screen.profile_preference.LeaderboardProfile
 import com.example.fieldwise.ui.theme.FieldWiseTheme
 import com.example.fieldwise.ui.widget.CardType
@@ -37,6 +45,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 data class CourseFormat(val language: String, val subject: String, val course: String)
@@ -76,7 +86,7 @@ fun getCourseList(): List<CourseFormat> {
 @Composable
 fun getFilteredCourseList(selectedLanguage: String, selectedCourse: String): List<CourseFormat> {
     val allCourses = getCourseList()
-    var selectedCourseInput = when (selectedCourse) {
+    val selectedCourseInput = when (selectedCourse) {
         "Computer Science" -> "CS"
         "Geography" -> "GEO"
         else -> ""
@@ -84,37 +94,6 @@ fun getFilteredCourseList(selectedLanguage: String, selectedCourse: String): Lis
     CourseABB = selectedCourseInput
     return allCourses.filter { it.language == selectedLanguage && it.subject == selectedCourseInput }
 }
-
-// Example Firebase Database Snippet
-// {
-//     "Exercises": {
-//         "English": {
-//             "CS": {
-//                 "Basics of Program Development": {},
-//                 "Basics of Programming Language": {}
-//             },
-//             "GEO": {
-//                 "Basics of Human Geography": {},
-//                 "Basics of World Geography": {}
-//             }
-//         },
-//         "Spanish": {
-//             "CS": {
-//                 "Introducción al Desarrollo de Programas": {},
-//                 "Introducción a Lenguajes de Programación": {}
-//             },
-//             "GEO": {
-//                 "Geografía Humana Básica": {},
-//                 "Geografía Mundial Básica": {}
-//             }
-//         }
-//     }
-// }
-
-
-// Get list of data by "val LISTOFDATA = getUserData()"
-// Data will be in the format: [CourseFormat(language=English, subject=CS, course=Basics of Program Development), CourseFormat(language=English, subject=CS, course=Basics of Programming Language), CourseFormat(language=English, subject=GEO, course=Basics of Human Geography), CourseFormat(language=English, subject=GEO, course=Basics of World Geography)]
-// You can access the data for example -- LISTOFDATA[2].course will return "Basics of Programming Language". Refer to ScoreBoard.kt for example implementation
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -128,28 +107,13 @@ fun HomeScreen(modifier: Modifier = Modifier,
                NavigateToQuiz: () -> Unit) {
 
     // Initialize local states for global variables
-    var localUsername by remember { mutableStateOf(globalUsername) }
-    var localLanguage by remember { mutableStateOf(preferredLanguage) }
-    var localCourse by remember { mutableStateOf(selectedCourse) }
-    var localDailyGoal by remember { mutableStateOf(dailyGoal) }
+    val localUsername by remember { mutableStateOf(globalUsername) }
+    val localLanguage by remember { mutableStateOf(preferredLanguage) }
+    val localCourse by remember { mutableStateOf(selectedCourse) }
+    val localDailyGoal by remember { mutableStateOf(dailyGoal) }
 
     var localProgress1 by remember { mutableStateOf(0.0f) }
     var localProgress2 by remember { mutableStateOf(0.0f) }
-
-    var localProgressStatus = false
-    var progress: UserProgress? = UserProgress(
-            username = globalUsername,
-            course = selectedCourse,
-            language = preferredLanguage,
-            vocabProgress1 = 0.0f,
-            listeningProgress1 = 0.0f,
-            speakingProgress1 = 0.0f,
-            convoProgress1 = 0.0f,
-            vocabProgress2 = 0.0f,
-            listeningProgress2 = 0.0f,
-            speakingProgress2 = 0.0f,
-            convoProgress2 = 0.0f
-            )
 
     LaunchedEffect(localUsername) { globalUsername = localUsername }
     LaunchedEffect(localLanguage) { preferredLanguage = localLanguage }
@@ -159,54 +123,34 @@ fun HomeScreen(modifier: Modifier = Modifier,
     val context = LocalContext.current
     val userRepository = DatabaseProvider.provideUserRepository(context)
     val userProgressRepository = DatabaseProvider.provideUserProgressRepository(context)
-
-    LaunchedEffect(globalUsername) {
-        if (globalUsername.isEmpty()) {
-            globalUsername = userRepository.getSavedGlobalUsername() ?: ""
-        }
-    }
-
-    LaunchedEffect(preferredLanguage) {
-        if (preferredLanguage.isEmpty()) {
-            preferredLanguage = userRepository.getSavedLanguage() ?: ""
-        }
-    }
-
-    LaunchedEffect(selectedCourse) {
-        if (selectedCourse.isEmpty()) {
-            selectedCourse = userRepository.getSavedCourse() ?: ""
-        }
-    }
-
-
     LaunchedEffect(Unit) {
-        progress = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)
-        if (progress != null) {
-            localProgress1 = progress!!.convoProgress1 + progress!!.vocabProgress1 + progress!!.listeningProgress1 + progress!!.speakingProgress1
-            localProgress1 = localProgress1/4
-            localProgress2 = progress!!.convoProgress2 + progress!!.vocabProgress2 + progress!!.listeningProgress2 + progress!!.speakingProgress2
-            localProgress2 = localProgress2/4
+        withContext(Dispatchers.IO) {
+            if (globalUsername.isEmpty()) {
+                globalUsername = userRepository.getSavedGlobalUsername().toString()
+            }
+            val userData = userRepository.getUserProfile(globalUsername)
+            if (preferredLanguage.isEmpty()) {
+                if (userData != null) {
+                    preferredLanguage = userData.preferredLanguage
+                }
+            }
+            if (selectedCourse.isEmpty()) {
+                if (userData != null) {
+                    selectedCourse = userData.selectedCourse
+                }
+            }
+            val progress = userProgressRepository.getUserProgress(globalUsername, selectedCourse, preferredLanguage)
             Log.d("CheckingGETTT","$progress")
-        } else{
-            Log.d("CHECKADDINGNEW","CHECKADDINGNEW")
-            userProgressRepository.saveUserProgress(
-                username = globalUsername,
-                course = selectedCourse,
-                language = preferredLanguage,
-                vocabProgress1 = 0.0f,
-                listeningProgress1 = 0.0f,
-                speakingProgress1 = 0.0f,
-                convoProgress1 = 0.0f,
-                vocabProgress2 = 0.0f,
-                listeningProgress2 = 0.0f,
-                speakingProgress2 = 0.0f,
-                convoProgress2 = 0.0f
-            )
+            if (progress != null) {
+                localProgress1 = progress.convoProgress1 + progress.vocabProgress1 + progress.listeningProgress1 + progress.speakingProgress1
+                localProgress1 /= 4
+                localProgress2 = progress.convoProgress2 + progress.vocabProgress2 + progress.listeningProgress2 + progress.speakingProgress2
+                localProgress2 /= 4
+            }
         }
-
     }
 
-    var LeaderCounter = 0
+    var leaderCounter: Int
     val leaderboardData = mutableListOf<LeaderboardProfile>()
     val database = Firebase.database
     val leaderboardRef = database.reference.child("Leaderboard")
@@ -214,7 +158,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
     leaderboardRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             leaderboardData.clear()
-            LeaderCounter = 0
+            leaderCounter = 0
             if (dataSnapshot.exists()) {
                 dataSnapshot.children.forEach { userSnapshot ->
                     val name = userSnapshot.child("Name").getValue(String::class.java) ?: ""
@@ -223,9 +167,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
                 }
                 leaderboardData.sortByDescending { it.streak }
                 for (person in leaderboardData) {
-                    LeaderCounter++
+                    leaderCounter++
                     if (person.name == globalUsername) {
-                        userRank = LeaderCounter
+                        userRank = leaderCounter
                         userStreak = person.streak
                         break
                     }
@@ -237,12 +181,12 @@ fun HomeScreen(modifier: Modifier = Modifier,
         }
     })
 
-    var lessonList = getFilteredCourseList(preferredLanguage, selectedCourse)
-    var Lesson1 = "Loading..."
-    var Lesson2 = "Loading..."
+    val lessonList = getFilteredCourseList(preferredLanguage, selectedCourse)
+    var lesson1 = "Loading..."
+    var lesson2 = "Loading..."
     if (lessonList.isNotEmpty()) {
-        Lesson1 = lessonList[0].course
-        Lesson2 = lessonList[1].course
+        lesson1 = lessonList[0].course
+        lesson2 = lessonList[1].course
     }
     Box(
         modifier = modifier
@@ -270,9 +214,9 @@ fun HomeScreen(modifier: Modifier = Modifier,
             }
             Spacer(modifier = Modifier.height(30.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
-                Row { LessonCard(title = "Lesson 1", description = Lesson1,cardType = CardType.BLUE, progress = localProgress1, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Row { LessonCard(title = "Lesson 1", description = lesson1,cardType = CardType.BLUE, progress = localProgress1, complete = true, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
                 Spacer(modifier = Modifier.height(30.dp))
-                Row { LessonCard(title = "Lesson 2", description = Lesson2,cardType = CardType.PURPLE, progress = localProgress2, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
+                Row { LessonCard(title = "Lesson 2", description = lesson2,cardType = CardType.PURPLE, progress = localProgress2, complete = false, NavigateToLessons = NavigateToLessons, NavigateToQuiz = NavigateToQuiz)}
             }
         }
         Row(
